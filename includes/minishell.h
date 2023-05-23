@@ -13,7 +13,7 @@
 typedef struct s_lexer
 {
     char        *str;
-    // t_tokens    token;
+    char        *token;
     int         i;
     struct s_lexer  *next;
     struct s_lexer  *prev;
