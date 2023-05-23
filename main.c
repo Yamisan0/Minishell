@@ -2,10 +2,13 @@
 
 int main(void)
 {
-    char *prompt;
+	char *prompt;
 
-    while (42)
-    {
-        prompt = readline("minishell>");
-    }
+	while (42)
+	{
+		prompt = readline("minishell>");
+		printf("%s\n", prompt);
+		if (prompt && *prompt)
+			add_history(prompt);
+	}
 }
