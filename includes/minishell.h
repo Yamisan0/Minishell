@@ -5,7 +5,10 @@
 #include <unistd.h>
 #include <errno.h>
 #include "../libft/libft.h"
-
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <string.h>
+#include <stdlib.h>
 
 
 #endif

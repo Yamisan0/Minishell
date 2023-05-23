@@ -6,7 +6,6 @@ int main(void)
 
     while (42)
     {
-        prompt = get_next_line(0);
-        printf("%s\n", prompt);
+        prompt = readline("minishell>");
     }
 }

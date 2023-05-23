@@ -1,15 +1,14 @@
 SOURCES = parsing/prompt.c main.c
 LIB_PATH = libft
 #compilation
-CC		= clang
-FLAGS	= -Wall -Wextra -Werror -g3
+CC		= gcc
+FLAGS	= -Wall -Wextra -Werror -g3 -lreadline
 
 RM = rm -f
 LIB_PATH_EXEC = libft/libft.a
 
 #executable
 NAME = minishell
-
 
 #colors
 
@@ -31,7 +30,7 @@ OBJS = $(SOURCES:.c=.o)
 all : libft_make $(NAME) 
 
 $(NAME): ${OBJS}
-	@${CC} ${FLAGS} -o $(NAME) $(OBJS) $(LIB_PATH_EXEC)
+	@${CC} -o $(NAME) $(OBJS) $(LIB_PATH_EXEC) ${FLAGS}
 	@echo "${YELLOW}successfully created minishell!${END}"
 
 .c.o:
