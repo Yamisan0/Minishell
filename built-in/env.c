@@ -20,16 +20,14 @@ t_env   *create_node(char *str_to_cpy)
 	return (node);
 }
 
-void	cpy_tab(char *str)
+void	cpy_tab(char *str, t_env *node)
 {
-	t_env	*node;
 	int		i;
 	int		j;
 	int		k;
 
 	i = 0;
 	k = 0;
-	node = create_node(str);
 	if (!node)
 		return ;
 	while (str[i] && str[i] != '=')
@@ -71,7 +69,7 @@ t_env	*copy_env(char **envp)
 	while (envp[i])
 	{
 		new = create_node(envp[i]);
-		cpy_tab(envp[i]);
+		cpy_tab(envp[i], new);
 		head = add_to_list(head, new);
 		i++;
 	}
