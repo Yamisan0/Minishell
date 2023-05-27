@@ -27,7 +27,8 @@ typedef struct s_lexer
 	struct s_lexer  *prev;
 }                   t_lexer;
 
-
-t_env	*copy_env(char **envp);
+/* ENV */
+t_env	*set_env(char **envp);
+int		ft_print_env(t_env *env);
 
 #endif

@@ -59,7 +59,7 @@ t_env	*add_to_list(t_env *head, t_env *new)
 	return (head);
 }
 
-t_env	*copy_env(char **envp)
+t_env	*set_env(char **envp)
 {
 	int		i;
 	t_env	*head = NULL;
@@ -74,4 +74,16 @@ t_env	*copy_env(char **envp)
 		i++;
 	}
 	return (head);
+}
+
+int		ft_print_env(t_env *env)
+{
+	if (!env)
+		return (0);
+	while (env)
+	{
+		printf("%s=%s\n", env->var, env->value);
+		env = env->next;
+	}
+	return (1);
 }
