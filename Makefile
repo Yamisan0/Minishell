@@ -1,4 +1,4 @@
-SOURCES = main.c built-in/env.c
+SOURCES = main.c built-in/env.c  built-in/pwd.c
 LIB_PATH = libft
 #compilation
 CC		= gcc

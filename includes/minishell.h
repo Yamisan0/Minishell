@@ -31,4 +31,6 @@ typedef struct s_lexer
 t_env	*set_env(char **envp);
 int		ft_print_env(t_env *env);
 
+
+int		ft_pwd(void);
 #endif
