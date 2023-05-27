@@ -1,4 +1,4 @@
-SOURCES = main.c parsing/tokenization.c
+SOURCES = main.c built-in/env.c
 LIB_PATH = libft
 #compilation
 CC		= gcc

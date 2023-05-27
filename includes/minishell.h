@@ -10,14 +10,24 @@
 #include <string.h>
 #include <stdlib.h>
 
+typedef struct s_env
+{
+	char			*var;
+	char			*value;
+	int				index;
+	struct s_env	*next;
+}					t_env;
+
 typedef struct s_lexer
 {
-    char        *str;
-    char        *token;
-    int         i;
-    struct s_lexer  *next;
-    struct s_lexer  *prev;
+	char        *str;
+	char        *token;
+	int         i;
+	struct s_lexer  *next;
+	struct s_lexer  *prev;
 }                   t_lexer;
 
+
+t_env	*copy_env(char **envp);
 
 #endif
