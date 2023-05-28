@@ -8,6 +8,7 @@ void	ft_built(char *prompt, char **envp)
 				ft_print_env(set_env(envp));
 			if (ft_strnstr(prompt, "pwd", 100))
 				ft_pwd();
+			
 }
 
 int main(int ac, char **av, char **envp)

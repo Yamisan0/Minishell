@@ -1,4 +1,5 @@
-SOURCES = main.c built-in/env.c  built-in/pwd.c
+SOURCES = main.c built-in/env.c  built-in/pwd.c built-in/export.c \
+			parsing/parsing_1.c
 LIB_PATH = libft
 #compilation
 CC		= gcc
