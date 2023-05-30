@@ -17,8 +17,8 @@ int main(int ac, char **av, char **envp)
 	char *prompt;
 	(void)	av;
 	t_lexer *test;
-	// t_env *ptr;
 	(void)envp;
+
 	if (ac == 1)
 	{
 			while (42)

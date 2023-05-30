@@ -50,10 +50,12 @@ t_lexer *ft_add_back_lex(t_lexer *head, t_lexer *new)
 
 t_tokens get_token_type(char c)
 {
-	if (c == '|')
-		return ((t_tokens)(2));
-	else if (c == '>' || c == '<')
+	if (c == ' ' || c == '\t')
 		return ((t_tokens)(1));
+	if (c == '|')
+		return ((t_tokens)(3));
+	else if (c == '>' || c == '<')
+		return ((t_tokens)(2));
 	else
 		return ((t_tokens)(0));
 }

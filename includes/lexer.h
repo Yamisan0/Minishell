@@ -4,6 +4,7 @@
 typedef enum
 {
 	WORD,
+	WHITE_SPACE,
 	REDIRECTION,
 	PIPE
 }	t_tokens;
