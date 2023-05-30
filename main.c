@@ -24,16 +24,17 @@ int main(int ac, char **av, char **envp)
 			while (42)
 		{
 			prompt = readline("minishell>");
-				// if (prompt && *prompt)
+				if (prompt && *prompt)
+					add_history(prompt);
 			test = pre_lexing(prompt);
+			big_lexer(test);
 			while (test)
 			{
 				printf("%s     token : %d\n", test->str, test->token);
 				test = test->next;
 			}
-			// add_history(prompt);
+			
 			free(prompt);
-			// test = NULL;
 		}
 	}
 }

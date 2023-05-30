@@ -14,8 +14,9 @@ typedef struct s_lexer
 	t_tokens	token;
 	int         i;
 	struct s_lexer  *next;
-	// struct s_lexer  *prev;
+	struct s_lexer  *prev;
 }                   t_lexer;
 
 t_lexer	*pre_lexing(char *prompt);
 void free_lex_list(t_lexer *head);
+void    big_lexer(t_lexer *head);

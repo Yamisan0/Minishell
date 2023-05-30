@@ -22,6 +22,8 @@ t_lexer	*new_node(char *str)
 	if (!str)
 		return (NULL);
 	new->str = str;
+	new->next = NULL;
+	new->prev = NULL;
 	return (new);
 }
 
@@ -33,8 +35,16 @@ t_lexer *ft_add_back_lex(t_lexer *head, t_lexer *new)
 			return (new);
 	tmp = head;
 	while (tmp->next)
+	{
 		tmp = tmp->next;
+		if (tmp->prev == NULL)
+		{	
+			tmp->prev = head;
+			head = tmp;
+		}
+	}
 	tmp->next = new;
+	new->prev = tmp;
 	return (head);
 }
 
