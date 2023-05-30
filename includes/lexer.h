@@ -18,4 +18,4 @@ typedef struct s_lexer
 }                   t_lexer;
 
 t_lexer	*pre_lexing(char *prompt);
-void    ft_free_parsed_prompt(t_lexer *list);
+void free_lex_list(t_lexer *head);

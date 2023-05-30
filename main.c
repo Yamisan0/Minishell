@@ -33,8 +33,7 @@ int main(int ac, char **av, char **envp)
 			}
 			// add_history(prompt);
 			free(prompt);
-			free(test);
-			test = NULL;
+			// test = NULL;
 		}
 	}
 }

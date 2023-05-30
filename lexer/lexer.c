@@ -29,9 +29,9 @@ t_lexer *ft_add_back_lex(t_lexer *head, t_lexer *new)
 {
 	t_lexer *tmp;
 
-	tmp = head;
 	if (!head)
-		return (new);
+			return (new);
+	tmp = head;
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
@@ -54,7 +54,7 @@ t_lexer	*pre_lexing(char *prompt)
 {
 	int			i;
 	t_lexer		*new;
-	t_lexer		*head;
+	t_lexer		*head = NULL;
 
 	i = -1;
 	while (prompt[++i])

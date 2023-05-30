@@ -1,17 +1,15 @@
 #include "../includes/lexer.h"
 
-void    ft_free_parsed_prompt(t_lexer *list)
+void free_lex_list(t_lexer *head)
 {
-    t_lexer *tmp;
+	t_lexer *current = head;
+	t_lexer *next;
 
-    if (!list)
-        return ;
-    tmp = list;
-    tmp = tmp->next;
-    while (tmp)
-    {
-        free(list);
-        list = tmp;
-        tmp = tmp->next;
-    }
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current->str);
+		free(current);
+		current = next;
+	}
 }
