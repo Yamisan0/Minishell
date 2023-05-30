@@ -9,6 +9,14 @@
 #include <readline/history.h>
 #include <string.h>
 #include <stdlib.h>
+// #include "lexer.h"
+
+extern struct s_env *global;
+
+
+
+
+
 
 typedef struct s_env
 {
@@ -18,14 +26,7 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-typedef struct s_lexer
-{
-	char        *str;
-	char        *token;
-	int         i;
-	struct s_lexer  *next;
-	struct s_lexer  *prev;
-}                   t_lexer;
+
 
 /* ENV */
 t_env	*set_env(char **envp);
