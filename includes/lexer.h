@@ -3,12 +3,12 @@
 
 typedef enum
 {
-	WORD,			//0
-	WHITE_SPACE,	//1
-	REDIRECTION,	//2
-	PIPE,			//3
-	SINGLE_QUOTE,	//4
-	DOUBLE_QUOTE	//5
+	WORD,
+	WHITE_SPACE,
+	REDIRECTION,
+	PIPE,
+	SINGLE_QUOTE,
+	DOUBLE_QUOTE
 }	t_tokens;
 
 typedef struct s_lexer
