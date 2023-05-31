@@ -9,7 +9,6 @@ void	ft_built(char *prompt, char **envp)
 				ft_print_env(set_env(envp));
 			if (ft_strnstr(prompt, "pwd", 100))
 				ft_pwd();
-			
 }
 
 int main(int ac, char **av, char **envp)
@@ -28,9 +27,10 @@ int main(int ac, char **av, char **envp)
 					add_history(prompt);
 			test = pre_lexing(prompt);
 			big_lexer(test);
+			double_quote_fusion(test);
 			while (test)
 			{
-				printf("%s     token : %d\n", test->str, test->token);
+				printf("%s\n", test->str);
 				test = test->next;
 			}
 			

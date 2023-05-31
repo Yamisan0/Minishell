@@ -52,6 +52,10 @@ t_tokens get_token_type(char c)
 {
 	if (c == ' ' || c == '\t')
 		return ((t_tokens)(1));
+	if (c == '\'')
+		return ((t_tokens)(4));
+	if (c == '\"')
+		return ((t_tokens)(5));
 	if (c == '|')
 		return ((t_tokens)(3));
 	else if (c == '>' || c == '<')

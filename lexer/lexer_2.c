@@ -74,25 +74,3 @@ void    big_lexer(t_lexer *head)
 			head = tmp;
 	}
 }
-
-// void    big_lexer(t_lexer *head)
-// {
-// 	t_lexer *tmp;
-
-// 	tmp = head;
-// 	while (head->next != NULL)
-// 	{
-// 		while (head)
-// 		{
-// 			if (head->next &&(head->token == head->next->token))
-// 			{
-// 				head->str = alloc_strcat(head->str, head->next->str);
-// 				ft_destroy_node(head->next);
-// 				break;
-// 			}
-// 			head = head->next;
-// 		}
-// 		if (head->next != NULL)
-// 			head = tmp;
-// 	}
-// }
