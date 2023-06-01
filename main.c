@@ -1,5 +1,5 @@
 #include "includes/minishell.h"
-#include "includes/lexer.h"
+#include "includes/lexer_parser.h"
 
 struct s_env *global;
 

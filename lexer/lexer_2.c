@@ -1,4 +1,4 @@
-#include "../includes/lexer.h"
+#include "../includes/lexer_parser.h"
 
 void free_lex_list(t_lexer *head)
 {

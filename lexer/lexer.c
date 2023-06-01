@@ -1,5 +1,5 @@
 #include "../includes/minishell.h"
-#include "../includes/lexer.h"
+#include "../includes/lexer_parser.h"
 
 char *c_to_str(char c)
 {
@@ -51,17 +51,20 @@ t_lexer *ft_add_back_lex(t_lexer *head, t_lexer *new)
 t_tokens get_token_type(char c)
 {
 	if (c == ' ' || c == '\t')
-		return ((t_tokens)(1));
+		return (WHITE_SPACE);
 	if (c == '\'')
-		return ((t_tokens)(4));
+		return (SINGLE_QUOTE);
 	if (c == '\"')
-		return ((t_tokens)(5));
+		return (DOUBLE_QUOTE);
 	if (c == '|')
-		return ((t_tokens)(3));
-	else if (c == '>' || c == '<')
-		return ((t_tokens)(2));
-	else
-		return ((t_tokens)(0));
+		return (PIPE);
+	if (c == '>' || c == '<')
+		return (REDIRECTION);
+	if (c == '$')
+		return (DOLLAR);
+	if (ft_isalnum(c))
+		return (ALPHA_NUM);
+	return (OTHER);
 }
 
 
@@ -82,4 +85,3 @@ t_lexer	*pre_lexing(char *prompt)
 	}
 	return (head);
 }
-
