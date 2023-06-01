@@ -1,13 +1,6 @@
 #include "../includes/lexer.h"
 #include "../includes/minishell.h"
 
-int	check_two_quotes(char *str)
-{
-	if (ft_strlen(str) != 0 && (str[0] == ' '&& str[ft_strlen(str)] == ' '))
-		return (1);
-	return (0);
-}
-
 void    double_quote_fusion(t_lexer *head)
 {
 	
@@ -16,19 +9,56 @@ void    double_quote_fusion(t_lexer *head)
 	travel = head;
 	while (travel)
 	{
-		if (travel->token == DOUBLE_QUOTE && check_two_quotes(travel->str) == 0)
+		if (travel->token == DOUBLE_QUOTE)
 		{
 			while (travel->next && travel->next->token != DOUBLE_QUOTE)
 			{
 				travel->str = alloc_strcat(travel->str, travel->next->str);
 				ft_destroy_node(travel->next);
 			}
-			if ( travel->next && travel->token == DOUBLE_QUOTE)
+				if ( travel->next && travel->token == DOUBLE_QUOTE)
+				{
+					travel->str = alloc_strcat(travel->str, travel->next->str);
+					ft_destroy_node(travel->next);
+				}
+		}
+		travel = travel->next;
+	}
+}
+void    single_quote_fusion(t_lexer *head)
+{
+	
+	t_lexer	*travel;
+
+	travel = head;
+	while (travel)
+	{
+		if (travel->token == SINGLE_QUOTE)
+		{
+			while (travel->next && travel->next->token != SINGLE_QUOTE)
 			{
 				travel->str = alloc_strcat(travel->str, travel->next->str);
 				ft_destroy_node(travel->next);
 			}
+				if ( travel->next && travel->token == SINGLE_QUOTE)
+				{
+					travel->str = alloc_strcat(travel->str, travel->next->str);
+					ft_destroy_node(travel->next);
+				}
 		}
 		travel = travel->next;
 	}
+}
+
+t_lexer *ft_lexer(char *prompt)
+{
+	t_lexer	*lexer;
+
+	if (!prompt)
+		return (NULL);
+	lexer = pre_lexing(prompt);
+	big_lexer(lexer);
+	double_quote_fusion(lexer);
+	single_quote_fusion(lexer);
+	return (lexer);
 }

@@ -26,3 +26,4 @@ void    big_lexer(t_lexer *head);
 char *alloc_strcat(char *s1, char *s2);
 void    ft_destroy_node(t_lexer *node_to_delete);
 void    double_quote_fusion(t_lexer *head);
+t_lexer *ft_lexer(char *prompt);

@@ -25,9 +25,7 @@ int main(int ac, char **av, char **envp)
 			prompt = readline("minishell>");
 				if (prompt && *prompt)
 					add_history(prompt);
-			test = pre_lexing(prompt);
-			big_lexer(test);
-			double_quote_fusion(test);
+			test = ft_lexer(prompt);
 			while (test)
 			{
 				printf("%s\n", test->str);

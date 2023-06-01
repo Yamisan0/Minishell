@@ -14,10 +14,6 @@
 extern struct s_env *global;
 
 
-
-
-
-
 typedef struct s_env
 {
 	char			*var;
