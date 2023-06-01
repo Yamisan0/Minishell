@@ -25,12 +25,15 @@ int main(int ac, char **av, char **envp)
 			prompt = readline("minishell>");
 				if (prompt && *prompt)
 					add_history(prompt);
+			if (!(*prompt))
+				continue;
 			test = ft_lexer(prompt);
-			while (test)
-			{
-				printf("%s\n", test->str);
-				test = test->next;
-			}
+			ft_parser(test);
+			// while (test)
+			// {
+			// 	printf("%s     %d\n", test->str, test->token);
+			// 	test = test->next;
+			// }
 			
 			free(prompt);
 		}

@@ -42,4 +42,8 @@ t_lexer	*pre_lexing(char *prompt);
 void    big_lexer(t_lexer *head);
 t_lexer *ft_lexer(char *prompt);
 
+/* PARSER */
+int	double_quote_state(t_lexer *head);
+int	single_quote_state(t_lexer *head);
+int ft_parser(t_lexer *head);
 #endif

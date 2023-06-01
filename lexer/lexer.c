@@ -22,6 +22,7 @@ t_lexer	*new_node(char *str)
 	if (!str)
 		return (NULL);
 	new->str = str;
+	new->quote = DEFAULT;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
