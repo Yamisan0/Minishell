@@ -63,7 +63,8 @@ void    big_lexer(t_lexer *head)
 		while (head->next)
 		{
 			if (head->token == head->next->token &&
-					head->token != DOUBLE_QUOTE && head->token != SINGLE_QUOTE)
+					head->token != DOUBLE_QUOTE && head->token != SINGLE_QUOTE
+					 && head->token != DOLLAR)
 			{
 				head->str = alloc_strcat(head->str, head->next->str);
 				ft_destroy_node(head->next);

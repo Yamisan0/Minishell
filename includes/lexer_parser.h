@@ -8,18 +8,26 @@ typedef enum
 {
 	ALPHA_NUM,
 	WHITE_SPACE,
-	REDIRECTION,
+	REDIRECTION_RIGHT,
+	REDIRECTION_LEFT,
 	PIPE,
 	SINGLE_QUOTE,
 	DOUBLE_QUOTE,
 	DOLLAR,
+	INTERRO,
 	OTHER
 }	t_tokens;
 
 typedef enum
 {
+	DEFAULT,
+	OPENED
+}	t_state;
+
+typedef	enum
+{
 	SIMPLE,
-	COMPLEXE
+	COMPLEX
 }	t_dollar;
 
 typedef struct s_lexer
@@ -27,7 +35,8 @@ typedef struct s_lexer
 	char        *str;
 	t_tokens	token;
 	int         i;
-	t_dollar	dol;
+	t_state		state;
+	t_dollar	dollar;
 	struct s_lexer  *next;
 	struct s_lexer  *prev;
 }                   t_lexer;

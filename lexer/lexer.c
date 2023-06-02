@@ -58,12 +58,16 @@ t_tokens get_token_type(char c)
 		return (DOUBLE_QUOTE);
 	if (c == '|')
 		return (PIPE);
-	if (c == '>' || c == '<')
-		return (REDIRECTION);
+	if (c == '>')
+		return (REDIRECTION_RIGHT);
+	if (c == '<')
+		return (REDIRECTION_LEFT);
 	if (c == '$')
 		return (DOLLAR);
 	if (ft_isalnum(c) || c == '_')
 		return (ALPHA_NUM);
+	if (c == '?')
+		return (INTERRO);
 	return (OTHER);
 }
 

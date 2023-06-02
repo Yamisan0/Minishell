@@ -58,8 +58,9 @@ t_lexer *ft_lexer(char *prompt)
 		return (NULL);
 	lexer = pre_lexing(prompt);
 	big_lexer(lexer);
-	double_quote_fusion(lexer);
 	single_quote_fusion(lexer);
 	dollar_lexer(lexer);
+	// double_quote_fusion(lexer);
+
 	return (lexer);
 }
