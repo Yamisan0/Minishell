@@ -18,16 +18,16 @@ typedef enum
 
 typedef enum
 {
-	DEFAULT,
-	OPENED
-}	t_state;
+	SIMPLE,
+	COMPLEXE
+}	t_dollar;
 
 typedef struct s_lexer
 {
 	char        *str;
 	t_tokens	token;
 	int         i;
-	t_state		quote;
+	t_dollar	dol;
 	struct s_lexer  *next;
 	struct s_lexer  *prev;
 }                   t_lexer;
@@ -41,6 +41,7 @@ void free_lex_list(t_lexer *head);
 t_lexer	*pre_lexing(char *prompt);
 void    big_lexer(t_lexer *head);
 t_lexer *ft_lexer(char *prompt);
+void    dollar_lexer(t_lexer *head);
 
 /* PARSER */
 int	double_quote_state(t_lexer *head);

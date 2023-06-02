@@ -22,7 +22,6 @@ t_lexer	*new_node(char *str)
 	if (!str)
 		return (NULL);
 	new->str = str;
-	new->quote = DEFAULT;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
@@ -63,7 +62,7 @@ t_tokens get_token_type(char c)
 		return (REDIRECTION);
 	if (c == '$')
 		return (DOLLAR);
-	if (ft_isalnum(c))
+	if (ft_isalnum(c) || c == '_')
 		return (ALPHA_NUM);
 	return (OTHER);
 }

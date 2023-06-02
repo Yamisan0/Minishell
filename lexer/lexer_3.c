@@ -60,5 +60,6 @@ t_lexer *ft_lexer(char *prompt)
 	big_lexer(lexer);
 	double_quote_fusion(lexer);
 	single_quote_fusion(lexer);
+	dollar_lexer(lexer);
 	return (lexer);
 }
