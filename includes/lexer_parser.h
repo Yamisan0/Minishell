@@ -6,6 +6,7 @@
 
 typedef enum
 {
+	WORD,
 	ALPHA_NUM,
 	WHITE_SPACE,
 	REDIRECTION_RIGHT,
@@ -26,7 +27,7 @@ typedef enum
 
 typedef	enum
 {
-	SIMPLE,
+	LITTERAL,
 	COMPLEX
 }	t_dollar;
 
@@ -53,7 +54,8 @@ t_lexer *ft_lexer(char *prompt);
 void    dollar_lexer(t_lexer *head);
 
 /* PARSER */
-int	double_quote_state(t_lexer *head);
 int	single_quote_state(t_lexer *head);
+int	double_quote_validity_check(t_lexer *head);
+void    set_state_quotes(t_lexer *head);
 int ft_parser(t_lexer *head);
 #endif

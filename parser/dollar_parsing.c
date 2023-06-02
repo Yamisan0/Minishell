@@ -59,26 +59,3 @@ void    dollar_lexer(t_lexer *head)
 	dollar_lexer_2(head);
 	dollar_lexer_3(head);
 }
-
-// char	*ft_cut(t_lexer *node)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (node->str[i])
-// 	{
-// 		if (node->str[i] == '$')
-// 		{
-// 			if ()
-// 		}
-// 	}
-// 	return (NULL);
-// }
-
-// void    ft_dollar(t_lexer *head)
-// {
-// 	while ()
-// 	{
-// 	}
-	
-// }
