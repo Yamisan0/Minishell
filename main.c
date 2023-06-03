@@ -28,9 +28,8 @@ int main(int ac, char **av, char **envp)
 			if (!(*prompt))
 				continue;
 			test = ft_lexer(prompt);
-			// set_state_quotes(test);
-			// if (!ft_parser(test))
-			// 	continue;
+			if (!ft_parser(test))
+				continue;
 			while (test)
 			{
 				printf("%s     %d         %d\n", test->str, test->token, test->state);

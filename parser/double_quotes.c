@@ -4,22 +4,24 @@
 void    set_state_quotes(t_lexer *head)
 {
 	t_lexer *tmp;
+	t_lexer	*stock;
 
 	tmp = head;
 	while (tmp)
 	{
 		if (tmp->token == DOUBLE_QUOTE)
 		{
-			while (tmp && tmp->token != DOUBLE_QUOTE)
+			stock = tmp;
+			while (tmp)
 			{
 				tmp->state = OPENED;
-				tmp = tmp->next;
+				if (tmp->token == DOUBLE_QUOTE && tmp != stock)
+					break;
+				tmp = tmp->next;	
 			}
-			if (tmp->next->token == DOUBLE_QUOTE)
-				tmp->state = OPENED;
-			continue;
-			
 		}
+		if (tmp == NULL)
+			continue;
 		tmp = tmp->next;
 	}
 }

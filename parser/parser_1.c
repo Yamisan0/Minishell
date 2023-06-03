@@ -28,14 +28,11 @@ int	single_quote_state(t_lexer *head)
 	tmp = head;
 	while (tmp)
 	{
-		if (tmp->token == SINGLE_QUOTE)
+		if (tmp->token == SINGLE_QUOTE && tmp->state == DEFAULT)
 		{
-			if (tmp->state == OPENED)
-				continue;
+			printf("%s       %d\n", tmp->str, tmp->state);
 			len = ft_strlen(tmp->str);
-			if (len == 1)
-				return (0);
-			if (!(len > 1 && tmp->str[0] == '\'' && tmp->str[len - 1] == '\''))
+			if (len == 1 || (tmp->str[0] != '\'' && tmp->str[len - 1] != '\''))
 				return (0);
 		}
 		tmp = tmp->next;
