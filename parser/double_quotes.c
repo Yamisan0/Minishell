@@ -3,20 +3,23 @@
 
 void    set_state_quotes(t_lexer *head)
 {
-    t_lexer *tmp;
-    int     nb;
+	t_lexer *tmp;
 
-    tmp = head;
-    nb = 0;
-    while (tmp)
-    {
-        if (tmp->token == DOUBLE_QUOTE)
-        {
-            nb++;
-            tmp->state = OPENED;
-        }
-        if (nb == 2)
-            nb = 0;
-        tmp = tmp->next;
-    }
+	tmp = head;
+	while (tmp)
+	{
+		if (tmp->token == DOUBLE_QUOTE)
+		{
+			while (tmp && tmp->token != DOUBLE_QUOTE)
+			{
+				tmp->state = OPENED;
+				tmp = tmp->next;
+			}
+			if (tmp->next->token == DOUBLE_QUOTE)
+				tmp->state = OPENED;
+			continue;
+			
+		}
+		tmp = tmp->next;
+	}
 }

@@ -19,6 +19,7 @@ int	double_quote_validity_check(t_lexer *head)
 	return (0);
 }
 
+
 int	single_quote_state(t_lexer *head)
 {
 	t_lexer *tmp;
@@ -29,6 +30,8 @@ int	single_quote_state(t_lexer *head)
 	{
 		if (tmp->token == SINGLE_QUOTE)
 		{
+			if (tmp->state == OPENED)
+				continue;
 			len = ft_strlen(tmp->str);
 			if (len == 1)
 				return (0);

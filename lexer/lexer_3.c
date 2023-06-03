@@ -33,6 +33,7 @@ t_lexer *ft_lexer(char *prompt)
 	if (!prompt)
 		return (NULL);
 	lexer = pre_lexing(prompt);
+	set_state_quotes(lexer);
 	big_lexer(lexer);
 	single_quote_fusion(lexer);
 	dollar_lexer(lexer);
