@@ -31,7 +31,7 @@ int main(int ac, char **av, char **envp)
 			test = ft_lexer(prompt);
 			ft_parser(test);
 			ft_replace_by_litteral(test, global_env);
-			double_quote_fusion(test);
+			// double_quote_fusion(test);
 			while (test)
 			{
 				printf("%s   \n", test->str);

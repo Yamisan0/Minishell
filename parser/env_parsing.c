@@ -29,7 +29,7 @@ void	ft_replace_by_litteral(t_lexer *head, t_env *env)
 			tmp->str = ft_give_val(env, tmp->str + 1);
 			free(stock);
 		}
-		if (tmp->token == DOLLAR && tmp->dollar == COMPLEX && tmp->str[1] == '?')
+		else if (tmp->token == DOLLAR && tmp->dollar == COMPLEX && tmp->str[1] == '?')
 		{
 			stock = tmp->str;
 			tmp->str = ft_give_val(env, "SYSTEMD_EXEC_PID");
