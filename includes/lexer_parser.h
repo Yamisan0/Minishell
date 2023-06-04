@@ -42,6 +42,9 @@ typedef struct s_lexer
 	struct s_lexer  *prev;
 }                   t_lexer;
 
+/* TOKEN TYPE */
+t_tokens get_token_type(char c);
+
 /* LINKED  LIST */
 char *alloc_strcat(char *s1, char *s2);
 void    ft_destroy_node(t_lexer *node_to_delete);
@@ -61,6 +64,7 @@ int ft_parser(t_lexer *head);
 
 /* PARSER_ENV */
 char	*ft_give_val(t_env *env, char *name);
+void	ft_replace_by_litteral(t_lexer *head, t_env *env);
 
 
 #endif

@@ -30,7 +30,8 @@ int main(int ac, char **av, char **envp)
 				continue;
 			test = ft_lexer(prompt);
 			ft_parser(test);
-			printf("%s    \n", ft_give_val(global_env, "PATH"));
+			ft_replace_by_litteral(test, global_env);
+			// ft_print_env(global_env);
 			while (test)
 			{
 				printf("%s   \n", test->str);
