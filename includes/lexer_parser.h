@@ -58,4 +58,9 @@ int	single_quote_state(t_lexer *head);
 int	double_quote_validity_check(t_lexer *head);
 void    set_state_quotes(t_lexer *head);
 int ft_parser(t_lexer *head);
+
+/* PARSER_ENV */
+char	*ft_give_val(t_env *env, char *name);
+
+
 #endif
