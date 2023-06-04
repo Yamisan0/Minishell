@@ -1,7 +1,7 @@
 #include "includes/minishell.h"
 #include "includes/lexer_parser.h"
 
-struct s_env *global;
+struct s_env *global_env=NULL;
 
 void	ft_built(char *prompt, char **envp)
 {
@@ -17,6 +17,7 @@ int main(int ac, char **av, char **envp)
 	(void)	av;
 	t_lexer *test;
 	(void)envp;
+	global_env = set_env(envp);
 
 	if (ac == 1)
 	{

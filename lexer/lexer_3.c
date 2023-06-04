@@ -8,7 +8,7 @@ void    single_quote_fusion(t_lexer *head)
 	travel = head;
 	while (travel)
 	{
-		if (travel->token == SINGLE_QUOTE)
+		if (travel->token == SINGLE_QUOTE && travel->state == DEFAULT)
 		{
 			while (travel->next && travel->next->token != SINGLE_QUOTE)
 			{
@@ -36,6 +36,5 @@ t_lexer *ft_lexer(char *prompt)
 	set_state_quotes(lexer);
 	single_quote_fusion(lexer);
 	dollar_lexer(lexer);
-
 	return (lexer);
 }
