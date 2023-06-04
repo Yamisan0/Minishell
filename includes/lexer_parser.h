@@ -66,5 +66,6 @@ int ft_parser(t_lexer *head);
 char	*ft_give_val(t_env *env, char *name);
 void	ft_replace_by_litteral(t_lexer *head, t_env *env);
 
+void    double_quote_fusion(t_lexer *head);
 
 #endif
