@@ -30,7 +30,6 @@ int	single_quote_state(t_lexer *head)
 	{
 		if (tmp->token == SINGLE_QUOTE && tmp->state == DEFAULT)
 		{
-			printf("%s       %d\n", tmp->str, tmp->state);
 			len = ft_strlen(tmp->str);
 			if (len == 1 || (tmp->str[0] != '\'' && tmp->str[len - 1] != '\''))
 				return (0);

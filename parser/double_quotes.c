@@ -17,7 +17,7 @@ void    set_state_quotes(t_lexer *head)
 				tmp->state = OPENED;
 				if (tmp->token == DOUBLE_QUOTE && tmp != stock)
 					break;
-				tmp = tmp->next;	
+				tmp = tmp->next;
 			}
 		}
 		if (tmp == NULL)

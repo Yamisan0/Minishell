@@ -28,11 +28,10 @@ int main(int ac, char **av, char **envp)
 			if (!(*prompt))
 				continue;
 			test = ft_lexer(prompt);
-			if (!ft_parser(test))
-				continue;
+			ft_parser(test);
 			while (test)
 			{
-				printf("%s     %d         %d\n", test->str, test->token, test->state);
+				printf("%s   \n", test->str);
 				test = test->next;
 			}
 			free(prompt);

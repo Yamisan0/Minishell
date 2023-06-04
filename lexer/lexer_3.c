@@ -8,15 +8,10 @@ void    single_quote_fusion(t_lexer *head)
 	travel = head;
 	while (travel)
 	{
-		if (travel->token == SINGLE_QUOTE && travel->state == DEFAULT)
+		if (travel->token == SINGLE_QUOTE)
 		{
 			while (travel->next && travel->next->token != SINGLE_QUOTE)
 			{
-				if (travel->next && travel->next->token == DOUBLE_QUOTE)
-				{
-					travel = travel->next;
-					break;
-				}
 				travel->str = alloc_strcat(travel->str, travel->next->str);
 				ft_destroy_node(travel->next);
 			}
