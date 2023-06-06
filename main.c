@@ -37,8 +37,13 @@ int main(int ac, char **av, char **envp)
 			prompt = readline("minishell>");
 				if (prompt && *prompt)
 					add_history(prompt);
+				if (!(*prompt))
+					continue;
 				prompt_space = pars_prompt(prompt);
-			test = ft_lexer(prompt_space, global_env);
+			test = ft_lexer(prompt_space);
+			if (single_quote_state(test) == 0 || double_quote_validity_check(test) == 1)
+				printf("PROBLEME DE QUOTE\n");
+			ft_lexer_part_2(test, global_env);
 			ft_parser(test);
 			while (test)
 			{

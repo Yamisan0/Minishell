@@ -54,10 +54,12 @@ void free_lex_list(t_lexer *head);
 /* LEXER */
 t_lexer	*pre_lexing(char *prompt);
 void    big_lexer(t_lexer *head);
-t_lexer *ft_lexer(char *prompt, t_env *env);
+t_lexer *ft_lexer(char *prompt);
+void	ft_lexer_part_2(t_lexer *lexer, t_env *env);
 void    dollar_lexer(t_lexer *head);
 void	fusion_reste(t_lexer *head);
 void	delete_spaces(t_lexer *head);
+void	ft_fusion_double_quotes(t_lexer *head);
 
 /* PARSER */
 int	single_quote_state(t_lexer *head);

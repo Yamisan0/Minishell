@@ -40,12 +40,18 @@ char *alloc_strcat(char *s1, char *s2)
 	str = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
 	if (!str)
 		return (NULL);
+	if (s1)
+	{
 	while (s1[++i])
 		str[i] = s1[i];
-	while (s2[++j])
+	}
+	if (s2)
 	{
-		str[i] = s2[j];
-		i++;
+		while (s2[++j])
+		{
+			str[i] = s2[j];
+			i++;
+		}
 	}
 	str[i] = '\0';
 	free(s1);
@@ -74,5 +80,22 @@ void    big_lexer(t_lexer *head)
 		}
 		if (head->next != NULL)
 			head = tmp;
+	}
+}
+
+void	ft_fusion_double_quotes(t_lexer *head)
+{
+	t_lexer *tmp;
+
+	tmp = head;
+	while (tmp)
+	{
+		if (tmp->next && tmp->state == OPENED && tmp->next->state == OPENED)
+		{
+			tmp->str = alloc_strcat(tmp->str, tmp->next->str);
+			ft_destroy_node(tmp->next);
+			continue;
+		}
+		tmp = tmp->next;
 	}
 }

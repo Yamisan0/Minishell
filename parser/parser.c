@@ -19,7 +19,9 @@ int valid_pipe(t_lexer *head)
 		{
 			if (ft_strlen(tmp->str) > 1)
 				return (-1);
-			if ((tmp->next && is_special_token(tmp->next)) || (tmp->prev && is_special_token(tmp->prev)))
+			if ((tmp->prev && is_special_token(tmp->prev)) || (tmp->next && is_special_token(tmp->next)))
+				return (-1);
+			if (tmp->next == NULL)
 				return (-1);
 		}
 		tmp = tmp->next;
@@ -36,31 +38,26 @@ int valid_simple_redirection(t_lexer *head)
 	{
 		if (tmp->token == REDIRECTION_RIGHT || tmp->token == REDIRECTION_LEFT)
 		{
+			if (tmp->next == NULL || tmp->next->next == NULL)
+				return (printf("minishell : syntax error near unexpected token 'newline'\n"), -1);
 			if (ft_strlen(tmp->str) > 2)
-				return (printf("minishell : syntax error near unexpected token '%s'\n", tmp->str + ft_strlen(tmp->str) - 2), 0);
-			if (tmp->next && tmp->next->token == WHITE_SPACE && tmp->next->next->token == PIPE)
-				return (printf("minishell : syntax error near unexpected token '%s'\n",tmp->str), ft_strlen(tmp->str) - 2, 0);
-			if (tmp->next && tmp->token != tmp->next->token && (tmp->next->token == REDIRECTION_LEFT || tmp->next->token == REDIRECTION_RIGHT))
-				return (printf("minishell : syntax error near unexpected token '%s'\n", tmp->next->str + ft_strlen(tmp->next->str) - 2), 0);
-			if (tmp->next->next && (tmp->next->next->token == REDIRECTION_LEFT || tmp->next->next->token == REDIRECTION_LEFT) && tmp->next->token == WHITE_SPACE)
-				return (printf("minishell : syntax error near unexpected token '%s'\n",
-							tmp->next->next->str + ft_strlen(tmp->next->next->str) - 2), 0);
+				return (printf("minishell : syntax error near unexpected token '%s'\n", tmp->str + ft_strlen(tmp->str) - 2), -1);
+			if (tmp->next && is_special_token(tmp->next) && ft_strlen(tmp->next->str) > 1)
+				return (printf("minishell : syntax error near unexpected token '%s'\n", tmp->next->str + ft_strlen(tmp->next->str) - 2), -1);
+			if (tmp->next && is_special_token(tmp->next))
+				return (printf("minishell : syntax error near unexpected token '%s'\n", tmp->next->str), -1);
 		}
 		tmp = tmp->next;
 	}
 	return (1);
 }
 
-// int valid
-
 int ft_parser(t_lexer *head)
 {
-	if (single_quote_state(head) == 0 || double_quote_validity_check(head) == 1)
-		return (printf("PROBLEME DE QUOTE\n"), -1);
 	if (valid_pipe(head) == -1)
 		return (printf("syntax error near unexpected token '|'\n") -1);
-	// if (valid_simple_redirection(head) == 0)
-	// 	return (-1);
+	if (valid_simple_redirection(head) == -1)
+		return (-1);
 	
 	return (1);
 }

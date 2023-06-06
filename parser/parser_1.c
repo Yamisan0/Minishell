@@ -31,7 +31,11 @@ int	single_quote_state(t_lexer *head)
 		if (tmp->token == SINGLE_QUOTE && tmp->state == DEFAULT)
 		{
 			len = ft_strlen(tmp->str);
-			if (len == 1 || (tmp->str[0] != '\'' && tmp->str[len - 1] != '\''))
+			if (len == 1)
+				return (0);
+			if (len > 2 && (tmp->str[0] != '\'' || tmp->str[len - 1] != '\''))
+				return (0);
+			if (len == 2 && tmp->str[1] == '\"')
 				return (0);
 		}
 		tmp = tmp->next;

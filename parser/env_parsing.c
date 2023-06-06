@@ -8,7 +8,7 @@ char	*ft_give_val(t_env *env, char *name)
 	tmp = env;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->var, name, ft_strlen(name)) == 0)
+		if (ft_strncmp(tmp->var, name, ft_strlen(tmp->var)) == 0)
 			return (ft_strdup(tmp->value));
 		tmp = tmp->next;
 	}
