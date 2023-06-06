@@ -11,9 +11,20 @@ void	ft_built(char *prompt, char **envp)
 				ft_pwd();
 }
 
+char	*pars_prompt(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	return (str + i);
+}
+
 int main(int ac, char **av, char **envp)
 {
 	char *prompt;
+	char *prompt_space;
 	(void)	av;
 	t_lexer *test;
 	(void)envp;
@@ -26,12 +37,9 @@ int main(int ac, char **av, char **envp)
 			prompt = readline("minishell>");
 				if (prompt && *prompt)
 					add_history(prompt);
-			if (!(*prompt))
-				continue;
-			test = ft_lexer(prompt);
+				prompt_space = pars_prompt(prompt);
+			test = ft_lexer(prompt_space, global_env);
 			ft_parser(test);
-			ft_replace_by_litteral(test, global_env);
-			// double_quote_fusion(test);
 			while (test)
 			{
 				printf("%s   \n", test->str);

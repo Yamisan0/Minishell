@@ -49,7 +49,58 @@ void    double_quote_fusion(t_lexer *head)
 	}
 }
 
-t_lexer *ft_lexer(char *prompt)
+void	delete_spaces(t_lexer *head)
+{
+	t_lexer *tmp;
+	t_lexer *stock;
+
+	tmp = head;
+	while (tmp)
+	{
+		if (tmp && tmp->token == WHITE_SPACE && tmp->state == DEFAULT)
+		{
+			stock = tmp;
+			tmp = tmp->next;
+			ft_destroy_node(stock);
+			continue;
+		}
+			tmp = tmp->next;
+	}
+}
+
+void	ft_word(t_lexer *head)
+{
+	t_lexer *tmp;
+
+	tmp = head;
+	while (tmp)
+	{
+		if (is_special_token(tmp) == 0 && tmp->token != WHITE_SPACE)
+			tmp->token = WORD;
+		tmp = tmp->next;
+	}
+}
+void	fusion_reste(t_lexer *head)
+{
+	t_lexer *tmp;
+
+	tmp = head;
+	while (tmp)
+	{
+		if (tmp->token == WORD)
+		{
+			if (tmp->next && tmp->next->token != WHITE_SPACE)
+			{
+				tmp->str = alloc_strcat(tmp->str, tmp->next->str);
+				ft_destroy_node(tmp->next);
+				continue;
+			}
+		}
+		tmp = tmp->next;
+	}
+}
+
+t_lexer *ft_lexer(char *prompt, t_env *env)
 {
 	t_lexer	*lexer;
 
@@ -60,5 +111,9 @@ t_lexer *ft_lexer(char *prompt)
 	set_state_quotes(lexer);
 	single_quote_fusion(lexer);
 	dollar_lexer(lexer);
+	ft_replace_by_litteral(lexer, env);
+	ft_word(lexer);
+	fusion_reste(lexer);
+	delete_spaces(lexer);
 	return (lexer);
 }

@@ -44,6 +44,7 @@ typedef struct s_lexer
 
 /* TOKEN TYPE */
 t_tokens get_token_type(char c);
+int	is_special_token(t_lexer *node);
 
 /* LINKED  LIST */
 char *alloc_strcat(char *s1, char *s2);
@@ -53,8 +54,10 @@ void free_lex_list(t_lexer *head);
 /* LEXER */
 t_lexer	*pre_lexing(char *prompt);
 void    big_lexer(t_lexer *head);
-t_lexer *ft_lexer(char *prompt);
+t_lexer *ft_lexer(char *prompt, t_env *env);
 void    dollar_lexer(t_lexer *head);
+void	fusion_reste(t_lexer *head);
+void	delete_spaces(t_lexer *head);
 
 /* PARSER */
 int	single_quote_state(t_lexer *head);
