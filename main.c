@@ -39,6 +39,8 @@ int main(int ac, char **av, char **envp)
 					add_history(prompt);
 				if (!(*prompt))
 					continue;
+				if (prompt_space == NULL)
+					continue;
 				prompt_space = pars_prompt(prompt);
 			test = ft_lexer(prompt_space);
 			if (single_quote_state(test) == 0 || double_quote_validity_check(test) == 1)

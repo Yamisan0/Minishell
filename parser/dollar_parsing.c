@@ -44,6 +44,8 @@ void    dollar_lexer(t_lexer *head)
 	t_lexer *tmp;
 
 	tmp = head;
+	if (!tmp)
+		return ;
 	while (tmp->next)
 	{
 		if (tmp->token == DOLLAR && tmp->next->token == DOLLAR 

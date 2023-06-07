@@ -64,6 +64,8 @@ void    big_lexer(t_lexer *head)
 	t_lexer *tmp;
 
 	tmp = head;
+	if (!head)
+		return ;
 	while (head->next != NULL)
 	{
 		while (head->next)
