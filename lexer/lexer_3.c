@@ -103,15 +103,64 @@ t_lexer *ft_lexer(char *prompt)
 	big_lexer(lexer);
 	set_state_quotes(lexer);
 	single_quote_fusion(lexer);
+	dollar_lexer(lexer);
 	return (lexer);
 }
+
+void	ft_supp_double_quotes(t_lexer *head)
+{
+	t_lexer *tmp;
+
+	tmp = head;
+	while (tmp)
+	{
+		if ((tmp->prev && tmp->state == OPENED && tmp->prev->state == DEFAULT && tmp->str[0] == '\"') || (tmp->next && tmp->state == OPENED && tmp->next->state == DEFAULT && tmp->str[0] == '\"'))
+		{
+			free(tmp->str);
+			ft_destroy_node(tmp);
+		}
+		if ((tmp->prev == NULL || tmp->next == NULL )&& (tmp->state == OPENED))
+		{
+			free(tmp->str);
+			ft_destroy_node(tmp);
+		}
+
+		tmp = tmp->next;
+	}
+}
+
+void	ft_supp_simple_quotes(t_lexer * head)
+{
+	t_lexer *tmp;
+	char	*str;
+
+	tmp = head;
+	while (tmp)
+	{
+		if (tmp->token == SINGLE_QUOTE)
+		{
+			str = ft_calloc(ft_strlen(tmp->str + 1), sizeof(char));
+			if (!str)
+				return ;
+			ft_strlcpy(str, tmp->str + 1, ft_strlen(tmp->str + 1));
+			free(tmp->str);
+			tmp->str = str;
+		}
+		tmp = tmp->next;
+	}
+}
+
 void	ft_lexer_part_2(t_lexer *lexer, t_env *env)
 {
+	ft_replace_by_litteral(lexer, env);
+	//ft_retirer_quotes
+	ft_supp_simple_quotes(lexer);
+	ft_supp_double_quotes(lexer);
+	//fusionner deux maillons qui ne font pas parti des  caracteres speciaux et qui ne sont pas separes par un espace
+
+	ft_fusion_double_quotes(lexer);
 	ft_word(lexer);
 	fusion_words(lexer);
 	fusion_reste(lexer);
 	delete_spaces(lexer);
-	ft_fusion_double_quotes(lexer);
-	dollar_lexer(lexer);
-	ft_replace_by_litteral(lexer, env);
 }
