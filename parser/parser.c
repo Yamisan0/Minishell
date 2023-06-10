@@ -59,7 +59,7 @@ int ft_parser(t_lexer *head)
 		return (printf("minishell syntax error near unexpected token `|'\n") -1);
 	if (valid_simple_redirection(head) == -1)
 		return (-1);
-	
+	set_redirection_type(head);
 	return (1);
 }
 
@@ -90,4 +90,19 @@ char *ft_argv(t_lexer *head, int i)
 		tmp = tmp->next;
 	}
 	return (NULL);
+}
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	if (!s1 || !s2)
+		return (1);
+	i = 0;
+	while (s1[i] || s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (1);
+		i++;
+	}
+	return (0);
 }

@@ -7,6 +7,10 @@
 typedef enum
 {
 	WORD,
+	IN,
+	OUT,
+	DIN,
+	DOUT,
 	ALPHA_NUM,
 	WHITE_SPACE,
 	REDIRECTION_RIGHT,
@@ -66,7 +70,11 @@ int	single_quote_state(t_lexer *head);
 int	double_quote_validity_check(t_lexer *head);
 void    set_state_quotes(t_lexer *head);
 int	quote_pars(t_lexer *head);
+void	set_redirection_type(t_lexer *head)
 int ft_parser(t_lexer *head);
+
+/* PARSER UTILS */
+int	ft_strcmp(char *s1, char *s2);
 
 /* PARSER_ENV */
 char	*ft_give_val(t_env *env, char *name);

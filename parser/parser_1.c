@@ -42,3 +42,22 @@ int	single_quote_state(t_lexer *head)
 	}
 	return (1);
 }
+
+void	set_redirection_type(t_lexer *head)
+{
+	t_lexer *tmp;
+	
+	tmp = head;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->str, ">>", ft_strlen(tmp->str)) == 0)
+			tmp->token == DOUT;
+		if (ft_strncmp(tmp->str, ">", ft_strlen(tmp->str)) == 0)
+			tmp->token == OUT;
+		if (ft_strncmp(tmp->str, "<", ft_strlen(tmp->str)) == 0)
+		tmp->token == IN;
+		if (ft_strncmp(tmp->str, "<<", ft_strlen(tmp->str)) == 0)
+			tmp->token == DIN;
+		tmp = tmp->next;
+	}
+}

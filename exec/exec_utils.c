@@ -14,20 +14,16 @@ char	*ft_strcat_env(char *s1, char *s2)
 	if (!str)
 		return (NULL);
 	if (s1)
-	{
-	while (s1[++i])
-		str[i] = s1[i];
-	}
+		while (s1[++i])
+			str[i] = s1[i];
 	str[i] = '=';
 	i++;
 	if (s2)
-	{
 		while (s2[++j])
 		{
 			str[i] = s2[j];
 			i++;
 		}
-	}
 	str[i] = '\0';
 	return (str);
 }
