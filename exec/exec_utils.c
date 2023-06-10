@@ -52,7 +52,7 @@ char **create_envp(t_env *env)
 	if (!array)
 		return (NULL);
 	tmp = env;
-	while (i <= len)
+	while (i <= len && tmp)
 	{
 		array[i] = ft_strcat_env(tmp->var, tmp->value);
 		tmp = tmp->next;
