@@ -1,5 +1,4 @@
 #include "../includes/minishell.h"
-#include "../includes/lexer_parser.h"
 
 int	double_quote_validity_check(t_lexer *head)
 {
@@ -51,13 +50,13 @@ void	set_redirection_type(t_lexer *head)
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->str, ">>", ft_strlen(tmp->str)) == 0)
-			tmp->token == DOUT;
+			tmp->token = DOUT;
 		if (ft_strncmp(tmp->str, ">", ft_strlen(tmp->str)) == 0)
-			tmp->token == OUT;
+			tmp->token = OUT;
 		if (ft_strncmp(tmp->str, "<", ft_strlen(tmp->str)) == 0)
-		tmp->token == IN;
+			tmp->token = IN;
 		if (ft_strncmp(tmp->str, "<<", ft_strlen(tmp->str)) == 0)
-			tmp->token == DIN;
+			tmp->token = DIN;
 		tmp = tmp->next;
 	}
 }

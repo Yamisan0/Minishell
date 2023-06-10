@@ -1,5 +1,4 @@
 #include "../includes/minishell.h"
-#include "../includes/lexer_parser.h"
 
 void    set_state_quotes(t_lexer *head)
 {

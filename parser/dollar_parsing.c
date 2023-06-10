@@ -1,5 +1,4 @@
 #include "../includes/minishell.h"
-#include "../includes/lexer_parser.h"
 
 void    dollar_lexer_3(t_lexer *head)
 {

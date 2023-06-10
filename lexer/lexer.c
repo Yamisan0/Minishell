@@ -1,5 +1,4 @@
 #include "../includes/minishell.h"
-#include "../includes/lexer_parser.h"
 
 char *c_to_str(char c)
 {

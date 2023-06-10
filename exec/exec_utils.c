@@ -1,5 +1,4 @@
 #include "../includes/minishell.h"
-#include "../includes/lexer_parser.h"
 
 
 char	*ft_strcat_env(char *s1, char *s2)

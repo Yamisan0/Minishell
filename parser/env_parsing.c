@@ -1,4 +1,3 @@
-#include "../includes/lexer_parser.h"
 #include "../includes/minishell.h"
 
 char	*ft_give_val(t_env *env, char *name)

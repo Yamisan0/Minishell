@@ -1,6 +1,4 @@
 #include "includes/minishell.h"
-#include "includes/lexer_parser.h"
-
 struct s_env *global_env=NULL;
 
 void	ft_built(char *prompt, char **envp)

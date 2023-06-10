@@ -1,6 +1,4 @@
 #include "../includes/minishell.h"
-#include "../includes/lexer_parser.h"
-
 int	is_special_token(t_lexer *node)
 {
 	if (node->token == PIPE || node->token == REDIRECTION_LEFT || node->token == REDIRECTION_RIGHT)
