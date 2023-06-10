@@ -58,9 +58,6 @@ int main(int ac, char **av, char **envp)
 			ft_lexer_part_2(test, global_env);
 			if (ft_parser(test) == -1)
 				continue;
-			char **environ = create_envp(global_env);
-			// ft_print_env(global_env);
-			display_env(environ);
 			free(prompt);
 		}
 	}

@@ -72,4 +72,7 @@ int ft_parser(t_lexer *head);
 char	*ft_give_val(t_env *env, char *name);
 void	ft_replace_by_litteral(t_lexer *head, t_env *env);
 
+
+/* GET ARG */
+char *ft_argv(t_lexer *head, int i);
 #endif

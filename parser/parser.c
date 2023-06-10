@@ -62,3 +62,32 @@ int ft_parser(t_lexer *head)
 	
 	return (1);
 }
+
+void	num_args(t_lexer *head)
+{
+	int	i;
+	t_lexer *tmp;
+
+	i = 0;
+	tmp = head;
+	while (tmp)
+	{
+		tmp->i = i;
+		i++;
+		tmp = tmp->next;
+	}
+}
+
+char *ft_argv(t_lexer *head, int i)
+{
+	t_lexer *tmp;
+
+	tmp = head;
+	while (tmp)
+	{
+		if (tmp->i == i)
+			return (tmp->str);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
