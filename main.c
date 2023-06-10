@@ -21,6 +21,17 @@ char	*pars_prompt(char *str)
 	return (str + i);
 }
 
+void	display_env(char **array)
+{
+	int i = 0;
+
+	while (array[i])
+	{
+		printf("%s\n", array[i]);
+		i++;
+	}
+}
+
 int main(int ac, char **av, char **envp)
 {
 	char *prompt;
@@ -47,11 +58,9 @@ int main(int ac, char **av, char **envp)
 			ft_lexer_part_2(test, global_env);
 			if (ft_parser(test) == -1)
 				continue;
-			// while (test)
-			// {
-			// 	printf("%s   \n", test->str);
-			// 	test = test->next;
-			// }
+			// char **environ = create_envp(global_env);
+			ft_print_env(global_env);
+			// display_env(environ);
 			free(prompt);
 		}
 	}

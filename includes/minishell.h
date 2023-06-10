@@ -35,4 +35,11 @@ void	export(char *var, char *value, t_env *env);
 
 
 int		ft_pwd(void);
+
+
+
+
+
+/* EXEC */
+char **create_envp(t_env *env);
 #endif
