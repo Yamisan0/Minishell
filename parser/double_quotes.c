@@ -25,3 +25,12 @@ void    set_state_quotes(t_lexer *head)
 		tmp = tmp->next;
 	}
 }
+
+int	quote_pars(t_lexer *head)
+{
+	if (single_quote_state(head) == 0)
+		return (printf("minishell: syntax error near unexpected simple quote\n"), 0);
+	if (double_quote_validity_check(head) == 1)
+		return (printf("minishell: syntax error near unexpected double quote\n"), 0);
+	return (1);
+}

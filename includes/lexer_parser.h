@@ -65,12 +65,11 @@ void	ft_fusion_double_quotes(t_lexer *head);
 int	single_quote_state(t_lexer *head);
 int	double_quote_validity_check(t_lexer *head);
 void    set_state_quotes(t_lexer *head);
+int	quote_pars(t_lexer *head);
 int ft_parser(t_lexer *head);
 
 /* PARSER_ENV */
 char	*ft_give_val(t_env *env, char *name);
 void	ft_replace_by_litteral(t_lexer *head, t_env *env);
-
-void    double_quote_fusion(t_lexer *head);
 
 #endif

@@ -93,19 +93,6 @@ void	fusion_words(t_lexer *head)
 	}
 }
 
-t_lexer *ft_lexer(char *prompt)
-{
-	t_lexer	*lexer;
-
-	if (!prompt)
-		return (NULL);
-	lexer = pre_lexing(prompt);
-	big_lexer(lexer);
-	set_state_quotes(lexer);
-	single_quote_fusion(lexer);
-	dollar_lexer(lexer);
-	return (lexer);
-}
 
 void	ft_supp_simple_quotes(t_lexer * head)
 {
@@ -173,6 +160,19 @@ void    double_quote_fusion(t_lexer *head)
 		travel = travel->next;
 	}
 }
+t_lexer *ft_lexer(char *prompt)
+{
+	t_lexer	*lexer;
+
+	if (!prompt)
+		return (NULL);
+	lexer = pre_lexing(prompt);
+	big_lexer(lexer);
+	single_quote_fusion(lexer);
+	set_state_quotes(lexer);
+	dollar_lexer(lexer);
+	return (lexer);
+}
 
 void	ft_lexer_part_2(t_lexer *lexer, t_env *env)
 {
@@ -180,9 +180,7 @@ void	ft_lexer_part_2(t_lexer *lexer, t_env *env)
 	ft_supp_simple_quotes(lexer);
 	double_quote_fusion(lexer);
 	ft_supp_double_quotes(lexer);
-	ft_fusion_double_quotes(lexer);
 	ft_word(lexer);
 	fusion_words(lexer);
-	fusion_reste(lexer);
 	delete_spaces(lexer);
 }

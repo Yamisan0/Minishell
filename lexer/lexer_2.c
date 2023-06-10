@@ -85,19 +85,3 @@ void    big_lexer(t_lexer *head)
 	}
 }
 
-void	ft_fusion_double_quotes(t_lexer *head)
-{
-	t_lexer *tmp;
-
-	tmp = head;
-	while (tmp)
-	{
-		if (tmp->next && tmp->state == OPENED && tmp->next->state == OPENED)
-		{
-			tmp->str = alloc_strcat(tmp->str, tmp->next->str);
-			ft_destroy_node(tmp->next);
-			continue;
-		}
-		tmp = tmp->next;
-	}
-}

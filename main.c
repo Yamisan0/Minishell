@@ -27,7 +27,6 @@ int main(int ac, char **av, char **envp)
 	char *prompt_space;
 	(void)	av;
 	t_lexer *test;
-	(void)envp;
 	global_env = set_env(envp);
 
 	if (ac == 1)
@@ -39,19 +38,20 @@ int main(int ac, char **av, char **envp)
 					add_history(prompt);
 				if (!(*prompt))
 					continue;
+				prompt_space = pars_prompt(prompt);
 				if (prompt_space == NULL)
 					continue;
-				prompt_space = pars_prompt(prompt);
 			test = ft_lexer(prompt_space);
-			if (single_quote_state(test) == 0 || double_quote_validity_check(test) == 1)
-				printf("PROBLEME DE QUOTE\n");
+			if (quote_pars(test) == 0)
+				continue;
 			ft_lexer_part_2(test, global_env);
-			ft_parser(test);
-			while (test)
-			{
-				printf("%s   \n", test->str);
-				test = test->next;
-			}
+			if (ft_parser(test) == -1)
+				continue;
+			// while (test)
+			// {
+			// 	printf("%s   \n", test->str);
+			// 	test = test->next;
+			// }
 			free(prompt);
 		}
 	}

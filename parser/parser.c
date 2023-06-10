@@ -19,7 +19,8 @@ int valid_pipe(t_lexer *head)
 		{
 			if (ft_strlen(tmp->str) > 1)
 				return (-1);
-			if ((tmp->prev && is_special_token(tmp->prev)) || (tmp->next && is_special_token(tmp->next)))
+			if ((tmp->prev && is_special_token(tmp->prev))
+				|| (tmp->next && is_special_token(tmp->next)))
 				return (-1);
 			if (tmp->next == NULL)
 				return (-1);
@@ -38,14 +39,14 @@ int valid_simple_redirection(t_lexer *head)
 	{
 		if (tmp->token == REDIRECTION_RIGHT || tmp->token == REDIRECTION_LEFT)
 		{
-			if (tmp->next == NULL || tmp->next->next == NULL)
-				return (printf("minishell : syntax error near unexpected token 'newline'\n"), -1);
 			if (ft_strlen(tmp->str) > 2)
-				return (printf("minishell : syntax error near unexpected token '%s'\n", tmp->str + ft_strlen(tmp->str) - 2), -1);
+				return (printf("minishell : syntax error near unexpected token `%s'\n", tmp->str + ft_strlen(tmp->str) - 2), -1);
 			if (tmp->next && is_special_token(tmp->next) && ft_strlen(tmp->next->str) > 1)
-				return (printf("minishell : syntax error near unexpected token '%s'\n", tmp->next->str + ft_strlen(tmp->next->str) - 2), -1);
+				return (printf("minishell : syntax error near unexpected token `%s'\n", tmp->next->str + ft_strlen(tmp->next->str) - 2), -1);
 			if (tmp->next && is_special_token(tmp->next))
-				return (printf("minishell : syntax error near unexpected token '%s'\n", tmp->next->str), -1);
+				return (printf("minishell : syntax error near unexpected token `%s'\n", tmp->next->str), -1);
+			if (tmp->next == NULL || tmp->next->next == NULL)
+				return (printf("minishell : syntax error near unexpected token `newline'\n"), -1);
 		}
 		tmp = tmp->next;
 	}
@@ -55,7 +56,7 @@ int valid_simple_redirection(t_lexer *head)
 int ft_parser(t_lexer *head)
 {
 	if (valid_pipe(head) == -1)
-		return (printf("syntax error near unexpected token '|'\n") -1);
+		return (printf("minishell syntax error near unexpected token `|'\n") -1);
 	if (valid_simple_redirection(head) == -1)
 		return (-1);
 	
