@@ -9,6 +9,7 @@
 #include <readline/history.h>
 #include <string.h>
 #include <stdlib.h>
+#include <fcntl.h>
 
 extern struct s_env *global_env;
 
@@ -67,7 +68,10 @@ typedef struct s_lexer
 typedef struct s_minishell
 {
 	t_lexer *args;
-	
+	int		nb_pipe;
+	int		nb_dout;
+	int		nb_out;
+	int		nb_in;
 }					t_mini;
 
 
@@ -96,6 +100,7 @@ int	double_quote_validity_check(t_lexer *head);
 void    set_state_quotes(t_lexer *head);
 int	quote_pars(t_lexer *head);
 void	set_redirection_type(t_lexer *head);
+int    ft_check_in_redirect(t_lexer *head);
 int ft_parser(t_lexer *head);
 
 /* PARSER UTILS */
@@ -116,11 +121,11 @@ char *ft_argv(t_lexer *head, int i);
 /* ENV */
 t_env	*set_env(char **envp);
 int		ft_print_env(t_env *env);
-t_env	*add_to_list(t_env *head, t_env *new);
+t_env	*add_to_list(t_env *head, t_env *new_node);
 t_env   *create_node(char *str_to_cpy);
 
 /* EXPORT */
-void	export(char *var, char *value, t_env *env);
+void	ft_export(char *var, char *value, t_env *env);
 
 
 int		ft_pwd(void);

@@ -1,7 +1,7 @@
 SOURCES = main.c built-in/env.c  built-in/pwd.c lexer/lexer.c \
 			lexer/lexer_2.c lexer/lexer_3.c parser/parser_1.c parser/parser.c \
 			parser/dollar_parsing.c parser/double_quotes.c parser/env_parsing.c \
-			exec/exec_utils.c
+			exec/exec_utils.c exec/pipe.c
 LIB_PATH = libft
 #compilation
 CC		= gcc

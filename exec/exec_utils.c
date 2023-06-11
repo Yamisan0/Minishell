@@ -56,3 +56,29 @@ char **create_envp(t_env *env)
 	array[len] = NULL;
 	return (array);
 }
+
+void	close_fds(int *fd)
+{
+	close(fd[0]);
+	close(fd[1]);
+}
+
+int count_pipe(t_lexer *head)
+{
+	t_lexer *tmp;
+	int		nb_pipe;
+
+	nb_pipe = 0;
+	tmp = head;
+	while (tmp)
+	{
+		if (tmp->token == PIPE)
+			nb_pipe++;
+		tmp = tmp->next;
+	}
+	return ()
+}
+
+
+//calcule le nombre de pipe
+//x

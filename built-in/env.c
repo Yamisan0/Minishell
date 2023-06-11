@@ -46,16 +46,16 @@ void	cpy_tab(char *str, t_env *node)
 	node->value[k] = '\0';
 }
 
-t_env	*add_to_list(t_env *head, t_env *new)
+t_env	*add_to_list(t_env *head, t_env *new_node)
 {
 	t_env	*tmp;
 
 	tmp = head;
 	if (!head)
-		return (new);
+		return (new_node);
 	while (tmp->next)
 		tmp = tmp->next;
-	tmp->next = new;
+	tmp->next = new_node;
 	return (head);
 }
 
