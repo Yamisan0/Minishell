@@ -60,3 +60,15 @@ void	set_redirection_type(t_lexer *head)
 		tmp = tmp->next;
 	}
 }
+
+void	ft_set_to_cmd(t_lexer *head)
+{
+	t_lexer *tmp;
+
+	tmp = head;
+	while (tmp)
+	{
+		if (tmp->i == 0 && tmp->token == WORD)
+		tmp = tmp->next;
+	}
+}

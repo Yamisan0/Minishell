@@ -76,8 +76,9 @@ int count_pipe(t_lexer *head)
 			nb_pipe++;
 		tmp = tmp->next;
 	}
-	return ()
+	return (nb_pipe);
 }
+
 
 
 //calcule le nombre de pipe
