@@ -72,3 +72,20 @@ void	ft_set_to_cmd(t_lexer *head)
 		tmp = tmp->next;
 	}
 }
+
+void	ft_set_infile_outfile(t_lexer *head)
+{
+	t_lexer *tmp;
+
+	tmp = head;
+	while (tmp)
+	{
+		if (tmp->token == OUT || tmp->token == DOUT)
+			if (tmp->next && tmp->next->token == WORD)
+				tmp->next->token = OUTFILE;
+		if (tmp->token == IN || tmp->token == DIN)
+			if (tmp->next && tmp->next->token == WORD)
+				tmp->next->token = INFILE;
+		tmp = tmp->next;
+	}
+}

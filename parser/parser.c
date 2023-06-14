@@ -43,7 +43,7 @@ int valid_simple_redirection(t_lexer *head)
 				return (printf("minishell : syntax error near unexpected token `%s'\n", tmp->next->str + ft_strlen(tmp->next->str) - 2), -1);
 			if (tmp->next && is_special_token(tmp->next))
 				return (printf("minishell : syntax error near unexpected token `%s'\n", tmp->next->str), -1);
-			if (tmp->next == NULL || tmp->next->next == NULL)
+			if (tmp->next == NULL)
 				return (printf("minishell : syntax error near unexpected token `newline'\n"), -1);
 		}
 		tmp = tmp->next;
@@ -58,6 +58,7 @@ int ft_parser(t_lexer *head)
 	if (valid_simple_redirection(head) == -1)
 		return (-1);
 	set_redirection_type(head);
+	ft_set_infile_outfile(head);
 	return (1);
 }
 

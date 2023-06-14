@@ -30,6 +30,13 @@ void	display_env(char **array)
 	}
 }
 
+// int	parser_lexer(t_lexer *head)
+// {
+// 	if (quote_pars(head) == 0)
+// 		return (-1);
+// 	if t
+// }
+
 int main(int ac, char **av, char **envp)
 {
 	char *prompt;
@@ -56,8 +63,7 @@ int main(int ac, char **av, char **envp)
 			ft_lexer_part_2(test, global_env);
 			if (ft_parser(test) == -1)
 				continue;
-			char **envi = create_envp(global_env);
-			display_env(envi);
+			
 			free(prompt);
 		}
 	}

@@ -68,6 +68,18 @@ typedef struct s_lexer
 	struct s_lexer  *prev;
 }                   t_lexer;
 
+typedef struct	s_exe
+{
+	pid_t	*pid;
+	int		fd[2];
+	int		stdin;
+	int		stdout;
+	pid_t	prev;
+	int		*fd_in;
+	int		*fd_out;
+	struct	s_minishell *data;
+}				t_exec;
+
 typedef struct s_minishell
 {
 	t_lexer *args;
@@ -75,6 +87,7 @@ typedef struct s_minishell
 	int		nb_dout;
 	int		nb_out;
 	int		nb_in;
+	struct	s_exe 	*exec;
 }					t_mini;
 
 
@@ -104,6 +117,7 @@ void    set_state_quotes(t_lexer *head);
 int	quote_pars(t_lexer *head);
 void	set_redirection_type(t_lexer *head);
 int    ft_check_in_redirect(t_lexer *head);
+void	ft_set_infile_outfile(t_lexer *head);
 int ft_parser(t_lexer *head);
 
 /* PARSER UTILS */
@@ -126,6 +140,10 @@ t_env	*set_env(char **envp);
 int		ft_print_env(t_env *env);
 t_env	*add_to_list(t_env *head, t_env *new_node);
 t_env   *create_node(char *str_to_cpy);
+
+/* ARGS */
+char **ft_command(t_lexer *head);
+
 
 /* EXPORT */
 void	ft_export(char *var, char *value, t_env *env);
