@@ -65,7 +65,7 @@ char	**get_entire_path(char **envp)
 	return (paths);
 }
 
-char	*path(char *command, char **envp)
+char	*ft_path(char *command, char **envp)
 {
 	char	**entire_path;
 	char	*command_path;

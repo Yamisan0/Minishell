@@ -37,12 +37,41 @@ void	display_env(char **array)
 // 	if t
 // }
 
+int		ft_nb_pipe(t_lexer *head)
+{
+	int		count;
+
+	count = 0;
+	while (head)
+	{
+		if (head->token == PIPE)
+			count++;
+		head = head->next;
+	}
+	return (count);
+}
+
+t_mini	*init_mini(t_lexer *head)
+{
+	t_mini	*ptr;
+
+	ptr = ft_calloc(1, sizeof(t_mini));
+	if (!ptr)
+		return (NULL);
+	ptr->args = head;
+	ptr->nb_pipe = ft_nb_pipe(head);
+	ptr->exec = init_exec(ptr);
+	ptr->exec->data = ptr;
+	return (ptr);
+}
+
 int main(int ac, char **av, char **envp)
 {
 	char *prompt;
 	char *prompt_space;
 	(void)	av;
 	t_lexer *test;
+	t_mini	*minish;
 	global_env = set_env(envp);
 
 	if (ac == 1)
@@ -63,7 +92,8 @@ int main(int ac, char **av, char **envp)
 			ft_lexer_part_2(test, global_env);
 			if (ft_parser(test) == -1)
 				continue;
-			
+			minish = init_mini(test);
+			ft_pipex(minish->exec);
 			free(prompt);
 		}
 	}

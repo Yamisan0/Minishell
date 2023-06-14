@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-t_exec  *init_exec(t_lexer	*head, t_mini *ptr)
+t_exec  *init_exec(t_mini *ptr)
 {
 	t_exec	*exe;
 
@@ -12,6 +12,15 @@ t_exec  *init_exec(t_lexer	*head, t_mini *ptr)
 	// exe->fd_in = ft_calloc(ptr->nb_in, sizeof(int));
 	// exe->fd_out = ft_calloc(ptr->nb_out, sizeof(int));
 	return (exe);
+}
+
+int	dup_close(int fd1, int fd2)
+{
+		if (dup2(fd1, fd2) == -1)
+			return (perror("minishell"), -1);
+		else
+			close(fd1);
+		return (1);
 }
 
 t_lexer	*ret_next_pipe(t_lexer *head, int	i)
@@ -27,7 +36,7 @@ t_lexer	*ret_next_pipe(t_lexer *head, int	i)
 		{
 			if (count_pipe == i)
 				return (tmp->next);
-				count_pipe++;
+			count_pipe++;
 		}
 		tmp = tmp->next;
 	}
@@ -37,11 +46,35 @@ t_lexer	*ret_next_pipe(t_lexer *head, int	i)
 void 	ft_forking(t_exec *ptr, int i)
 {
 	t_lexer	*tmp;
-	char	**cmd;
+	char	**full_cmd;
+	char	*cmd;
+	char	*path;
+	char	**env;
 
 	tmp = ret_next_pipe(ptr->data->args, i);
-	cmd = ft_command(ptr->data->args);
-	
+	full_cmd = ft_command(tmp);
+	cmd = full_cmd[0];
+	env = create_envp(global_env);
+	path = ft_path(cmd, env);
+	if (i == 0 && ptr->data->nb_pipe > 0)
+	{
+		if (dup2(ptr->fd[1], STDOUT_FILENO) == -1)
+			perror("minishell");
+	}
+	else if (i > 0 && i < ptr->data->nb_pipe + 1)
+	{
+		if (dup2(ptr->prev, STDIN_FILENO) == -1)
+			perror("minishell");
+		close(ptr->prev);
+		if (dup2(ptr->fd[1], STDOUT_FILENO))
+			perror("minishell");
+	}
+	if (i == ptr->data->nb_pipe + 1)
+	{
+		if (dup2(ptr->prev, STDIN_FILENO) == -1)
+			perror("minishell");
+	}
+	execve(path, full_cmd, env);
 }
 
 void    wait_all_pids(t_exec *args)

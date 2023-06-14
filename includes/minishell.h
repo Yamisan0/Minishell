@@ -10,6 +10,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 extern struct s_env *global_env;
 
@@ -26,6 +28,8 @@ typedef struct s_env
 typedef enum
 {
 	WORD,
+	HEREDOC,
+	DELIMITER,
 	IN,
 	INFILE,
 	OUT,
@@ -72,11 +76,9 @@ typedef struct	s_exe
 {
 	pid_t	*pid;
 	int		fd[2];
-	int		stdin;
-	int		stdout;
+	int		sstdin;
+	int		sstdout;
 	pid_t	prev;
-	int		*fd_in;
-	int		*fd_out;
 	struct	s_minishell *data;
 }				t_exec;
 
@@ -141,20 +143,20 @@ int		ft_print_env(t_env *env);
 t_env	*add_to_list(t_env *head, t_env *new_node);
 t_env   *create_node(char *str_to_cpy);
 
-/* ARGS */
-char **ft_command(t_lexer *head);
-
-
 /* EXPORT */
 void	ft_export(char *var, char *value, t_env *env);
 
 
 int		ft_pwd(void);
 
-
-
+/* UTILS */
+void	display_env(char **array);
 
 
 /* EXEC */
+char **ft_command(t_lexer *head);
+char	*ft_path(char *command, char **envp);
 char **create_envp(t_env *env);
+t_exec  *init_exec(t_mini *ptr);
+void	ft_pipex(t_exec *ptr);
 #endif
