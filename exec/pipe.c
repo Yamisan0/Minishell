@@ -30,13 +30,15 @@ t_lexer	*ret_next_pipe(t_lexer *head, int	i)
 
 	count_pipe = 0;
 	tmp = head;
+	if (i == 0)
+		return (head);
 	while (tmp)
 	{
 		if (tmp->token == PIPE)
 		{
+			count_pipe++;
 			if (count_pipe == i)
 				return (tmp->next);
-			count_pipe++;
 		}
 		tmp = tmp->next;
 	}
@@ -58,23 +60,25 @@ void 	ft_forking(t_exec *ptr, int i)
 	path = ft_path(cmd, env);
 	if (i == 0 && ptr->data->nb_pipe > 0)
 	{
+		close(ptr->fd[0]);
 		if (dup2(ptr->fd[1], STDOUT_FILENO) == -1)
-			perror("minishell");
+			perror("minishell1");
+		close(ptr->fd[1]);
 	}
-	else if (i > 0 && i < ptr->data->nb_pipe + 1)
+	else if (i != ptr->data->nb_pipe)
 	{
 		if (dup2(ptr->prev, STDIN_FILENO) == -1)
-			perror("minishell");
-		close(ptr->prev);
-		if (dup2(ptr->fd[1], STDOUT_FILENO))
-			perror("minishell");
+			perror("minishell2");
+		if (dup2(ptr->fd[1], STDOUT_FILENO) == -1)
+			perror("minishell3");
 	}
-	if (i == ptr->data->nb_pipe + 1)
+	if (i == ptr->data->nb_pipe && i > 0)
 	{
 		if (dup2(ptr->prev, STDIN_FILENO) == -1)
-			perror("minishell");
+			perror("minishell4");
 	}
 	execve(path, full_cmd, env);
+	perror("minishell");
 }
 
 void    wait_all_pids(t_exec *args)
