@@ -45,40 +45,67 @@ t_lexer	*ret_next_pipe(t_lexer *head, int	i)
 	return (NULL);
 }
 
-void 	ft_forking(t_exec *ptr, int i)
+int	set_exec(t_exec *ptr, int i)
 {
-	t_lexer	*tmp;
-	char	**full_cmd;
-	char	*cmd;
-	char	*path;
-	char	**env;
+	ptr->tmp = ret_next_pipe(ptr->data->args, i);
+	ptr->full_cmd = ft_command(ptr->tmp);
+	ptr->cmd = ptr->full_cmd[0];
+	ptr->env = create_envp(global_env);
+	ptr->path = ft_path(ptr->cmd, ptr->env);
+	if (!ptr->path)
+	{
+		write(2, "minishell: ", 11);
+		ft_putstr_fd(ptr->cmd, 2);
+		write(2, ": command not found\n", 20);
+		errno = 127;
+		return (0);
+	}
+	return (1);
+}
 
-	tmp = ret_next_pipe(ptr->data->args, i);
-	full_cmd = ft_command(tmp);
-	cmd = full_cmd[0];
-	env = create_envp(global_env);
-	path = ft_path(cmd, env);
+int	dup_close_fd_pipe(t_exec *ptr, int i)
+{
+	close(ptr->fd[0]);
 	if (i == 0 && ptr->data->nb_pipe > 0)
 	{
-		close(ptr->fd[0]);
 		if (dup2(ptr->fd[1], STDOUT_FILENO) == -1)
-			perror("minishell1");
+			return (ft_free_all("minishell"), 0);
 		close(ptr->fd[1]);
 	}
 	else if (i != ptr->data->nb_pipe)
 	{
 		if (dup2(ptr->prev, STDIN_FILENO) == -1)
-			perror("minishell2");
+			return (ft_free_all("minishell"), 0);
 		if (dup2(ptr->fd[1], STDOUT_FILENO) == -1)
-			perror("minishell3");
+			return (ft_free_all("minishell"), 0);
+		close(ptr->fd[1]);
 	}
 	if (i == ptr->data->nb_pipe && i > 0)
 	{
 		if (dup2(ptr->prev, STDIN_FILENO) == -1)
-			perror("minishell4");
+			return (ft_free_all("minishell"), 0);
 	}
-	execve(path, full_cmd, env);
-	perror("minishell");
+	return (1);
+}
+
+void 	ft_forking(t_exec *ptr, int i)
+{
+	if (set_exec(ptr, i) == 0)
+		return ;
+	if (i == 0 && ptr->data->nb_pipe > 0)
+	{
+		ft_redirections(ptr);
+		dup_close_fd_pipe(ptr, i);
+	}
+	else if (i != ptr->data->nb_pipe)
+	{
+		dup_close_fd_pipe(ptr, i);
+	}
+	if (i == ptr->data->nb_pipe && i > 0)
+	{
+		dup_close_fd_pipe(ptr, i);
+	}
+	execve(ptr->path, ptr->full_cmd, ptr->env);
 }
 
 void    wait_all_pids(t_exec *args)

@@ -51,6 +51,23 @@ int valid_simple_redirection(t_lexer *head)
 	return (1);
 }
 
+void	ft_heredoc_tokens(t_lexer *head)
+{
+	t_lexer *tmp;
+
+	tmp = head;
+	while (tmp)
+	{
+		if (tmp->prev && tmp->token == DIN && tmp->next
+			&& tmp->next->token == WORD)
+		{
+			tmp->prev->token = HEREDOC;
+			tmp->next->token = DELIMITER;
+		}
+		tmp = tmp->next;
+	}
+}
+
 int ft_parser(t_lexer *head)
 {
 	if (valid_pipe(head) == -1)
@@ -59,6 +76,7 @@ int ft_parser(t_lexer *head)
 		return (-1);
 	set_redirection_type(head);
 	ft_set_infile_outfile(head);
+	ft_heredoc_tokens(head);
 	return (1);
 }
 

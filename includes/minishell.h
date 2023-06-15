@@ -79,6 +79,11 @@ typedef struct	s_exe
 	int		sstdin;
 	int		sstdout;
 	pid_t	prev;
+	t_lexer *tmp;
+	char	**full_cmd;
+	char	*cmd;
+	char	*path;
+	char	**env;
 	struct	s_minishell *data;
 }				t_exec;
 
@@ -153,10 +158,21 @@ int		ft_pwd(void);
 void	display_env(char **array);
 
 
+/* REDIRECTION */
+int open_files(int  indice, char *path);
+int	ft_redirections(t_exec *ptr);
+
 /* EXEC */
 char **ft_command(t_lexer *head);
 char	*ft_path(char *command, char **envp);
 char **create_envp(t_env *env);
 t_exec  *init_exec(t_mini *ptr);
 void	ft_pipex(t_exec *ptr);
+
+
+
+/* FREE */
+
+void    ft_free_all(char *msg);
+
 #endif

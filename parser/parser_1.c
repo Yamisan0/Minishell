@@ -89,3 +89,4 @@ void	ft_set_infile_outfile(t_lexer *head)
 		tmp = tmp->next;
 	}
 }
+
