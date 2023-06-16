@@ -84,6 +84,7 @@ typedef struct	s_exe
 	char	*cmd;
 	char	*path;
 	char	**env;
+	int		nb_in;
 	struct	s_minishell *data;
 }				t_exec;
 
@@ -91,9 +92,6 @@ typedef struct s_minishell
 {
 	t_lexer *args;
 	int		nb_pipe;
-	int		nb_dout;
-	int		nb_out;
-	int		nb_in;
 	struct	s_exe 	*exec;
 }					t_mini;
 
@@ -167,6 +165,8 @@ char **ft_command(t_lexer *head);
 char	*ft_path(char *command, char **envp);
 char **create_envp(t_env *env);
 t_exec  *init_exec(t_mini *ptr);
+int	count_in(t_lexer *head);
+t_lexer *ft_next_redirection(t_lexer *ptr);
 void	ft_pipex(t_exec *ptr);
 
 

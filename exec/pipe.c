@@ -48,6 +48,7 @@ t_lexer	*ret_next_pipe(t_lexer *head, int	i)
 int	set_exec(t_exec *ptr, int i)
 {
 	ptr->tmp = ret_next_pipe(ptr->data->args, i);
+	ptr->nb_in = count_in(ptr->tmp);
 	ptr->full_cmd = ft_command(ptr->tmp);
 	ptr->cmd = ptr->full_cmd[0];
 	ptr->env = create_envp(global_env);
@@ -92,20 +93,21 @@ void 	ft_forking(t_exec *ptr, int i)
 {
 	if (set_exec(ptr, i) == 0)
 		return ;
-	if (i == 0 && ptr->data->nb_pipe > 0)
-	{
-		ft_redirections(ptr);
-		dup_close_fd_pipe(ptr, i);
+	dup_close_fd_pipe(ptr, i);
+	int index = 0;
+		t_lexer *pos_in = NULL;
+	while (index <= ptr->nb_in)
+	{	
+		if (pos_in == NULL)
+			pos_in = ft_next_redirection(ptr->tmp);
+		else
+			pos_in = ft_next_redirection(pos_in);
+		printf("%s\n", pos_in->str);
+		int fd = open_files(1, pos_in->str);
+		dup2(fd, STDIN_FILENO);
+		index++;
+		execve(ptr->path, ptr->full_cmd, ptr->env);
 	}
-	else if (i != ptr->data->nb_pipe)
-	{
-		dup_close_fd_pipe(ptr, i);
-	}
-	if (i == ptr->data->nb_pipe && i > 0)
-	{
-		dup_close_fd_pipe(ptr, i);
-	}
-	execve(ptr->path, ptr->full_cmd, ptr->env);
 }
 
 void    wait_all_pids(t_exec *args)

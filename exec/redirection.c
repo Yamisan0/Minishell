@@ -31,24 +31,45 @@ void	ft_cpy_std(t_exec *ptr)
 	ptr->sstdout = dup(STDOUT_FILENO);
 }
 
-int	ft_redirections(t_exec *ptr)
+t_lexer *ft_next_redirection(t_lexer *ptr)
 {
-	t_lexer	*tmp;
-	int		fd;
+	t_lexer *tmp;
 
-	tmp = ptr->data->args;
-	// while (tmp && tmp->token == PIPE)
-	// {
+	tmp = ptr;
+	while (tmp && tmp->token != PIPE)
+	{
 		if (tmp->token == IN)
-		{
-			fd = open_files(1, tmp->next->str);
-			dup2(fd, STDIN_FILENO);
-			// if (fd == -1)
-			// 	return (0);
-			// dup2(fd, STDIN_FILENO);
-			// close(fd);
-		}
-	// 	tmp = tmp->next;
-	// }
-	return (1);
+			return (tmp->next);
+		tmp = tmp->next;
+	}
+	return (tmp);
 }
+
+int	count_in(t_lexer *head)
+{
+	t_lexer *tmp;
+	int		count;
+
+	tmp = head;
+	count = 0;
+	while (tmp && tmp->token != PIPE)
+	{
+		if (tmp->token == IN)
+			count++;
+		tmp = tmp->next;
+	}
+	return (count);
+}
+
+// int	ft_redirections(t_exec *ptr)
+// {
+// 	t_lexer	*tmp;
+// 	int		fd;
+	
+// 	// tmp = ft_next_redirection(ptr,);
+// 	if (!tmp)
+// 		return (0);
+// 	fd = open_files(1, tmp->next->str);
+// 	dup2(fd, STDIN_FILENO);
+// 	return (1);
+// }
