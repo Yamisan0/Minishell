@@ -31,18 +31,71 @@ void	ft_cpy_std(t_exec *ptr)
 	ptr->sstdout = dup(STDOUT_FILENO);
 }
 
-t_lexer *ft_next_redirection(t_lexer *ptr)
+t_lexer *ft_next_redirection(t_lexer *head, t_exec *ptr)
 {
 	t_lexer *tmp;
 
-	tmp = ptr;
+	tmp = head;
 	while (tmp && tmp->token != PIPE)
 	{
 		if (tmp->token == IN)
+		{
+			ptr->redirect = IN;
 			return (tmp->next);
+		}
+		if (tmp->token == OUT)
+		{
+			ptr->redirect = OUT;
+			return (tmp->next);
+		}
+		if (tmp->token == DOUT)
+		{
+			ptr->redirect = DOUT;
+			return (tmp->next);
+		}
 		tmp = tmp->next;
 	}
-	return (tmp);
+	return (NULL);
+}
+
+void	ft_open(t_lexer *head, t_exec *ptr)
+{
+	int fd;
+
+	if (ptr->redirect == IN)
+	{
+		fd = open_files(1, head->str);
+		dup2(fd, STDIN_FILENO);
+		close (fd);
+	}
+}
+
+int	is_redirection(t_lexer *node)
+{
+	if ((node->token == IN || node->token == OUT || node->token == DOUT)
+			&& node->redirection == NOT)
+	{
+		node->redirection = VISITED;
+		return (1);
+	}
+	return (0);
+	
+}
+
+void	ft_redir(t_exec *ptr)
+{
+	t_lexer *tmp;
+
+	tmp = ft_next_redirection(ptr->tmp, ptr);
+	while (tmp && tmp->token != PIPE)
+	{
+		if (is_redirection(tmp))
+		{
+			ft_open(tmp, ptr);
+			tmp = ft_next_redirection(tmp, ptr);
+		}
+		tmp = tmp->next;
+	}
 }
 
 int	count_in(t_lexer *head)

@@ -61,6 +61,11 @@ typedef	enum
 	COMPLEX
 }	t_dollar;
 
+typedef enum
+{
+	NOT,
+	VISITED
+}	t_fds;
 typedef struct s_lexer
 {
 	char        *str;
@@ -68,6 +73,7 @@ typedef struct s_lexer
 	int         i;
 	t_state		state;
 	t_dollar	dollar;
+	t_fds		redirection;
 	struct s_lexer  *next;
 	struct s_lexer  *prev;
 }                   t_lexer;
@@ -84,7 +90,7 @@ typedef struct	s_exe
 	char	*cmd;
 	char	*path;
 	char	**env;
-	int		nb_in;
+	t_tokens	redirect;
 	struct	s_minishell *data;
 }				t_exec;
 
@@ -158,15 +164,14 @@ void	display_env(char **array);
 
 /* REDIRECTION */
 int open_files(int  indice, char *path);
-int	ft_redirections(t_exec *ptr);
-
+void	ft_redir(t_exec *ptr);
 /* EXEC */
 char **ft_command(t_lexer *head);
 char	*ft_path(char *command, char **envp);
 char **create_envp(t_env *env);
 t_exec  *init_exec(t_mini *ptr);
 int	count_in(t_lexer *head);
-t_lexer *ft_next_redirection(t_lexer *ptr);
+t_lexer *ft_next_redirection(t_lexer *head, t_exec *ptr);
 void	ft_pipex(t_exec *ptr);
 
 
