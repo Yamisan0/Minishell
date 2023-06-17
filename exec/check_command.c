@@ -21,6 +21,7 @@ char **ft_command(t_lexer *head)
 	t_lexer *tmp;
 	char    **tab;
 	int     i;
+
 	i = 0;
 	tmp = head;
 	while (tmp && tmp->token != PIPE)

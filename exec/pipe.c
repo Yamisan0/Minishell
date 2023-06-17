@@ -95,7 +95,6 @@ void 	ft_forking(t_exec *ptr, int i)
 		return ;
 	// dup_close_fd_pipe(ptr, i);
 	ft_redir(ptr);
-	
 	execve(ptr->path, ptr->full_cmd, ptr->env);
 }
 

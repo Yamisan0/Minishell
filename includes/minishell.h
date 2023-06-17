@@ -90,6 +90,7 @@ typedef struct	s_exe
 	char	*cmd;
 	char	*path;
 	char	**env;
+	t_lexer	*tmp_red;
 	t_tokens	redirect;
 	struct	s_minishell *data;
 }				t_exec;
@@ -165,6 +166,7 @@ void	display_env(char **array);
 /* REDIRECTION */
 int open_files(int  indice, char *path);
 void	ft_redir(t_exec *ptr);
+void	ft_open(t_lexer *head, t_exec *ptr);
 /* EXEC */
 char **ft_command(t_lexer *head);
 char	*ft_path(char *command, char **envp);

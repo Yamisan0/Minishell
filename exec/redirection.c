@@ -38,20 +38,10 @@ t_lexer *ft_next_redirection(t_lexer *head, t_exec *ptr)
 	tmp = head;
 	while (tmp && tmp->token != PIPE)
 	{
-		if (tmp->token == IN)
+		if (tmp->token == INFILE || tmp->token == OUTFILE)
 		{
-			ptr->redirect = IN;
-			return (tmp->next);
-		}
-		if (tmp->token == OUT)
-		{
-			ptr->redirect = OUT;
-			return (tmp->next);
-		}
-		if (tmp->token == DOUT)
-		{
-			ptr->redirect = DOUT;
-			return (tmp->next);
+			ptr->redirect = tmp->prev->token;
+			return (tmp);
 		}
 		tmp = tmp->next;
 	}
@@ -61,13 +51,28 @@ t_lexer *ft_next_redirection(t_lexer *head, t_exec *ptr)
 void	ft_open(t_lexer *head, t_exec *ptr)
 {
 	int fd;
-
-	if (ptr->redirect == IN)
-	{
+	(void)ptr;
+	if (!head)
+		return ;
+	// if (head->prev->token == IN)
+	// {
 		fd = open_files(1, head->str);
-		dup2(fd, STDIN_FILENO);
-		close (fd);
-	}
+		if (dup2(fd, STDIN_FILENO) == -1)
+			perror("minishell");	
+	// }
+	// if (ptr->redirect == OUT)
+	// {
+	// 	fd = open_files(2, head->str);
+	// 	if (dup2(fd, STDIN_FILENO) == -1)
+	// 		perror("minishell");	
+	// }
+	// if (ptr->redirect == DOUT)
+	// {
+	// 	fd = open_files(3, head->str);
+	// 	if (dup2(fd, STDIN_FILENO) == -1)
+	// 		perror("minishell");	
+	// }
+	close (fd);
 }
 
 int	is_redirection(t_lexer *node)
@@ -87,14 +92,10 @@ void	ft_redir(t_exec *ptr)
 	t_lexer *tmp;
 
 	tmp = ft_next_redirection(ptr->tmp, ptr);
-	while (tmp && tmp->token != PIPE)
+	while (tmp)	
 	{
-		if (is_redirection(tmp))
-		{
-			ft_open(tmp, ptr);
-			tmp = ft_next_redirection(tmp, ptr);
-		}
-		tmp = tmp->next;
+		ft_open(tmp, ptr);
+		tmp = ft_next_redirection(tmp->next, ptr);
 	}
 }
 
