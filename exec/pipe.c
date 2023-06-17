@@ -93,7 +93,7 @@ void 	ft_forking(t_exec *ptr, int i)
 {
 	if (set_exec(ptr, i) == 0)
 		return ;
-	// dup_close_fd_pipe(ptr, i);
+	dup_close_fd_pipe(ptr, i);
 	ft_redir(ptr);
 	execve(ptr->path, ptr->full_cmd, ptr->env);
 }

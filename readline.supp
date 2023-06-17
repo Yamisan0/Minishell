@@ -1,0 +1,8 @@
+{
+   <sup_mmap_length>
+   Memcheck:Param
+   mmap(length)
+   ...
+   fun:readline
+   ...
+}

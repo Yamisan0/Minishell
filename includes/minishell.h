@@ -179,7 +179,7 @@ void	ft_pipex(t_exec *ptr);
 
 
 /* FREE */
-
+void    ft_free_parser_lexer(t_lexer *head);
 void    ft_free_all(char *msg);
 
 #endif

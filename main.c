@@ -19,24 +19,6 @@ char	*pars_prompt(char *str)
 	return (str + i);
 }
 
-void	display_env(char **array)
-{
-	int i = 0;
-
-	while (array[i])
-	{
-		printf("%s\n", array[i]);
-		i++;
-	}
-}
-
-// int	parser_lexer(t_lexer *head)
-// {
-// 	if (quote_pars(head) == 0)
-// 		return (-1);
-// 	if t
-// }
-
 int		ft_nb_pipe(t_lexer *head)
 {
 	int		count;
@@ -65,13 +47,41 @@ t_mini	*init_mini(t_lexer *head)
 	return (ptr);
 }
 
+char		*ft_prompt(char *prompt)
+{
+	char *prompt_without_spaces;
+
+	if (prompt && *prompt)
+		add_history(prompt);
+	if (!(*prompt))
+		return (free(prompt), NULL);
+	prompt_without_spaces = pars_prompt(prompt);
+	if (ft_strlen(prompt_without_spaces) == 0)
+		return (free(prompt), NULL);
+	return (prompt_without_spaces);	
+}
+
+t_lexer	*ft_parser_lexer(char *prompt)
+{
+	t_lexer	*head;
+
+	head = ft_lexer(prompt);
+	if (!head)
+		return (NULL);
+	if (quote_pars(head) == 0)
+		return (free(prompt), ft_free_parser_lexer(head), NULL);
+	ft_lexer_part_2(head, global_env);
+	if (ft_parser(head) == -1)
+		return (free(prompt), ft_free_parser_lexer(head), NULL);
+	return (head);
+}
+
 int main(int ac, char **av, char **envp)
 {
 	char *prompt;
-	char *prompt_space;
 	(void)	av;
-	t_lexer *test;
-	t_mini	*minish;
+	t_lexer *list;
+	// t_mini	*minish;
 	global_env = set_env(envp);
 
 	if (ac == 1)
@@ -79,21 +89,14 @@ int main(int ac, char **av, char **envp)
 			while (42)
 		{
 			prompt = readline("minishell>");
-				if (prompt && *prompt)
-					add_history(prompt);
-				if (!(*prompt))
-					continue;
-				prompt_space = pars_prompt(prompt);
-				if (prompt_space == NULL)
-					continue;
-			test = ft_lexer(prompt_space);
-			if (quote_pars(test) == 0)
+			if (ft_prompt(prompt) == NULL)
 				continue;
-			ft_lexer_part_2(test, global_env);
-			if (ft_parser(test) == -1)
+			list = ft_parser_lexer(ft_prompt(prompt));
+			if (list == NULL)
 				continue;
-			minish = init_mini(test);
-			ft_pipex(minish->exec);
+/////////////////////////////////////////////////////////////////
+			// minish = init_mini(test);
+			// ft_pipex(minish->exec);
 			free(prompt);
 		}
 	}

@@ -28,8 +28,8 @@ void    set_state_quotes(t_lexer *head)
 int	quote_pars(t_lexer *head)
 {
 	if (single_quote_state(head) == 0)
-		return (printf("minishell: syntax error near unexpected simple quote\n"), 0);
+		return (write(1, "minishell: syntax error near unexpected simple quote\n", 52), 0);
 	if (double_quote_validity_check(head) == 1)
-		return (printf("minishell: syntax error near unexpected double quote\n"), 0);
+		return (write(1, "minishell: syntax error near unexpected double quote\n", 52), 0);
 	return (1);
 }

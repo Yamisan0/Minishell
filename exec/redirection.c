@@ -12,7 +12,7 @@ int open_files(int  indice, char *path)
 	}
 	else if (indice == 2)
 	{
-		fd = open(path, O_WRONLY | O_CREAT, 0666);
+		fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 		if (fd == -1)
 			ft_free_all("minishell");
 	}
@@ -54,24 +54,24 @@ void	ft_open(t_lexer *head, t_exec *ptr)
 	(void)ptr;
 	if (!head)
 		return ;
-	// if (head->prev->token == IN)
-	// {
+	if (head->prev->token == IN)
+	{
 		fd = open_files(1, head->str);
 		if (dup2(fd, STDIN_FILENO) == -1)
 			perror("minishell");	
-	// }
-	// if (ptr->redirect == OUT)
-	// {
-	// 	fd = open_files(2, head->str);
-	// 	if (dup2(fd, STDIN_FILENO) == -1)
-	// 		perror("minishell");	
-	// }
-	// if (ptr->redirect == DOUT)
-	// {
-	// 	fd = open_files(3, head->str);
-	// 	if (dup2(fd, STDIN_FILENO) == -1)
-	// 		perror("minishell");	
-	// }
+	}
+	if (head->prev->token == OUT)
+	{
+		fd = open_files(2, head->str);
+		if (dup2(fd, STDOUT_FILENO) == -1)
+			perror("minishell");	
+	}
+	if (head->prev->token == DOUT)
+	{
+		fd = open_files(3, head->str);
+		if (dup2(fd, STDOUT_FILENO) == -1)
+			perror("minishell");	
+	}
 	close (fd);
 }
 
