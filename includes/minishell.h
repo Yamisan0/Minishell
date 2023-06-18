@@ -133,6 +133,9 @@ void	fusion_reste(t_lexer *head);
 void	delete_spaces(t_lexer *head);
 void	ft_fusion_double_quotes(t_lexer *head);
 
+/* PROMPT */
+char		*ft_prompt(char *prompt);
+
 /* PARSER */
 int	single_quote_state(t_lexer *head);
 int	double_quote_validity_check(t_lexer *head);
@@ -155,6 +158,8 @@ void	ft_replace_by_litteral(t_lexer *head, t_env *env);
 /* -------------------------------------------------EXECUTION----------------------------------------------- */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+int		ft_nb_pipe(t_lexer *head);
+
 /* ENV */
 t_env	*set_env(char **envp);
 int		ft_print_env(t_env *env);
@@ -172,7 +177,7 @@ void	display_env(char **array);
 
 
 /* REDIRECTION */
-int open_files(int  indice, char *path);
+int open_files(int  indice, char *path, t_exec *ptr);
 void	ft_redir(t_exec *ptr);
 void	ft_open(t_lexer *head, t_exec *ptr);
 /* EXEC */
@@ -188,6 +193,6 @@ void	ft_pipex(t_exec *ptr);
 
 /* FREE */
 void    ft_free_parser_lexer(t_lexer *head);
-void    ft_free_all(char *msg);
+void    ft_free_all(char *msg, t_exec *ptr);
 
 #endif

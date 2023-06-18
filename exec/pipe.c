@@ -9,8 +9,6 @@ t_exec  *init_exec(t_mini *ptr)
 		return (NULL);
 	exe->pid = ft_calloc(ptr->nb_pipe + 1, sizeof(pid_t));
 	exe->prev = -1;
-	// exe->fd_in = ft_calloc(ptr->nb_in, sizeof(int));
-	// exe->fd_out = ft_calloc(ptr->nb_out, sizeof(int));
 	return (exe);
 }
 
@@ -48,7 +46,6 @@ t_lexer	*ret_next_pipe(t_lexer *head, int	i)
 int	set_exec(t_exec *ptr, int i)
 {
 	ptr->tmp = ret_next_pipe(ptr->data->args, i);
-	
 	ptr->full_cmd = ft_command(ptr->tmp);
 	ptr->cmd = ptr->full_cmd[0];
 	ptr->env = create_envp(global_env);
@@ -70,21 +67,21 @@ int	dup_close_fd_pipe(t_exec *ptr, int i)
 	if (i == 0 && ptr->data->nb_pipe > 0)
 	{
 		if (dup2(ptr->fd[1], STDOUT_FILENO) == -1)
-			return (ft_free_all("minishell"), 0);
+			return (ft_free_all("minishell", ptr), 0);
 		close(ptr->fd[1]);
 	}
 	else if (i != ptr->data->nb_pipe)
 	{
 		if (dup2(ptr->prev, STDIN_FILENO) == -1)
-			return (ft_free_all("minishell"), 0);
+			return (ft_free_all("minishell", ptr), 0);
 		if (dup2(ptr->fd[1], STDOUT_FILENO) == -1)
-			return (ft_free_all("minishell"), 0);
+			return (ft_free_all("minishell", ptr), 0);
 		close(ptr->fd[1]);
 	}
 	if (i == ptr->data->nb_pipe && i > 0)
 	{
 		if (dup2(ptr->prev, STDIN_FILENO) == -1)
-			return (ft_free_all("minishell"), 0);
+			return (ft_free_all("minishell", ptr), 0);
 	}
 	return (1);
 }
@@ -93,9 +90,10 @@ void 	ft_forking(t_exec *ptr, int i)
 {
 	if (set_exec(ptr, i) == 0)
 		return ;
-	// dup_close_fd_pipe(ptr, i);
-	ft_redir(ptr);
+	dup_close_fd_pipe(ptr, i);
+	// ft_redir(ptr);
 	execve(ptr->path, ptr->full_cmd, ptr->env);
+	ft_free_all("minishell", ptr);
 }
 
 void    wait_all_pids(t_exec *args)
@@ -103,7 +101,7 @@ void    wait_all_pids(t_exec *args)
 	int		i;
 
 	i = 0;
-	while (i <= (args->data->nb_pipe + 1))
+	while (i < (args->data->nb_pipe + 1))
 	{
 		waitpid(args->pid[i], NULL, 0);
 		i++;
@@ -115,7 +113,7 @@ void	ft_pipex(t_exec *ptr)
 	int	i;
 
 	i = 0;
-	while (i <= (ptr->data->nb_pipe + 1))
+	while (i < (ptr->data->nb_pipe + 1))
 	{
 		pipe(ptr->fd);
 		ptr->pid[i] = fork();

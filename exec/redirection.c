@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-int open_files(int  indice, char *path)
+int open_files(int  indice, char *path, t_exec *ptr)
 {
 	int fd;
 
@@ -8,19 +8,19 @@ int open_files(int  indice, char *path)
 	{
 		fd = open(path, O_RDONLY);
 		if (fd == -1)
-			ft_free_all("minishell");
+			ft_free_all("minishell", ptr);
 	}
 	else if (indice == 2)
 	{
 		fd = open(path, O_WRONLY | O_CREAT, 0666);
 		if (fd == -1)
-			ft_free_all("minishell");
+			ft_free_all("minishell", ptr);
 	}
 	else if (indice == 3)
 	{
 		fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0666);
 		if (fd == -1)
-			ft_free_all("minishell");
+			ft_free_all("minishell", ptr);
 	}
 	return (fd);
 }
@@ -56,7 +56,7 @@ void	ft_open(t_lexer *head, t_exec *ptr)
 		return ;
 	// if (head->prev->token == IN)
 	// {
-		fd = open_files(1, head->str);
+		fd = open_files(1, head->str, ptr);
 		if (dup2(fd, STDIN_FILENO) == -1)
 			perror("minishell");	
 	// }

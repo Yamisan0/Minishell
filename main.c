@@ -45,7 +45,7 @@ int main(int ac, char **av, char **envp)
 	char *prompt;
 	(void)	av;
 	t_lexer *list;
-	// t_mini	*minish;
+	t_mini	*minish;
 	global_env = set_env(envp);
 
 	if (ac == 1)
@@ -59,9 +59,11 @@ int main(int ac, char **av, char **envp)
 			if (!list)
 				continue;
 /////////////////////////////////////////////////////////////////
-			// minish = init_mini(test);
-			// ft_pipex(minish->exec);
-			// free(prompt);
+			minish = init_mini(list);
+			ft_pipex(minish->exec);
+			
+			ft_free_parser_lexer(list);
+			exit(0);
 		}
 	}
 }

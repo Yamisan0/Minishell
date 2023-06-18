@@ -15,7 +15,12 @@ void	ft_free_parser_lexer(t_lexer *pile)
 	}
 }
 
-void    ft_free_all(char *msg)
+void    ft_free_all(char *msg, t_exec *ptr)
 {
+	ft_free_split(ptr->full_cmd);
+	ft_free_split(ptr->env);
+	free(ptr->path);
+	ptr->tmp = NULL;
+	ft_free_parser_lexer(ptr->data->args);
     perror(msg);
 }
