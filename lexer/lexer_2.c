@@ -53,9 +53,9 @@ char *alloc_strcat(char *s1, char *s2)
 			i++;
 		}
 	}
-	str[i] = '\0';
 	free(s1);
 	free(s2);
+	s2 = NULL;
 	return (str);
 }
 

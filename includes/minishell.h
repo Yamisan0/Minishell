@@ -66,6 +66,7 @@ typedef enum
 	NOT,
 	VISITED
 }	t_fds;
+
 typedef struct s_lexer
 {
 	char        *str;

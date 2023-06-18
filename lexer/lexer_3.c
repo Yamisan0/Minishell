@@ -36,6 +36,8 @@ void	delete_spaces(t_lexer *head)
 		{
 			stock = tmp;
 			tmp = tmp->next;
+			if (stock->str)
+				free(stock->str);
 			ft_destroy_node(stock);
 			continue;
 		}

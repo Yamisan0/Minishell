@@ -49,13 +49,13 @@ void	set_redirection_type(t_lexer *head)
 	tmp = head;
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->str, ">>") == 0)
+		if (ft_strncmp(tmp->str, ">>", ft_strlen(tmp->str)) == 0)
 			tmp->token = DOUT;
-		if (ft_strcmp(tmp->str, ">") == 0)
+		if (ft_strncmp(tmp->str, ">", ft_strlen(tmp->str)) == 0)
 			tmp->token = OUT;
-		if (ft_strcmp(tmp->str, "<") == 0)
+		if (ft_strncmp(tmp->str, "<", ft_strlen(tmp->str)) == 0)
 			tmp->token = IN;
-		if (ft_strcmp(tmp->str, "<<") == 0)
+		if (ft_strncmp(tmp->str, "<<", ft_strlen(tmp->str)) == 0)
 			tmp->token = DIN;
 		tmp = tmp->next;
 	}

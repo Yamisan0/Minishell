@@ -1,20 +1,18 @@
 #include "../includes/minishell.h"
 
-void    ft_free_parser_lexer(t_lexer *head)
+
+void	ft_free_parser_lexer(t_lexer *pile)
 {
-    t_lexer *tmp;
-    
-    if (!head)
-        return ;
-    tmp = head->next;
-    while (tmp)
-    {
-        if (head->str)
-            free(head->str);
-        free(head);
-        head = tmp;
-        tmp = tmp->next;
-    }
+	t_lexer	*tmp;
+
+	tmp = pile;
+	while (pile)
+	{
+		pile = pile->next;
+		free(tmp->str);
+		free(tmp);
+		tmp = pile;
+	}
 }
 
 void    ft_free_all(char *msg)

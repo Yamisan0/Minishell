@@ -8,7 +8,6 @@ char *c_to_str(char c)
 	if (!str)
 		return (NULL);
 	str[0] = c;
-	str[1] = '\0';
 	return (str);
 }
 t_lexer	*new_node(char *str)
@@ -19,7 +18,10 @@ t_lexer	*new_node(char *str)
 	if (!new)
 		return (NULL);
 	if (!str)
+	{
+		free(new); // Free the allocated node
 		return (NULL);
+	}
 	new->str = str;
 	new->next = NULL;
 	new->prev = NULL;
@@ -72,19 +74,21 @@ t_tokens get_token_type(char c)
 
 
 
-t_lexer	*pre_lexing(char *prompt)
+t_lexer *pre_lexing(char *prompt)
 {
 	int			i;
 	t_lexer		*new;
 	t_lexer		*head = NULL;
+	char		*str;
 
 	i = -1;
 	while (prompt[++i])
 	{
-		new = new_node(c_to_str(prompt[i]));
+		str = c_to_str(prompt[i]);
+		new = new_node(str);
 		new->token = get_token_type(prompt[i]);
-		new->i = i;
 		head = ft_add_back_lex(head, new);
+		// free(str); // Free the allocated string
 	}
 	return (head);
 }

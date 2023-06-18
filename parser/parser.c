@@ -18,7 +18,7 @@ int valid_pipe(t_lexer *head)
 			if (ft_strlen(tmp->str) > 1)
 				return (-1);
 			if ((tmp->prev && is_special_token(tmp->prev))
-					|| (tmp->next && is_special_token(tmp->next)))
+				|| (tmp->next && is_special_token(tmp->next)))
 				return (-1);
 			if (tmp->next == NULL)
 				return (-1);
@@ -26,14 +26,6 @@ int valid_pipe(t_lexer *head)
 		tmp = tmp->next;
 	}
 	return (1);
-}
-
-void	ft_print_error(int indice, char *str)
-{
-	ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
-	if (indice == 1)
-		write(2, &str, 2);
-	write(2, "\n", 1);
 }
 
 int valid_simple_redirection(t_lexer *head)
@@ -46,7 +38,7 @@ int valid_simple_redirection(t_lexer *head)
 		if (tmp->token == REDIRECTION_RIGHT || tmp->token == REDIRECTION_LEFT)
 		{
 			if (ft_strlen(tmp->str) > 2)
-				return (ft_print_error(1, tmp->str + 2), -1);
+				return (printf("minishell : syntax error near unexpected token `%s'\n", tmp->str + ft_strlen(tmp->str) - 2), -1);
 			if (tmp->next && is_special_token(tmp->next) && ft_strlen(tmp->next->str) > 1)
 				return (printf("minishell : syntax error near unexpected token `%s'\n", tmp->next->str + ft_strlen(tmp->next->str) - 2), -1);
 			if (tmp->next && is_special_token(tmp->next))
@@ -79,12 +71,12 @@ void	ft_heredoc_tokens(t_lexer *head)
 int ft_parser(t_lexer *head)
 {
 	if (valid_pipe(head) == -1)
-		return (ft_free_parser_lexer(head), write(2, "minishell: syntax error near unexpected token `|'\n", 50) -1);
-	if (valid_simple_redirection(head) == -1)
-		return (ft_free_parser_lexer(head), -1);
-	set_redirection_type(head);
-	ft_set_infile_outfile(head);
-	ft_heredoc_tokens(head);
+		return (printf("minishell syntax error near unexpected token `|'\n") -1);
+	// if (valid_simple_redirection(head) == -1)
+	// 	return (-1);
+	// set_redirection_type(head);
+	// ft_set_infile_outfile(head);
+	// ft_heredoc_tokens(head);
 	return (1);
 }
 

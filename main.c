@@ -19,6 +19,7 @@ char	*pars_prompt(char *str)
 	return (str + i);
 }
 
+
 int		ft_nb_pipe(t_lexer *head)
 {
 	int		count;
@@ -61,6 +62,8 @@ char		*ft_prompt(char *prompt)
 	return (prompt_without_spaces);	
 }
 
+
+
 t_lexer	*ft_parser_lexer(char *prompt)
 {
 	t_lexer	*head;
@@ -92,12 +95,12 @@ int main(int ac, char **av, char **envp)
 			if (ft_prompt(prompt) == NULL)
 				continue;
 			list = ft_parser_lexer(ft_prompt(prompt));
-			if (list == NULL)
+			if (!list)
 				continue;
 /////////////////////////////////////////////////////////////////
 			// minish = init_mini(test);
 			// ft_pipex(minish->exec);
-			free(prompt);
+			// free(prompt);
 		}
 	}
 }
