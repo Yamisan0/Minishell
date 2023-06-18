@@ -44,6 +44,7 @@ char **ft_command(t_lexer *head)
 		}
 		tmp = tmp->next;
 	}
+	tab[i] = NULL;
 	return (tab);
 }
 

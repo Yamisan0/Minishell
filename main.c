@@ -61,8 +61,8 @@ int main(int ac, char **av, char **envp)
 /////////////////////////////////////////////////////////////////
 			minish = init_mini(list);
 			ft_pipex(minish->exec);
-			
-			ft_free_parser_lexer(list);
+			// if (list)
+			// 	ft_free_parser_lexer(list);
 			exit(0);
 		}
 	}

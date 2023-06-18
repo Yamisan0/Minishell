@@ -50,13 +50,15 @@ int	set_exec(t_exec *ptr, int i)
 	ptr->cmd = ptr->full_cmd[0];
 	ptr->env = create_envp(global_env);
 	ptr->path = ft_path(ptr->cmd, ptr->env);
+	if (!ptr->env || !ptr->full_cmd)
+		return (-1);
 	if (!ptr->path)
 	{
 		write(2, "minishell: ", 11);
 		ft_putstr_fd(ptr->cmd, 2);
 		write(2, ": command not found\n", 20);
 		errno = 127;
-		return (0);
+		return (-1);
 	}
 	return (1);
 }
@@ -67,7 +69,7 @@ int	dup_close_fd_pipe(t_exec *ptr, int i)
 	if (i == 0 && ptr->data->nb_pipe > 0)
 	{
 		if (dup2(ptr->fd[1], STDOUT_FILENO) == -1)
-			return (ft_free_all("minishell", ptr), 0);
+			return (ft_free_all("minishell", ptr), -1);
 		close(ptr->fd[1]);
 	}
 	else if (i != ptr->data->nb_pipe)
@@ -75,25 +77,29 @@ int	dup_close_fd_pipe(t_exec *ptr, int i)
 		if (dup2(ptr->prev, STDIN_FILENO) == -1)
 			return (ft_free_all("minishell", ptr), 0);
 		if (dup2(ptr->fd[1], STDOUT_FILENO) == -1)
-			return (ft_free_all("minishell", ptr), 0);
+			return (ft_free_all("minishell", ptr), -1);
 		close(ptr->fd[1]);
 	}
 	if (i == ptr->data->nb_pipe && i > 0)
 	{
 		if (dup2(ptr->prev, STDIN_FILENO) == -1)
-			return (ft_free_all("minishell", ptr), 0);
+			return (ft_free_all("minishell", ptr), -1);
 	}
 	return (1);
 }
 
-void 	ft_forking(t_exec *ptr, int i)
+int 	ft_forking(t_exec *ptr, int i)
 {
 	if (set_exec(ptr, i) == 0)
-		return ;
-	dup_close_fd_pipe(ptr, i);
+		return (-1);
+	if (dup_close_fd_pipe(ptr, i) == -1)
+		return (-1);
+	if (!ptr->path || !ptr->full_cmd || !ptr->env)
+		return (-1);
 	// ft_redir(ptr);
 	execve(ptr->path, ptr->full_cmd, ptr->env);
 	ft_free_all("minishell", ptr);
+	return (1);
 }
 
 void    wait_all_pids(t_exec *args)
@@ -108,7 +114,7 @@ void    wait_all_pids(t_exec *args)
 	}
 }
 
-void	ft_pipex(t_exec *ptr)
+int	ft_pipex(t_exec *ptr)
 {
 	int	i;
 
@@ -118,7 +124,10 @@ void	ft_pipex(t_exec *ptr)
 		pipe(ptr->fd);
 		ptr->pid[i] = fork();
 		if (ptr->pid[i] == 0)
-			ft_forking(ptr, i);
+		{
+			if (ft_forking(ptr, i) == -1)
+				return (free(ptr->pid), -1);
+		}
 		else if (ptr->pid[i] > 0)
 		{
 			close(ptr->fd[1]);
@@ -130,6 +139,7 @@ void	ft_pipex(t_exec *ptr)
 	}
 	wait_all_pids(ptr);
 	free(ptr->pid);
+	return (1);
 }
 
 

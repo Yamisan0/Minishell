@@ -187,7 +187,7 @@ char **create_envp(t_env *env);
 t_exec  *init_exec(t_mini *ptr);
 int	count_in(t_lexer *head);
 t_lexer *ft_next_redirection(t_lexer *head, t_exec *ptr);
-void	ft_pipex(t_exec *ptr);
+int	ft_pipex(t_exec *ptr);
 
 
 
