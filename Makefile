@@ -1,6 +1,7 @@
 SOURCES = main.c built-in/env.c  built-in/pwd.c lexer/lexer.c \
-			lexer/lexer_2.c lexer/lexer_3.c parser/parser_1.c parser/parser.c \
-			parser/dollar_parsing.c parser/double_quotes.c parser/env_parsing.c \
+			lexer/lexer_3.c lexer/lexer_utils.c lexer/lexer_quotes.c \
+			parser/parser_1.c parser/parser.c parser/parser_utils.c \
+			lexer/dollar_lexer.c parser/double_quotes.c parser/env_parsing.c \
 			exec/exec_utils.c exec/pipe.c exec/check_command.c exec/ft_free_all.c \
 			exec/redirection.c
 LIB_PATH = libft

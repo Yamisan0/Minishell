@@ -1,10 +1,4 @@
 #include "../includes/minishell.h"
-int	is_special_token(t_lexer *node)
-{
-	if (node->token == PIPE || node->token == REDIRECTION_LEFT || node->token == REDIRECTION_RIGHT)
-		return (1);
-	return (0);
-}
 
 int valid_pipe(t_lexer *head)
 {
@@ -72,54 +66,14 @@ int ft_parser(t_lexer *head)
 {
 	if (valid_pipe(head) == -1)
 		return (printf("minishell syntax error near unexpected token `|'\n") -1);
-	// if (valid_simple_redirection(head) == -1)
-	// 	return (-1);
-	// set_redirection_type(head);
-	// ft_set_infile_outfile(head);
-	// ft_heredoc_tokens(head);
+	if (valid_simple_redirection(head) == -1)
+		return (-1);
+	set_redirection_type(head);
+	ft_set_infile_outfile(head);
+	ft_heredoc_tokens(head);
 	return (1);
 }
 
-void	num_args(t_lexer *head)
-{
-	int	i;
-	t_lexer *tmp;
 
-	i = 0;
-	tmp = head;
-	while (tmp)
-	{
-		tmp->i = i;
-		i++;
-		tmp = tmp->next;
-	}
-}
 
-char *ft_argv(t_lexer *head, int i)
-{
-	t_lexer *tmp;
 
-	tmp = head;
-	while (tmp)
-	{
-		if (tmp->i == i)
-			return (tmp->str);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-
-	if (!s1 || !s2)
-		return (1);
-	i = 0;
-	while (s1[i] || s2[i])
-	{
-		if (s1[i] != s2[i])
-			return (1);
-		i++;
-	}
-	return (0);
-}

@@ -9,30 +9,6 @@ void	ft_built(char *prompt, char **envp)
 				ft_pwd();
 }
 
-char	*pars_prompt(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] == ' ')
-		i++;
-	return (str + i);
-}
-
-
-int		ft_nb_pipe(t_lexer *head)
-{
-	int		count;
-
-	count = 0;
-	while (head)
-	{
-		if (head->token == PIPE)
-			count++;
-		head = head->next;
-	}
-	return (count);
-}
 
 t_mini	*init_mini(t_lexer *head)
 {
@@ -47,21 +23,6 @@ t_mini	*init_mini(t_lexer *head)
 	ptr->exec->data = ptr;
 	return (ptr);
 }
-
-char		*ft_prompt(char *prompt)
-{
-	char *prompt_without_spaces;
-
-	if (prompt && *prompt)
-		add_history(prompt);
-	if (!(*prompt))
-		return (free(prompt), NULL);
-	prompt_without_spaces = pars_prompt(prompt);
-	if (ft_strlen(prompt_without_spaces) == 0)
-		return (free(prompt), NULL);
-	return (prompt_without_spaces);	
-}
-
 
 
 t_lexer	*ft_parser_lexer(char *prompt)

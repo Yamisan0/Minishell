@@ -111,12 +111,22 @@ int	is_special_token(t_lexer *node);
 /* LINKED  LIST */
 char *alloc_strcat(char *s1, char *s2);
 void    ft_destroy_node(t_lexer *node_to_delete);
-void free_lex_list(t_lexer *head);
+
+/* LEXER_UTILS */
+char *c_to_str(char c);
+t_lexer	*new_node(char *str);
+t_lexer *ft_add_back_lex(t_lexer *head, t_lexer *new);
 
 /* LEXER */
 t_lexer	*pre_lexing(char *prompt);
+void	fusion_words(t_lexer *head);
+void	ft_word(t_lexer *head);
 void    big_lexer(t_lexer *head);
 t_lexer *ft_lexer(char *prompt);
+void    single_quote_fusion(t_lexer *head);
+void	ft_supp_simple_quotes(t_lexer * head);
+void	ft_supp_double_quotes(t_lexer * head);
+void    double_quote_fusion(t_lexer *head);
 void	ft_lexer_part_2(t_lexer *lexer, t_env *env);
 void    dollar_lexer(t_lexer *head);
 void	fusion_reste(t_lexer *head);
@@ -140,9 +150,6 @@ int	ft_strcmp(char *s1, char *s2);
 char	*ft_give_val(t_env *env, char *name);
 void	ft_replace_by_litteral(t_lexer *head, t_env *env);
 
-
-/* GET ARG */
-char *ft_argv(t_lexer *head, int i);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* -------------------------------------------------EXECUTION----------------------------------------------- */

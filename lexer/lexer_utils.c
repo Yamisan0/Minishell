@@ -1,17 +1,52 @@
 #include "../includes/minishell.h"
 
-void free_lex_list(t_lexer *head)
+char *c_to_str(char c)
 {
-	t_lexer *current = head;
-	t_lexer *next;
+	char *str;
 
-	while (current != NULL)
+	str = ft_calloc(2, sizeof(char));
+	if (!str)
+		return (NULL);
+	str[0] = c;
+	return (str);
+}
+t_lexer	*new_node(char *str)
+{
+	t_lexer *new;
+
+	new = ft_calloc(1, sizeof(t_lexer));
+	if (!new)
+		return (NULL);
+	if (!str)
 	{
-		next = current->next;
-		free(current->str);
-		free(current);
-		current = next;
+		free(new);
+		return (NULL);
 	}
+	new->str = str;
+	new->next = NULL;
+	new->prev = NULL;
+	return (new);
+}
+
+t_lexer *ft_add_back_lex(t_lexer *head, t_lexer *new)
+{
+	t_lexer *tmp;
+
+	if (!head)
+			return (new);
+	tmp = head;
+	while (tmp->next)
+	{
+		tmp = tmp->next;
+		if (tmp->prev == NULL)
+		{	
+			tmp->prev = head;
+			head = tmp;
+		}
+	}
+	tmp->next = new;
+	new->prev = tmp;
+	return (head);
 }
 
 void    ft_destroy_node(t_lexer *node_to_delete)
@@ -55,33 +90,5 @@ char *alloc_strcat(char *s1, char *s2)
 	}
 	free(s1);
 	free(s2);
-	s2 = NULL;
 	return (str);
 }
-
-void    big_lexer(t_lexer *head)
-{
-	t_lexer *tmp;
-
-	tmp = head;
-	if (!head)
-		return ;
-	while (head->next != NULL)
-	{
-		while (head->next)
-		{
-			if (head->token == head->next->token &&
-					head->token != DOUBLE_QUOTE && head->token != SINGLE_QUOTE
-					 && head->token != DOLLAR)
-			{
-				head->str = alloc_strcat(head->str, head->next->str);
-				ft_destroy_node(head->next);
-				break;
-			}
-			head = head->next;
-		}
-		if (head->next != NULL)
-			head = tmp;
-	}
-}
-
