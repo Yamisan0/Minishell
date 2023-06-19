@@ -178,8 +178,8 @@ void	display_env(char **array);
 
 /* REDIRECTION */
 int open_files(int  indice, char *path, t_exec *ptr);
-void	ft_redir(t_exec *ptr);
-void	ft_open(t_lexer *head, t_exec *ptr);
+int	ft_redir(t_exec *ptr);
+int	ft_open(t_lexer *head, t_exec *ptr);
 /* EXEC */
 char **ft_command(t_lexer *head);
 char	*ft_path(char *command, char **envp);

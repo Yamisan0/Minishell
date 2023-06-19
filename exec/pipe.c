@@ -96,8 +96,9 @@ int 	ft_forking(t_exec *ptr, int i)
 		return (-1);
 	if (!ptr->path || !ptr->full_cmd || !ptr->env)
 		return (-1);
-	// ft_redir(ptr);
+	ft_redir(ptr);
 	execve(ptr->path, ptr->full_cmd, ptr->env);
+	write(2, "SSSS\n", 5);
 	ft_free_all("minishell", ptr);
 	return (1);
 }

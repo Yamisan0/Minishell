@@ -38,9 +38,19 @@ t_lexer *ft_next_redirection(t_lexer *head, t_exec *ptr)
 	tmp = head;
 	while (tmp && tmp->token != PIPE)
 	{
-		if (tmp->token == INFILE || tmp->token == OUTFILE)
+		if (tmp->token == INFILE)
 		{
-			ptr->redirect = tmp->prev->token;
+			ptr->redirect = IN;
+			return (tmp);
+		}
+		if (tmp->token == OUTFILE)
+		{
+			ptr->redirect = OUT;
+			return (tmp);
+		}
+		if (tmp->token == OUTFILE && tmp->prev->token == DOUT)
+		{
+			ptr->redirect = DOUT;
 			return (tmp);
 		}
 		tmp = tmp->next;
@@ -48,31 +58,39 @@ t_lexer *ft_next_redirection(t_lexer *head, t_exec *ptr)
 	return (NULL);
 }
 
-void	ft_open(t_lexer *head, t_exec *ptr)
+int	ft_open(t_lexer *head, t_exec *ptr)
 {
 	int fd;
 	(void)ptr;
+
 	if (!head)
-		return ;
-	// if (head->prev->token == IN)
-	// {
+		return (-1);
+	if (ptr->redirect == IN)
+	{
 		fd = open_files(1, head->str, ptr);
+		if (fd == -1)
+			return (-1);
 		if (dup2(fd, STDIN_FILENO) == -1)
+			perror("minishell");
+	}
+	if (ptr->redirect == OUT)
+	{
+		fd = open_files(2, head->str, ptr);
+		if (fd == -1)
+			return (-1);
+		if (dup2(fd, STDOUT_FILENO) == -1)
 			perror("minishell");	
-	// }
-	// if (ptr->redirect == OUT)
-	// {
-	// 	fd = open_files(2, head->str);
-	// 	if (dup2(fd, STDIN_FILENO) == -1)
-	// 		perror("minishell");	
-	// }
-	// if (ptr->redirect == DOUT)
-	// {
-	// 	fd = open_files(3, head->str);
-	// 	if (dup2(fd, STDIN_FILENO) == -1)
-	// 		perror("minishell");	
-	// }
+	}
+	if (ptr->redirect == DOUT)
+	{
+		fd = open_files(3, head->str, ptr);
+		if (fd == -1)
+			return (-1);
+		if (dup2(fd, STDOUT_FILENO) == -1)
+			perror("minishell");
+	}
 	close (fd);
+	return (1);
 }
 
 int	is_redirection(t_lexer *node)
@@ -87,16 +105,18 @@ int	is_redirection(t_lexer *node)
 	
 }
 
-void	ft_redir(t_exec *ptr)
+int	ft_redir(t_exec *ptr)
 {
-	t_lexer *tmp;
+	t_lexer *tmp = NULL;
 
 	tmp = ft_next_redirection(ptr->tmp, ptr);
-	while (tmp)	
-	{
-		ft_open(tmp, ptr);
-		tmp = ft_next_redirection(tmp->next, ptr);
-	}
+	// while (tmp)
+	// {
+		if (ft_open(tmp, ptr) == -1)
+			return (-1);
+	// 	tmp = ft_next_redirection(tmp->next, ptr);
+	// }
+	return (1);
 }
 
 int	count_in(t_lexer *head)
@@ -114,16 +134,3 @@ int	count_in(t_lexer *head)
 	}
 	return (count);
 }
-
-// int	ft_redirections(t_exec *ptr)
-// {
-// 	t_lexer	*tmp;
-// 	int		fd;
-	
-// 	// tmp = ft_next_redirection(ptr,);
-// 	if (!tmp)
-// 		return (0);
-// 	fd = open_files(1, tmp->next->str);
-// 	dup2(fd, STDIN_FILENO);
-// 	return (1);
-// }
