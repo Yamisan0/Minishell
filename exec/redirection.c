@@ -12,7 +12,7 @@ int open_files(int  indice, char *path, t_exec *ptr)
 	}
 	else if (indice == 2)
 	{
-		fd = open(path, O_WRONLY | O_CREAT, 0666);
+		fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 		if (fd == -1)
 			ft_free_all("minishell", ptr);
 	}
@@ -45,12 +45,7 @@ t_lexer *ft_next_redirection(t_lexer *head, t_exec *ptr)
 		}
 		if (tmp->token == OUTFILE)
 		{
-			ptr->redirect = OUT;
-			return (tmp);
-		}
-		if (tmp->token == OUTFILE && tmp->prev->token == DOUT)
-		{
-			ptr->redirect = DOUT;
+			ptr->redirect = tmp->prev->token;
 			return (tmp);
 		}
 		tmp = tmp->next;
@@ -110,12 +105,16 @@ int	ft_redir(t_exec *ptr)
 	t_lexer *tmp = NULL;
 
 	tmp = ft_next_redirection(ptr->tmp, ptr);
-	// while (tmp)
-	// {
+	if (!tmp)
+		return (1);
+	while (tmp)
+	{
 		if (ft_open(tmp, ptr) == -1)
 			return (-1);
-	// 	tmp = ft_next_redirection(tmp->next, ptr);
-	// }
+		tmp = ft_next_redirection(tmp->next, ptr);
+	// 	if (!tmp)
+	// 		break;
+	}
 	return (1);
 }
 
