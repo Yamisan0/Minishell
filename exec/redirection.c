@@ -1,9 +1,8 @@
 #include "../includes/minishell.h"
 
-int open_files(int  indice, char *path, t_exec *ptr)
+int open_files(int  indice, char *path)
 {
 	int fd;
-	(void)ptr;
 
 	if (indice == 1)
 		fd = open(path, O_RDONLY);
@@ -42,38 +41,50 @@ t_lexer *ft_next_redirection(t_lexer *head, t_exec *ptr)
 	return (NULL);
 }
 
-int	ft_open(t_lexer *head, t_exec *ptr)
+int	ft_open_n_dup(int indice, t_lexer *head, t_exec *ptr)
 {
 	int fd;
 	(void)ptr;
 
+	if (indice == 1)
+	{
+		fd = open_files(1, head->str);
+		if (fd == -1)
+			return (-1);
+		if (dup2(fd, STDIN_FILENO) == -1)
+			return(perror("minishell"), close(fd), -1);
+	}
+	else if (indice > 1)
+	{
+		fd = open_files(indice, head->str);
+		if (fd == -1)
+			return (-1);
+		if (dup2(fd, STDOUT_FILENO) == -1)
+			return(perror("minishell"), close(fd), -1);
+	}
+	close(fd);
+	return (1);
+}
+
+int	ft_open(t_lexer *head, t_exec *ptr)
+{
 	if (!head)
 		return (-1);
 	if (ptr->redirect == IN)
 	{
-		fd = open_files(1, head->str, ptr);
-		if (fd == -1)
+		if (ft_open_n_dup(1, head, ptr) == -1)
 			return (-1);
-		if (dup2(fd, STDIN_FILENO) == -1)
-			perror("minishell");
 	}
 	if (ptr->redirect == OUT)
 	{
-		fd = open_files(2, head->str, ptr);
-		if (fd == -1)
+		if (ft_open_n_dup(2, head, ptr) == -1)
 			return (-1);
-		if (dup2(fd, STDOUT_FILENO) == -1)
-			perror("minishell");	
 	}
 	if (ptr->redirect == DOUT)
 	{
-		fd = open_files(3, head->str, ptr);
-		if (fd == -1)
+		if (ft_open_n_dup(3, head, ptr) == -1)
 			return (-1);
-		if (dup2(fd, STDOUT_FILENO) == -1)
-			perror("minishell");
 	}
-	close (fd);
 	return (1);
 }
 
