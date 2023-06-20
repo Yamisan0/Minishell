@@ -21,6 +21,8 @@ t_mini	*init_mini(t_lexer *head)
 	ptr->nb_pipe = ft_nb_pipe(head);
 	ptr->exec = init_exec(ptr);
 	ptr->exec->data = ptr;
+	ptr->sstdin = dup(STDIN_FILENO);
+	ptr->sstdout = dup(STDOUT_FILENO);
 	return (ptr);
 }
 
@@ -61,9 +63,10 @@ int main(int ac, char **av, char **envp)
 /////////////////////////////////////////////////////////////////
 			minish = init_mini(list);
 			ft_pipex(minish->exec);
+			// free(minish);
 			// if (list)
-			// 	ft_free_parser_lexer(list);
-			exit(0);	
+				// ft_free_parser_lexer(list);
+			// exit(0);	
 		}
 	}
 }

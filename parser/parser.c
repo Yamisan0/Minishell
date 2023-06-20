@@ -11,8 +11,8 @@ int valid_pipe(t_lexer *head)
 		{
 			if (ft_strlen(tmp->str) > 1)
 				return (-1);
-			if ((tmp->prev && is_special_token(tmp->prev))
-				|| (tmp->next && is_special_token(tmp->next)))
+			if ((tmp->prev && tmp->prev->token == PIPE)
+				|| (tmp->next && tmp->next->token == PIPE))
 				return (-1);
 			if (tmp->next == NULL)
 				return (-1);

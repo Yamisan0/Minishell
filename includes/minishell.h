@@ -100,6 +100,8 @@ typedef struct s_minishell
 {
 	t_lexer *args;
 	int		nb_pipe;
+	int		sstdin;
+	int		sstdout;
 	struct	s_exe 	*exec;
 }					t_mini;
 
