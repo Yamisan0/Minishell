@@ -3,25 +3,14 @@
 int open_files(int  indice, char *path, t_exec *ptr)
 {
 	int fd;
+	(void)ptr;
 
 	if (indice == 1)
-	{
 		fd = open(path, O_RDONLY);
-		if (fd == -1)
-			ft_free_all("minishell", ptr);
-	}
 	else if (indice == 2)
-	{
 		fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-		if (fd == -1)
-			ft_free_all("minishell", ptr);
-	}
 	else if (indice == 3)
-	{
 		fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0666);
-		if (fd == -1)
-			ft_free_all("minishell", ptr);
-	}
 	return (fd);
 }
 
@@ -110,7 +99,7 @@ int	ft_redir(t_exec *ptr)
 	while (tmp)
 	{
 		if (ft_open(tmp, ptr) == -1)
-			return (-1);
+			return (perror("minishell"), -1);
 		tmp = ft_next_redirection(tmp->next, ptr);
 	// 	if (!tmp)
 	// 		break;

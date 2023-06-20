@@ -47,18 +47,21 @@ int	set_exec(t_exec *ptr, int i)
 {
 	ptr->tmp = ret_next_pipe(ptr->data->args, i);
 	ptr->full_cmd = ft_command(ptr->tmp);
-	ptr->cmd = ptr->full_cmd[0];
-	ptr->env = create_envp(global_env);
-	ptr->path = ft_path(ptr->cmd, ptr->env);
-	if (!ptr->env || !ptr->full_cmd)
-		return (-1);
-	if (!ptr->path)
+	if (ptr->full_cmd)
 	{
-		write(2, "minishell: ", 11);
-		ft_putstr_fd(ptr->cmd, 2);
-		write(2, ": command not found\n", 20);
-		errno = 127;
-		return (-1);
+		ptr->cmd = ptr->full_cmd[0];
+		ptr->env = create_envp(global_env);
+		ptr->path = ft_path(ptr->cmd, ptr->env);
+		if (!ptr->env || !ptr->full_cmd)
+			return (-1);
+		if (!ptr->path)
+		{
+			write(2, "minishell: ", 11);
+			ft_putstr_fd(ptr->cmd, 2);
+			write(2, ": command not found\n", 20);
+			errno = 127;
+			return (-1);
+		}
 	}
 	return (1);
 }
@@ -90,13 +93,12 @@ int	dup_close_fd_pipe(t_exec *ptr, int i)
 
 int 	ft_forking(t_exec *ptr, int i)
 {
-	if (set_exec(ptr, i) == 0)
-		return (-1);
+	set_exec(ptr, i);
 	if (dup_close_fd_pipe(ptr, i) == -1)
 		return (-1);
-	if (!ptr->path || !ptr->full_cmd || !ptr->env)
-		return (-1);
 	if (ft_redir(ptr) == -1)
+		return (-1);
+	if (!ptr->path || !ptr->full_cmd || !ptr->env)
 		return (-1);
 	execve(ptr->path, ptr->full_cmd, ptr->env);
 	ft_free_all("minishell", ptr);

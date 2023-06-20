@@ -30,6 +30,8 @@ char **ft_command(t_lexer *head)
 			i++;
 		tmp = tmp->next;
 	}
+	if (i == 0)
+		return (NULL);
 	tmp = head;
 	tab = ft_calloc(i + 1, sizeof(char *));
 	if (!tab)
