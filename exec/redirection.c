@@ -103,33 +103,20 @@ int	is_redirection(t_lexer *node)
 int	ft_redir(t_exec *ptr)
 {
 	t_lexer *tmp = NULL;
-
+	int in = dup(0);
+	int out = dup(1);
 	tmp = ft_next_redirection(ptr->tmp, ptr);
 	if (!tmp)
 		return (1);
 	while (tmp)
 	{
 		if (ft_open(tmp, ptr) == -1)
-			return (perror("minishell"), -1);
+			return (dupclosestd(in, out), perror("minishell"), -1);
 		tmp = ft_next_redirection(tmp->next, ptr);
 	// 	if (!tmp)
 	// 		break;
 	}
+	dupclosestd(in, out);
 	return (1);
 }
 
-int	count_in(t_lexer *head)
-{
-	t_lexer *tmp;
-	int		count;
-
-	tmp = head;
-	count = 0;
-	while (tmp && tmp->token != PIPE)
-	{
-		if (tmp->token == IN)
-			count++;
-		tmp = tmp->next;
-	}
-	return (count);
-}
