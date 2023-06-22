@@ -17,10 +17,14 @@ void	ft_free_parser_lexer(t_lexer *pile)
 
 void    ft_free_all(char *msg, t_exec *ptr)
 {
-	ft_free_split(ptr->full_cmd);
-	ft_free_split(ptr->env);
+	dupclosestd(ptr);
+	if (ptr->full_cmd)
+		ft_free_split(ptr->full_cmd);
+	if (ptr->full_cmd)
+		ft_free_split(ptr->env);
 	free(ptr->path);
 	ptr->tmp = NULL;
-	ft_free_parser_lexer(ptr->data->args);
-    perror(msg);
+	// ft_free_parser_lexer(ptr->data->args);
+    if (msg)
+		perror(msg);
 }

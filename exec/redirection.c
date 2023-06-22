@@ -13,12 +13,6 @@ int open_files(int  indice, char *path)
 	return (fd);
 }
 
-void	ft_cpy_std(t_exec *ptr)
-{
-	ptr->sstdin = dup(STDIN_FILENO);
-	ptr->sstdout = dup(STDOUT_FILENO);
-}
-
 
 int	ft_open(t_lexer *head, t_exec *ptr)
 {
@@ -45,20 +39,17 @@ int	ft_open(t_lexer *head, t_exec *ptr)
 int	ft_redir(t_exec *ptr)
 {
 	t_lexer *tmp = NULL;
-	int in = dup(0);
-	int out = dup(1);
+
+	ft_cpy_std(ptr);
 	tmp = ft_next_redirection(ptr->tmp, ptr);
 	if (!tmp)
 		return (1);
 	while (tmp)
 	{
 		if (ft_open(tmp, ptr) == -1)
-			return (dupclosestd(in, out), perror("minishell"), -1);
+			return (-1);
 		tmp = ft_next_redirection(tmp->next, ptr);
-	// 	if (!tmp)
-	// 		break;
 	}
-	dupclosestd(in, out);
 	return (1);
 }
 

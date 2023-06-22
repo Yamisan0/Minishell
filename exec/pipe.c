@@ -85,18 +85,16 @@ int	dup_close_fd_pipe(t_exec *ptr, int i)
 
 int 	ft_forking(t_exec *ptr, int i)
 {
-	int out = dup(1);
-	int	in = dup(0);
+	ft_cpy_std(ptr);
 
 	set_exec(ptr, i);
 	if (dup_close_fd_pipe(ptr, i) == -1)
-		return (-1);
+		return (dupclosestd(ptr), -1);
 	if (ft_redir(ptr) == -1)
-		return (-1);
+		return (dupclosestd(ptr), -1);
 	if (ptr->path && ptr->full_cmd && ptr->env)
 		execve(ptr->path, ptr->full_cmd, ptr->env);
-	dupclosestd(in, out);
-	// ft_free_all("minishell", ptr);
+	ft_free_all(NULL, ptr);
 	return (1);
 }
 

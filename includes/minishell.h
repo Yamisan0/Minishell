@@ -192,8 +192,8 @@ int	count_in(t_lexer *head);
 t_lexer *ft_next_redirection(t_lexer *head, t_exec *ptr);
 int	ft_pipex(t_exec *ptr);
 void    wait_all_pids(t_exec *args);
-
-void	dupclosestd(int in, int out);
+void	ft_cpy_std(t_exec *ptr);
+void	dupclosestd(t_exec *ptr);
 
 /* FREE */
 void    ft_free_parser_lexer(t_lexer *head);

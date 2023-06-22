@@ -47,10 +47,16 @@ int	ft_open_n_dup(int indice, t_lexer *head, t_exec *ptr)
 	return (1);
 }
 
-void	dupclosestd(int in, int out)
+void	ft_cpy_std(t_exec *ptr)
 {
-	dup2(in, STDIN_FILENO);
-	dup2(out, STDOUT_FILENO);
-	close(in);
-	close(out);
+	ptr->sstdin = dup(0);
+	ptr->sstdout = dup(1);
+}
+
+void	dupclosestd(t_exec *ptr)
+{
+    dup2(ptr->sstdin, STDIN_FILENO);
+    dup2(ptr->sstdout, STDOUT_FILENO);
+    close(ptr->sstdin);
+    close(ptr->sstdout);
 }
