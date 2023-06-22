@@ -12,15 +12,6 @@ t_exec  *init_exec(t_mini *ptr)
 	return (exe);
 }
 
-int	dup_close(int fd1, int fd2)
-{
-		if (dup2(fd1, fd2) == -1)
-			return (perror("minishell"), -1);
-		else
-			close(fd1);
-		return (1);
-}
-
 t_lexer	*ret_next_pipe(t_lexer *head, int	i)
 {
 	t_lexer *tmp;
@@ -91,13 +82,6 @@ int	dup_close_fd_pipe(t_exec *ptr, int i)
 	return (1);
 }
 
-void	dupclosestd(int in, int out)
-{
-	dup2(in, STDIN_FILENO);
-	dup2(out, STDOUT_FILENO);
-	close(in);
-	close(out);
-}
 
 int 	ft_forking(t_exec *ptr, int i)
 {
@@ -114,18 +98,6 @@ int 	ft_forking(t_exec *ptr, int i)
 	dupclosestd(in, out);
 	// ft_free_all("minishell", ptr);
 	return (1);
-}
-
-void    wait_all_pids(t_exec *args)
-{
-	int		i;
-
-	i = 0;
-	while (i < (args->data->nb_pipe + 1))
-	{
-		waitpid(args->pid[i], NULL, 0);
-		i++;
-	}
 }
 
 int	ft_pipex(t_exec *ptr)

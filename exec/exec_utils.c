@@ -79,7 +79,17 @@ int count_pipe(t_lexer *head)
 	return (nb_pipe);
 }
 
+void    wait_all_pids(t_exec *args)
+{
+	int		i;
 
+	i = 0;
+	while (i < (args->data->nb_pipe + 1))
+	{
+		waitpid(args->pid[i], NULL, 0);
+		i++;
+	}
+}
 
 //calcule le nombre de pipe
 //x

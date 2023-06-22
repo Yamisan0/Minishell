@@ -181,6 +181,7 @@ void	display_env(char **array);
 /* REDIRECTION */
 int open_files(int  indice, char *path);
 int	ft_redir(t_exec *ptr);
+int	ft_open_n_dup(int indice, t_lexer *head, t_exec *ptr);
 int	ft_open(t_lexer *head, t_exec *ptr);
 /* EXEC */
 char **ft_command(t_lexer *head);
@@ -190,6 +191,7 @@ t_exec  *init_exec(t_mini *ptr);
 int	count_in(t_lexer *head);
 t_lexer *ft_next_redirection(t_lexer *head, t_exec *ptr);
 int	ft_pipex(t_exec *ptr);
+void    wait_all_pids(t_exec *args);
 
 void	dupclosestd(int in, int out);
 

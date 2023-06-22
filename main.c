@@ -64,7 +64,7 @@ int main(int ac, char **av, char **envp)
 			// free(minish);
 			// if (list)
 				// ft_free_parser_lexer(list);
-			exit(0);	
+			// exit(0);	
 		}
 	}
 }
