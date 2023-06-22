@@ -91,17 +91,28 @@ int	dup_close_fd_pipe(t_exec *ptr, int i)
 	return (1);
 }
 
+void	dupclosestd(int in, int out)
+{
+	dup2(in, STDIN_FILENO);
+	dup2(out, STDOUT_FILENO);
+	close(in);
+	close(out);
+}
+
 int 	ft_forking(t_exec *ptr, int i)
 {
+	int out = dup(1);
+	int	in = dup(0);
+
 	set_exec(ptr, i);
 	if (dup_close_fd_pipe(ptr, i) == -1)
 		return (-1);
 	if (ft_redir(ptr) == -1)
 		return (-1);
-	if (!ptr->path || !ptr->full_cmd || !ptr->env)
-		return (-1);
-	execve(ptr->path, ptr->full_cmd, ptr->env);
-	ft_free_all("minishell", ptr);
+	if (ptr->path && ptr->full_cmd && ptr->env)
+		execve(ptr->path, ptr->full_cmd, ptr->env);
+	dupclosestd(in, out);
+	// ft_free_all("minishell", ptr);
 	return (1);
 }
 
