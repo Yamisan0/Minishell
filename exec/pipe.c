@@ -63,38 +63,55 @@ int	dup_close_fd_pipe(t_exec *ptr, int i)
 	if (i == 0 && ptr->data->nb_pipe > 0)
 	{
 		if (dup2(ptr->fd[1], STDOUT_FILENO) == -1)
-			return (ft_free_all("minishell", ptr), -1);
+			return (-1);
 		close(ptr->fd[1]);
 	}
 	else if (i != ptr->data->nb_pipe)
 	{
 		if (dup2(ptr->prev, STDIN_FILENO) == -1)
-			return (ft_free_all("minishell", ptr), 0);
+			return (-1);
 		if (dup2(ptr->fd[1], STDOUT_FILENO) == -1)
-			return (ft_free_all("minishell", ptr), -1);
+			return (-1);
 		close(ptr->fd[1]);
 	}
 	if (i == ptr->data->nb_pipe && i > 0)
 	{
 		if (dup2(ptr->prev, STDIN_FILENO) == -1)
-			return (ft_free_all("minishell", ptr), -1);
+			return (-1);
 	}
 	return (1);
 }
 
-
+void dupg(int in, int out)
+{
+	dup2(in, STDIN_FILENO);
+	dup2(out, STDOUT_FILENO);
+	close(in);
+	close(out);
+}
 int 	ft_forking(t_exec *ptr, int i)
 {
-	ft_cpy_std(ptr);
-
+	int in;
+	int out;
 	set_exec(ptr, i);
+	// if (ptr->path)
+	// {
+		in = dup(0);
+		out = dup(1);
+	// }
+	// if (ptr->path)
+		// ft_cpy_std(ptr);
 	if (dup_close_fd_pipe(ptr, i) == -1)
-		return (dupclosestd(ptr), -1);
+		return (dupg(in, out), -1);
+	printf("%d\n", __LINE__);
 	if (ft_redir(ptr) == -1)
-		return (dupclosestd(ptr), -1);
+		return (dupg(in, out), -1);
 	if (ptr->path && ptr->full_cmd && ptr->env)
 		execve(ptr->path, ptr->full_cmd, ptr->env);
-	ft_free_all(NULL, ptr);
+	printf("%d\n", __LINE__);
+	// dupclosestd(ptr);
+	dupg(in, out);	
+	// ft_free_all(NULL, ptr);
 	return (1);
 }
 

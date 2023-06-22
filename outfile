@@ -1,1 +1,14 @@
-OUTFILEFILEOUTFILE
+built-in
+exec
+idris
+includes
+lexer
+libft
+main.c
+main.o
+Makefile
+minishell
+ou
+out
+outfile
+parser

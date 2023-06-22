@@ -92,6 +92,8 @@ typedef struct	s_exe
 	char	*path;
 	char	**env;
 	t_lexer	*tmp_red;
+	int		actual_out;
+	int		actual_in;
 	t_tokens	redirect;
 	struct	s_minishell *data;
 }				t_exec;

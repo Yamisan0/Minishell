@@ -39,8 +39,7 @@ int	ft_open(t_lexer *head, t_exec *ptr)
 int	ft_redir(t_exec *ptr)
 {
 	t_lexer *tmp = NULL;
-
-	ft_cpy_std(ptr);
+	
 	tmp = ft_next_redirection(ptr->tmp, ptr);
 	if (!tmp)
 		return (1);
