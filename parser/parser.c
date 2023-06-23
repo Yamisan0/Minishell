@@ -52,12 +52,8 @@ void	ft_heredoc_tokens(t_lexer *head)
 	tmp = head;
 	while (tmp)
 	{
-		if (tmp->prev && tmp->token == DIN && tmp->next
-			&& tmp->next->token == WORD)
-		{
-			tmp->prev->token = HEREDOC;
+		if (tmp->token == DIN && tmp->next && tmp->next->token == WORD)
 			tmp->next->token = DELIMITER;
-		}
 		tmp = tmp->next;
 	}
 }
