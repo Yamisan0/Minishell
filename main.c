@@ -40,6 +40,13 @@ t_lexer	*ft_parser_lexer(char *prompt)
 	return (head);
 }
 
+void ft_handler(int i)
+{
+	if (i == SIGQUIT)
+	{
+
+	}
+}
 int main(int ac, char **av, char **envp)
 {
 	char *prompt;
@@ -52,6 +59,7 @@ int main(int ac, char **av, char **envp)
 	{
 			while (42)
 		{
+			signal(SIGQUIT, ft_handler);
 			prompt = readline("minishell>");
 			if (ft_prompt(prompt) == NULL)
 				continue;
@@ -64,7 +72,7 @@ int main(int ac, char **av, char **envp)
 			// free(minish);
 			// if (list)
 				// ft_free_parser_lexer(list);
-			exit(0);	
+			// exit(0);	
 		}
 	}
 }

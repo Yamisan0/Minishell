@@ -70,6 +70,7 @@ int	dup_close_fd_pipe(t_exec *ptr, int i)
 	{
 		if (dup2(ptr->prev, STDIN_FILENO) == -1)
 			return (-1);
+		close(ptr->prev);
 		if (dup2(ptr->fd[1], STDOUT_FILENO) == -1)
 			return (-1);
 		close(ptr->fd[1]);
@@ -78,6 +79,7 @@ int	dup_close_fd_pipe(t_exec *ptr, int i)
 	{
 		if (dup2(ptr->prev, STDIN_FILENO) == -1)
 			return (-1);
+		close(ptr->prev);
 	}
 	return (1);
 }
@@ -93,24 +95,22 @@ int 	ft_forking(t_exec *ptr, int i)
 {
 	int in;
 	int out;
+
 	set_exec(ptr, i);
-	// if (ptr->path)
-	// {
+	if (!ptr->full_cmd)
+	{
 		in = dup(0);
 		out = dup(1);
-	// }
-	// if (ptr->path)
-		// ft_cpy_std(ptr);
+	}
 	if (dup_close_fd_pipe(ptr, i) == -1)
 		return (dupg(in, out), -1);
-	printf("%d\n", __LINE__);
+	// printf("%d\n", __LINE__);
 	if (ft_redir(ptr) == -1)
 		return (dupg(in, out), -1);
 	if (ptr->path && ptr->full_cmd && ptr->env)
 		execve(ptr->path, ptr->full_cmd, ptr->env);
-	printf("%d\n", __LINE__);
-	// dupclosestd(ptr);
-	dupg(in, out);	
+	// printf("%d\n", __LINE__);
+	dupg(in, out);
 	// ft_free_all(NULL, ptr);
 	return (1);
 }

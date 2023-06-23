@@ -17,7 +17,7 @@ void	ft_free_parser_lexer(t_lexer *pile)
 
 void    ft_free_all(char *msg, t_exec *ptr)
 {
-	dupclosestd(ptr);
+	// dupclosestd(ptr);
 	if (ptr->full_cmd)
 		ft_free_split(ptr->full_cmd);
 	if (ptr->full_cmd)
