@@ -42,10 +42,16 @@ t_lexer	*ft_parser_lexer(char *prompt)
 
 void ft_handler(int i)
 {
-	if (i == SIGQUIT)
+	if (i == SIGINT)
 	{
-
+		write(2, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 	}
+	else if (i == SIGQUIT)
+		write(1, "\b\b  \b\b", 6);
+	
 }
 int main(int ac, char **av, char **envp)
 {
@@ -59,6 +65,7 @@ int main(int ac, char **av, char **envp)
 	{
 			while (42)
 		{
+			signal(SIGINT, ft_handler);
 			signal(SIGQUIT, ft_handler);
 			prompt = readline("minishell>");
 			if (ft_prompt(prompt) == NULL)
