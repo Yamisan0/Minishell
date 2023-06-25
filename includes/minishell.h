@@ -198,6 +198,11 @@ void    wait_all_pids(t_exec *args);
 void	ft_cpy_std(t_exec *ptr);
 void	dupclosestd(t_exec *ptr);
 
+
+/* HEREDOC */
+void	ft_write_in_file(char *str_doc, int fd);
+char	*ft_get_heredoc(char *delimiter);
+
 /* FREE */
 void    ft_free_parser_lexer(t_lexer *head);
 void    ft_free_all(char *msg, t_exec *ptr);

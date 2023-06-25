@@ -55,12 +55,14 @@ void ft_handler(int i)
 }
 int main(int ac, char **av, char **envp)
 {
-	char *prompt;
+	// char *prompt;
 	(void)	av;
-	t_lexer *list;
-	t_mini	*minish;
+	(void)ac;
+	(void)envp;
+	// t_lexer *list;
+	// t_mini	*minish;
 	global_env = set_env(envp);
-
+/* 
 	if (ac == 1)
 	{
 			while (42)
@@ -81,5 +83,8 @@ int main(int ac, char **av, char **envp)
 				// ft_free_parser_lexer(list);
 			// exit(0);	
 		}
-	}
+	} */
+	int fd = open("tmp.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	char *str = ft_get_heredoc("delim");
+	ft_write_in_file(str, fd);
 }
