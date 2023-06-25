@@ -14,14 +14,14 @@ void	ft_heredoc(t_lexer *head)
 
 int		write_expand(char *str, int fd)
 {
-	char	var[100];
+	char	var[1000];
 	char	*value;
 	int	i;
 
 	i = 1;
 	if (!str)
 		return (0);
-	if (ft_strlen(str) == 1)
+	if (str[1] == '$' || ft_strlen(str) == 1)
 		return (write(fd, "$", 1), 1);
 	if ( str[1] && str[1] == '?')
 	{
@@ -29,7 +29,7 @@ int		write_expand(char *str, int fd)
 		ft_putstr_fd(value, fd);
 		return (2);
 	}
-	while (str[i] && str[i] != ' ')
+	while (str[i] && str[i] != ' ' && str[i] != '$' && ft_isalnum(str[i]))
 		i++;
 	ft_strlcpy(var, str + 1, i);
 	value = ft_give_val(global_env, var);
