@@ -13,6 +13,7 @@ void	ft_built(char *prompt, char **envp)
 t_mini	*init_mini(t_lexer *head)
 {
 	t_mini	*ptr;
+	char	**heredoc;
 
 	ptr = ft_calloc(1, sizeof(t_mini));
 	if (!ptr)
@@ -21,6 +22,8 @@ t_mini	*init_mini(t_lexer *head)
 	ptr->nb_pipe = ft_nb_pipe(head);
 	ptr->exec = init_exec(ptr);
 	ptr->exec->data = ptr;
+	heredoc = get_heredoc_tab(head);
+	ptr->tab_heredoc = fill_heredoc_tab(heredoc, head);
 	return (ptr);
 }
 
@@ -55,14 +58,14 @@ void ft_handler(int i)
 }
 int main(int ac, char **av, char **envp)
 {
-	// char *prompt;
+	char *prompt;
 	(void)	av;
 	(void)ac;
 	(void)envp;
-	// t_lexer *list;
-	// t_mini	*minish;
+	t_lexer *list;
+	t_mini	*minish;
 	global_env = set_env(envp);
-/* 
+
 	if (ac == 1)
 	{
 			while (42)
@@ -83,8 +86,6 @@ int main(int ac, char **av, char **envp)
 				// ft_free_parser_lexer(list);
 			// exit(0);	
 		}
-	} */
-	int fd = open("tmp.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
-	char *str = ft_get_heredoc("delim");
-	ft_write_in_file(str, fd);
+	}
+	
 }

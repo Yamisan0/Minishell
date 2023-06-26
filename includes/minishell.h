@@ -84,8 +84,6 @@ typedef struct	s_exe
 {
 	pid_t	*pid;
 	int		fd[2];
-	int		sstdin;
-	int		sstdout;
 	pid_t	prev;
 	t_lexer *tmp;
 	char	**full_cmd;
@@ -93,8 +91,6 @@ typedef struct	s_exe
 	char	*path;
 	char	**env;
 	t_lexer	*tmp_red;
-	int		actual_out;
-	int		actual_in;
 	t_tokens	redirect;
 	struct	s_minishell *data;
 }				t_exec;
@@ -103,8 +99,7 @@ typedef struct s_minishell
 {
 	t_lexer *args;
 	int		nb_pipe;
-	int		sstdin;
-	int		sstdout;
+	char	**tab_heredoc;
 	struct	s_exe 	*exec;
 }					t_mini;
 
@@ -202,6 +197,8 @@ void	dupclosestd(t_exec *ptr);
 /* HEREDOC */
 void	ft_write_in_file(char *str_doc, int fd);
 char	*ft_get_heredoc(char *delimiter);
+char	**get_heredoc_tab(t_lexer *head);
+char	**fill_heredoc_tab(char **tab, t_lexer *head);
 
 /* FREE */
 void    ft_free_parser_lexer(t_lexer *head);

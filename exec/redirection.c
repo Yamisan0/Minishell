@@ -10,6 +10,8 @@ int open_files(int  indice, char *path)
 		fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	else if (indice == 3)
 		fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0666);
+	else if (indice == 4)
+		fd = open("tmp.txt", O_RDWR | O_CREAT, 0644);
 	return (fd);
 }
 

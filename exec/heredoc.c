@@ -116,6 +116,8 @@ char	**fill_heredoc_tab(char **tab, t_lexer *head)
 	int	i;
 	t_lexer	*tmp;
 
+	if (!tab)
+		return (NULL);
 	tmp = head;
 	i = 0;
 	while (tmp)
