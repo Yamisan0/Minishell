@@ -53,6 +53,8 @@ char	**get_heredoc_tab(t_lexer *head)
 			i++;
 		tmp = tmp->next;
 	}
+	if (i == 0)
+		return (NULL);
 	tab = ft_calloc(i + 1, sizeof(char *));
 	if (!tab)
 		return (NULL);
@@ -120,7 +122,7 @@ char	**fill_heredoc_tab(char **tab, t_lexer *head)
 		return (NULL);
 	tmp = head;
 	i = 0;
-	while (tmp)
+	while (tmp && tab[i])
 	{
 		if (tmp->token == DELIMITER)
 		{

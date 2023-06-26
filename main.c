@@ -81,6 +81,7 @@ int main(int ac, char **av, char **envp)
 /////////////////////////////////////////////////////////////////
 			minish = init_mini(list);
 			ft_pipex(minish->exec);
+			unlink("tmp.txt");
 			// free(minish);
 			// if (list)
 				// ft_free_parser_lexer(list);
