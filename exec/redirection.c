@@ -54,11 +54,11 @@ int	ft_open(t_lexer *head, t_exec *ptr)
 		if (ft_open_n_dup(3, head, ptr) == -1)
 			return (-1);
 	}
-	// if (ptr->redirect == HEREDOC)
-	// {
-	// 	if (ft_open_dup_heredoc(head, ptr) == -1)
-	// 		return (-1);
-	// }
+	if (ptr->redirect == HEREDOC)
+	{
+		if (ft_open_dup_heredoc(head, ptr) == -1)
+			return (-1);
+	}
 	return (1);
 }
 

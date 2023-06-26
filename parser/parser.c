@@ -54,7 +54,7 @@ void	ft_heredoc_tokens(t_lexer *head)
 	tmp = head;
 	while (tmp)
 	{
-		if (tmp->token == DIN && tmp->next && tmp->next->token == INFILE)
+		if (tmp->token == DIN && tmp->next)
 		{
 			tmp->next->token = DELIMITER;
 			tmp->next->index_heredoc = i;

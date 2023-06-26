@@ -122,7 +122,7 @@ char	**fill_heredoc_tab(char **tab, t_lexer *head)
 		return (NULL);
 	tmp = head;
 	i = 0;
-	while (tmp && tab[i])
+	while (tmp)
 	{
 		if (tmp->token == DELIMITER)
 		{
