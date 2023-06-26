@@ -44,6 +44,9 @@ void	ft_set_infile_outfile(t_lexer *head)
 		if (tmp->token == IN)
 			if (tmp->next && tmp->next->token == WORD)
 				tmp->next->token = INFILE;
+		if (tmp->token == DIN)
+			if (tmp->next && tmp->next->token == WORD)
+				tmp->next->token = DELIMITER;
 		tmp = tmp->next;
 	}
 }

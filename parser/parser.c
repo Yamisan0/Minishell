@@ -54,7 +54,7 @@ void	ft_heredoc_tokens(t_lexer *head)
 	tmp = head;
 	while (tmp)
 	{
-		if (tmp->token == DIN && tmp->next)
+		if (tmp->token == DIN && tmp->next && tmp->next->token == WORD)
 		{
 			tmp->next->token = DELIMITER;
 			tmp->next->index_heredoc = i;
@@ -73,7 +73,7 @@ int ft_parser(t_lexer *head)
 		return (-1);
 	set_redirection_type(head);
 	ft_set_infile_outfile(head);
-	ft_heredoc_tokens(head);
+	// ft_heredoc_tokens(head);
 	return (1);
 }
 

@@ -44,17 +44,17 @@ int	ft_open(t_lexer *head, t_exec *ptr)
 		if (ft_open_n_dup(1, head, ptr) == -1)
 			return (-1);
 	}
-	if (ptr->redirect == OUT)
+	else if (ptr->redirect == OUT)
 	{
 		if (ft_open_n_dup(2, head, ptr) == -1)
 			return (-1);
 	}
-	if (ptr->redirect == DOUT)
+	else if (ptr->redirect == DOUT)
 	{
 		if (ft_open_n_dup(3, head, ptr) == -1)
 			return (-1);
 	}
-	if (ptr->redirect == HEREDOC)
+	else if (ptr->redirect == HEREDOC)
 	{
 		if (ft_open_dup_heredoc(head, ptr) == -1)
 			return (-1);
