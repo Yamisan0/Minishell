@@ -7,6 +7,11 @@ t_lexer *ft_next_redirection(t_lexer *head, t_exec *ptr)
 	tmp = head;
 	while (tmp && tmp->token != PIPE)
 	{
+		if (tmp->token == DELIMITER)
+		{
+			ptr->redirect = HEREDOC;
+			return (tmp);
+		}
 		if (tmp->token == INFILE)
 		{
 			ptr->redirect = IN;

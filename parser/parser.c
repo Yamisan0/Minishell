@@ -48,15 +48,22 @@ int valid_simple_redirection(t_lexer *head)
 void	ft_heredoc_tokens(t_lexer *head)
 {
 	t_lexer *tmp;
+	int		i;
 
+	i = 0;
 	tmp = head;
 	while (tmp)
 	{
 		if (tmp->token == DIN && tmp->next && tmp->next->token == INFILE)
+		{
 			tmp->next->token = DELIMITER;
+			tmp->index_heredoc = i;
+			i++;
+		}
 		tmp = tmp->next;
 	}
 }
+
 
 int ft_parser(t_lexer *head)
 {

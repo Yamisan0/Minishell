@@ -76,6 +76,7 @@ typedef struct s_lexer
 	t_state		state;
 	t_dollar	dollar;
 	t_fds		redirection;
+	int			index_heredoc;
 	struct s_lexer  *next;
 	struct s_lexer  *prev;
 }                   t_lexer;

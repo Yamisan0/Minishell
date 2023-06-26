@@ -104,12 +104,10 @@ int 	ft_forking(t_exec *ptr, int i)
 	}
 	if (dup_close_fd_pipe(ptr, i) == -1)
 		return (dupg(in, out), -1);
-	// printf("%d\n", __LINE__);
 	if (ft_redir(ptr) == -1)
 		return (dupg(in, out), -1);
 	if (ptr->path && ptr->full_cmd && ptr->env)
 		execve(ptr->path, ptr->full_cmd, ptr->env);
-	// printf("%d\n", __LINE__);
 	dupg(in, out);
 	// ft_free_all(NULL, ptr);
 	return (1);

@@ -11,16 +11,34 @@ int open_files(int  indice, char *path)
 	else if (indice == 3)
 		fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	else if (indice == 4)
-		fd = open("tmp.txt", O_RDWR | O_CREAT, 0644);
+		fd = open("tmp.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	return (fd);
 }
 
+int	ft_open_dup_heredoc(t_lexer *head, t_exec *ptr)
+{
+	int	fd;
+
+	fd = open_files(4, "");
+	if ( fd == -1)
+		return (-1);
+	ft_putstr_fd(ptr->data->tab_heredoc[head->index_heredoc + 1], fd);
+	if (dup2(fd, STDIN_FILENO) == -1)
+		return (-1);
+	close(fd);
+	return (1);
+}
 
 int	ft_open(t_lexer *head, t_exec *ptr)
 {
 	if (!head)
 		return (-1);
-	if (ptr->redirect == IN)
+	if (head->token == DELIMITER)
+	{
+		if (ft_open_dup_heredoc(head, ptr) == -1)
+			return (-1);
+	}
+	else if (ptr->redirect == IN)
 	{
 		if (ft_open_n_dup(1, head, ptr) == -1)
 			return (-1);
