@@ -39,6 +39,27 @@ int		write_expand(char *str, int fd)
 	return (i);
 }
 
+char	**get_heredoc_tab(t_lexer *head)
+{
+	t_lexer	*tmp;
+	int		i;
+	char	**tab;
+
+	i = 0;
+	tmp = head;
+	while (tmp)
+	{
+		if (tmp->token == DELIMITER)
+			i++;
+		tmp = tmp->next;
+	}
+	tab = ft_calloc(i + 1, sizeof(char *));
+	if (!tab)
+		return (NULL);
+	return (tab);
+}
+
+
 void	ft_write_in_file(char *str_doc, int fd)
 {
 	char	**tab;
@@ -88,4 +109,23 @@ char	*ft_get_heredoc(char *delimiter)
 		free(prompt);
 	}
 	return (heredoc);
+}
+
+char	**fill_heredoc_tab(char **tab, t_lexer *head)
+{
+	int	i;
+	t_lexer	*tmp;
+
+	tmp = head;
+	i = 0;
+	while (tmp)
+	{
+		if (tmp->token == DELIMITER)
+		{
+			tab[i] = ft_get_heredoc(tmp->str);
+			i++;
+		}
+		tmp = tmp->next;
+	}
+	return (tab);
 }
