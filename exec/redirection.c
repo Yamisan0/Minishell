@@ -21,10 +21,10 @@ int	ft_open_dup_heredoc(t_lexer *head, t_exec *ptr)
 
 	fd = open_files(4, "");
 	if ( fd == -1)
-		return (-1);
-	ft_putstr_fd(ptr->data->tab_heredoc[head->index_heredoc + 1], fd);
+		return (perror("minishell"), -1);
+	ft_write_in_file(ptr->data->tab_heredoc[head->index_heredoc], fd);
 	if (dup2(fd, STDIN_FILENO) == -1)
-		return (-1);
+		return (perror("minishell"), close(fd), -1);
 	close(fd);
 	return (1);
 }
@@ -33,12 +33,12 @@ int	ft_open(t_lexer *head, t_exec *ptr)
 {
 	if (!head)
 		return (-1);
-	if (head->token == DELIMITER)
+	if (ptr->redirect == HEREDOC)
 	{
 		if (ft_open_dup_heredoc(head, ptr) == -1)
 			return (-1);
 	}
-	else if (ptr->redirect == IN)
+	if (ptr->redirect == IN)
 	{
 		if (ft_open_n_dup(1, head, ptr) == -1)
 			return (-1);
