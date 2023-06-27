@@ -28,3 +28,9 @@ void    ft_free_all(char *msg, t_exec *ptr)
     if (msg)
 		perror(msg);
 }
+
+
+void	ft_free_all_exit(void)
+{
+	exit(0);
+}

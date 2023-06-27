@@ -97,7 +97,7 @@ int 	ft_forking(t_exec *ptr, int i)
 	int out;
 
 	set_exec(ptr, i);
-	if (!ptr->full_cmd)
+	if (!ptr->full_cmd || !ptr->cmd)
 	{
 		in = dup(0);
 		out = dup(1);
@@ -106,6 +106,7 @@ int 	ft_forking(t_exec *ptr, int i)
 		return (dupg(in, out), -1);
 	if (ft_redir(ptr) == -1)
 		return (dupg(in, out), -1);
+	
 	if (ptr->path && ptr->full_cmd && ptr->env)
 		execve(ptr->path, ptr->full_cmd, ptr->env);
 	dupg(in, out);

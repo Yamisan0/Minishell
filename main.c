@@ -54,7 +54,11 @@ void ft_handler(int i)
 	}
 	else if (i == SIGQUIT)
 		write(1, "\b\b  \b\b", 6);
-	
+	else if (i == SIGKILL)
+	{
+
+	}
+		// ft_free_all_exit();
 }
 int main(int ac, char **av, char **envp)
 {
@@ -70,8 +74,10 @@ int main(int ac, char **av, char **envp)
 	{
 			while (42)
 		{
+			
 			signal(SIGINT, ft_handler);
 			signal(SIGQUIT, ft_handler);
+			signal(SIGKILL, ft_handler);
 			prompt = readline("minishell>");
 			if (ft_prompt(prompt) == NULL)
 				continue;

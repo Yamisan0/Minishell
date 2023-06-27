@@ -42,7 +42,7 @@ int	ft_open(t_lexer *head, t_exec *ptr)
 	if (ptr->redirect == IN)
 	{
 		if (ft_open_n_dup(1, head, ptr) == -1)
-			return (-1);
+			return (perror("minishell"), -1);
 	}
 	else if (ptr->redirect == OUT)
 	{

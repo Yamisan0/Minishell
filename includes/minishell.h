@@ -204,5 +204,6 @@ char	**fill_heredoc_tab(char **tab, t_lexer *head);
 /* FREE */
 void    ft_free_parser_lexer(t_lexer *head);
 void    ft_free_all(char *msg, t_exec *ptr);
+void	ft_free_all_exit(void);
 
 #endif
