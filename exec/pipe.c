@@ -107,7 +107,8 @@ int 	ft_forking(t_exec *ptr, int i)
 	if (ft_redir(ptr) == -1)
 		return (dupg(in, out), -1);
 	
-	if (ptr->path && ptr->full_cmd && ptr->env)
+
+	if (ft_built_in(ptr->full_cmd) == -1 && ptr->path && ptr->full_cmd && ptr->env)
 		execve(ptr->path, ptr->full_cmd, ptr->env);
 	dupg(in, out);
 	// ft_free_all(NULL, ptr);

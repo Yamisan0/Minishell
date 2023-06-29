@@ -206,4 +206,8 @@ void    ft_free_parser_lexer(t_lexer *head);
 void    ft_free_all(char *msg, t_exec *ptr);
 void	ft_free_all_exit(void);
 
+/* BUILT-IN */
+void    ft_echo(char **args);
+int	ft_check_builtin(char **argv);
+int	ft_built_in(char **argv);
 #endif

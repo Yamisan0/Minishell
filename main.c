@@ -1,14 +1,6 @@
 #include "includes/minishell.h"
 struct s_env *global_env=NULL;
 
-void	ft_built(char *prompt, char **envp)
-{
-			if (ft_strnstr(prompt, "env", 100))
-				ft_print_env(set_env(envp));
-			if (ft_strnstr(prompt, "pwd", 100))
-				ft_pwd();
-}
-
 
 t_mini	*init_mini(t_lexer *head)
 {
@@ -47,9 +39,9 @@ void ft_handler(int i)
 {
 	if (i == SIGINT)
 	{
-		write(2, "\n", 1);
-		rl_replace_line("", 0);
+		write(1, "\n", 1);
 		rl_on_new_line();
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 	else if (i == SIGQUIT)
