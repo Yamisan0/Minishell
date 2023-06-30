@@ -6,6 +6,16 @@ int	ft_check_builtin(char **argv)
 		return (1);
 	if (ft_strcmp(argv[0], "env"))
 		return (1);
+	if (ft_strcmp(argv[0], "cd"))
+		return (1);
+	if (ft_strcmp(argv[0], "unset"))
+		return (1);
+	if (ft_strcmp(argv[0], "export"))
+		return (1);
+	if (ft_strcmp(argv[0], "pwd"))
+		return (1);
+	if (ft_strcmp(argv[0], "exit"))
+		return (1);
 	return (-1);
 }
 

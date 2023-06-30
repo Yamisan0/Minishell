@@ -45,7 +45,7 @@ int	set_exec(t_exec *ptr, int i)
 		ptr->path = ft_path(ptr->cmd, ptr->env);
 		if (!ptr->env || !ptr->full_cmd)
 			return (-1);
-		if (!ptr->path)
+		if (ft_check_builtin(ptr->full_cmd) == -1 && !ptr->path)
 		{
 			write(2, "minishell: ", 11);
 			ft_putstr_fd(ptr->cmd, 2);
