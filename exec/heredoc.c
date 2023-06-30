@@ -14,7 +14,7 @@ void	ft_heredoc(t_lexer *head)
 
 int		write_expand(char *str, int fd)
 {
-	char	var[1000];
+	char	var[10000];
 	char	*value;
 	int	i;
 
