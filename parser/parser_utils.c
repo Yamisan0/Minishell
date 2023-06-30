@@ -50,12 +50,12 @@ char		*ft_prompt(char *prompt)
 {
 	char *prompt_without_spaces;
 
-	if (prompt && *prompt)
+	if (prompt && prompt[0])
 		add_history(prompt);
-	if (!(*prompt))
-		return (free(prompt), NULL);
-	// if (!prompt)
-	// 	return (exit(-1), NULL);
+	// if (!(*prompt))
+	// 	return (free(prompt), NULL);
+	if (!prompt)
+		return (ft_free_all_exit(), NULL);
 	prompt_without_spaces = pars_prompt(prompt);
 	if (ft_strlen(prompt_without_spaces) == 0)
 		return (free(prompt), NULL);

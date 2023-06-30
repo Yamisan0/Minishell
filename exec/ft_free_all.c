@@ -32,5 +32,6 @@ void    ft_free_all(char *msg, t_exec *ptr)
 
 void	ft_free_all_exit(void)
 {
+	printf("\nexit\n");
 	exit(0);
 }
