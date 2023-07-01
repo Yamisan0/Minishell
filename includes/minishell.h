@@ -12,6 +12,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <signal.h>
 
 extern struct s_env *global_env;
@@ -101,6 +102,7 @@ typedef struct s_minishell
 	t_lexer *args;
 	int		nb_pipe;
 	char	**tab_heredoc;
+	int		code_error;
 	struct	s_exe 	*exec;
 }					t_mini;
 
@@ -208,6 +210,7 @@ void	ft_free_all_exit(void);
 
 /* BUILT-IN */
 void    ft_echo(char **args);
+int	ft_cd(char **str);
 int	ft_check_builtin(char **argv);
 int	ft_built_in(char **argv);
 #endif
