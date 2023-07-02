@@ -103,6 +103,7 @@ typedef struct s_minishell
 	int		nb_pipe;
 	char	**tab_heredoc;
 	int		code_error;
+	int		nb_here;
 	struct	s_exe 	*exec;
 }					t_mini;
 

@@ -72,8 +72,10 @@ int main(int ac, char **av, char **envp)
 				continue;
 			minish = init_mini(list);
 			ft_pipex(minish->exec);
+			if (minish->tab_heredoc)
+				free(minish->tab_heredoc);
 			free(minish);
-			unlink("tmp.txt");
+			// unlink("tmp.txt");
 		}
 	}
 	

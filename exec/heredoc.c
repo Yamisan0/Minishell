@@ -1,17 +1,5 @@
 #include "../includes/minishell.h"
 
-
-void	ft_heredoc(t_lexer *head)
-{
-	t_lexer *tmp;
-
-	tmp = head;
-	while (tmp)
-	{
-		tmp = tmp->next;
-	}
-}
-
 int		write_expand(char *str, int fd)
 {
 	char	var[10000];
@@ -50,7 +38,10 @@ char	**get_heredoc_tab(t_lexer *head)
 	while (tmp)
 	{
 		if (tmp->token == DELIMITER)
+		{
+			tmp->index_heredoc = i;
 			i++;
+		}
 		tmp = tmp->next;
 	}
 	if (i == 0)
