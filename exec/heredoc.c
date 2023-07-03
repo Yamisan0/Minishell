@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-int		write_expand(char *str, int fd)
+int		write_expand(char *str, int fd, t_env *env)
 {
 	char	var[10000];
 	char	*value;
@@ -20,7 +20,7 @@ int		write_expand(char *str, int fd)
 	while (str[i] && str[i] != ' ' && str[i] != '$' && ft_isalnum(str[i]))
 		i++;
 	ft_strlcpy(var, str + 1, i);
-	value = ft_give_val(global_env, var);
+	value = ft_give_val(env, var);
 	if (!value)
 		return (i);
 	ft_putstr_fd(value, fd);
@@ -53,7 +53,7 @@ char	**get_heredoc_tab(t_lexer *head)
 }
 
 
-void	ft_write_in_file(char *str_doc, int fd)
+void	ft_write_in_file(char *str_doc, int fd, t_env *env)
 {
 	char	**tab;
 	int		i;
@@ -70,7 +70,7 @@ void	ft_write_in_file(char *str_doc, int fd)
 		{
 			if (tab[i][j] == '$')
 			{
-				j =  j + write_expand(tab[i] + j, fd);
+				j =  j + write_expand(tab[i] + j, fd, env);
 				continue;
 			}
 			write(fd, &tab[i][j], 1);

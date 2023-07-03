@@ -1,8 +1,7 @@
 #include "includes/minishell.h"
-struct s_env *global_env=NULL;
 int	exit_code = 0;
 
-t_mini	*init_mini(t_lexer *head)
+t_mini	*init_mini(t_lexer *head, t_env *env)
 {
 	t_mini	*ptr;
 	char	**heredoc;
@@ -14,13 +13,14 @@ t_mini	*init_mini(t_lexer *head)
 	ptr->nb_pipe = ft_nb_pipe(head);
 	ptr->exec = init_exec(ptr);
 	ptr->exec->data = ptr;
+	ptr->env = env;
 	heredoc = get_heredoc_tab(head);
 	ptr->tab_heredoc = fill_heredoc_tab(heredoc, head);
 	return (ptr);
 }
 
 
-t_lexer	*ft_parser_lexer(char *prompt)
+t_lexer	*ft_parser_lexer(char *prompt, t_env *env)
 {
 	t_lexer	*head;
 
@@ -29,7 +29,7 @@ t_lexer	*ft_parser_lexer(char *prompt)
 		return (NULL);
 	if (quote_pars(head) == 0)
 		return (free(prompt), ft_free_parser_lexer(head), NULL);
-	ft_lexer_part_2(head, global_env);
+	ft_lexer_part_2(head, env);
 	if (ft_parser(head) == -1)
 		return (free(prompt), ft_free_parser_lexer(head), NULL);
 	return (head);
@@ -55,7 +55,7 @@ int main(int ac, char **av, char **envp)
 	(void)ac;
 	t_lexer *list;
 	t_mini	*minish;
-	global_env = set_env(envp);
+	t_env *minishell_env = set_env(envp);
 
 	if (ac == 1)
 	{
@@ -66,16 +66,15 @@ int main(int ac, char **av, char **envp)
 			prompt = readline("minishell>");
 			if (ft_prompt(prompt) == NULL)
 				continue;
-			list = ft_parser_lexer(ft_prompt(prompt));
+			list = ft_parser_lexer(ft_prompt(prompt), minishell_env);
 			exit_code = 0;
 			if (!list)
 				continue;
-			minish = init_mini(list);
+			minish = init_mini(list, minishell_env);
 			ft_pipex(minish->exec);
 			if (minish->tab_heredoc)
 				free(minish->tab_heredoc);
 			free(minish);
-			
 			unlink("tmp.txt");
 		}
 	}

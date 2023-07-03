@@ -19,12 +19,12 @@ int	ft_check_builtin(char **argv)
 	return (-1);
 }
 
-int	ft_built_in(char **argv)
+int	ft_built_in(char **argv, t_env *env)
 {
 	if (ft_strcmp(argv[0], "echo") == 0)
 		return (ft_echo(argv), 1);
 	if (ft_strcmp(argv[0], "env") == 0)
-		return (ft_print_env(global_env), 1);
+		return (ft_print_env(env), 1);
 	if (ft_strcmp(argv[0], "cd") == 0)
 		return (ft_cd(argv + 1), 1);
 	if (ft_strcmp(argv[0], "pwd") == 0)

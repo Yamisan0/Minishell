@@ -15,7 +15,6 @@
 #include <sys/stat.h>
 #include <signal.h>
 
-extern struct s_env *global_env;
 extern int			exit_code;
 
 typedef struct s_env
@@ -104,6 +103,7 @@ typedef struct s_minishell
 	char	**tab_heredoc;
 	int		code_error;
 	int		nb_here;
+	struct	s_env *env;
 	struct	s_exe 	*exec;
 }					t_mini;
 
@@ -126,11 +126,12 @@ t_lexer	*pre_lexing(char *prompt);
 void	fusion_words(t_lexer *head);
 void	ft_word(t_lexer *head);
 void    big_lexer(t_lexer *head);
-t_lexer *ft_lexer(char *prompt);
+t_lexer	*ft_parser_lexer(char *prompt, t_env *env);
 void    single_quote_fusion(t_lexer *head);
 void	ft_supp_simple_quotes(t_lexer * head);
 void	ft_supp_double_quotes(t_lexer * head);
 void    double_quote_fusion(t_lexer *head);
+t_lexer *ft_lexer(char *prompt);
 void	ft_lexer_part_2(t_lexer *lexer, t_env *env);
 void    dollar_lexer(t_lexer *head);
 void	fusion_reste(t_lexer *head);
@@ -199,7 +200,7 @@ void	dupclosestd(t_exec *ptr);
 
 
 /* HEREDOC */
-void	ft_write_in_file(char *str_doc, int fd);
+void	ft_write_in_file(char *str_doc, int fd, t_env *env);
 char	*ft_get_heredoc(char *delimiter);
 char	**get_heredoc_tab(t_lexer *head);
 char	**fill_heredoc_tab(char **tab, t_lexer *head);
@@ -213,5 +214,5 @@ void	ft_free_all_exit(void);
 void    ft_echo(char **args);
 int	ft_cd(char **str);
 int	ft_check_builtin(char **argv);
-int	ft_built_in(char **argv);
+int	ft_built_in(char **argv, t_env *env);
 #endif

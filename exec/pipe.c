@@ -34,17 +34,17 @@ t_lexer	*ret_next_pipe(t_lexer *head, int	i)
 	return (NULL);
 }
 
-int	set_exec(t_exec *ptr, int i)
+int	set_exec(t_exec *ptr, int i, t_env *env)
 {
 	ptr->tmp = ret_next_pipe(ptr->data->args, i);
 	ptr->full_cmd = ft_command(ptr->tmp);
 	if (ptr->full_cmd)
 	{
 		ptr->cmd = ptr->full_cmd[0];
-		ptr->env = create_envp(global_env);
+		ptr->env = create_envp(env);
 		ptr->path = ft_path(ptr->cmd, ptr->env);
-		if (!ptr->env || !ptr->full_cmd)
-			return (-1);
+		// if (!ptr->env || !ptr->full_cmd)
+		// 	return (-1);
 		if (ft_check_builtin(ptr->full_cmd) == -1 && !ptr->path)
 		{
 			write(2, "minishell: ", 11);
@@ -91,12 +91,14 @@ void dupg(int in, int out)
 	close(in);
 	close(out);
 }
-int 	ft_forking(t_exec *ptr, int i)
+int 	ft_forking(t_exec *ptr, int i, t_env *env)
 {
 	int in;
 	int out;
+	int	builtin;
 
-	set_exec(ptr, i);
+	if (set_exec(ptr, i, env) == -1)
+		return (-1);
 	if (!ptr->full_cmd || !ptr->cmd)
 	{
 		in = dup(0);
@@ -106,11 +108,10 @@ int 	ft_forking(t_exec *ptr, int i)
 		return (dupg(in, out), exit_code = errno, -1);
 	if (ft_redir(ptr) == -1)
 		return (dupg(in, out), exit_code = errno, -1);
-	
-
-	if (ft_built_in(ptr->full_cmd) == -1 && ptr->path && ptr->full_cmd && ptr->env)
+	builtin = ft_built_in(ptr->full_cmd, env);
+	exit_code = 0;
+	if ( builtin == -1 && ptr->path && ptr->full_cmd && ptr->env)
 		execve(ptr->path, ptr->full_cmd, ptr->env);
-	exit_code = errno;
 	dupg(in, out);
 	// ft_free_all(NULL, ptr);
 	return (1);
@@ -127,7 +128,7 @@ int	ft_pipex(t_exec *ptr)
 		ptr->pid[i] = fork();
 		if (ptr->pid[i] == 0)
 		{
-			if (ft_forking(ptr, i) == -1)
+			if (ft_forking(ptr, i, ptr->data->env) == -1)
 				return (free(ptr->pid), -1);
 		}
 		else if (ptr->pid[i] > 0)
