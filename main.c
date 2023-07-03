@@ -1,6 +1,6 @@
 #include "includes/minishell.h"
 struct s_env *global_env=NULL;
-
+int	exit_code = 0;
 
 t_mini	*init_mini(t_lexer *head)
 {
@@ -63,11 +63,11 @@ int main(int ac, char **av, char **envp)
 			signal(SIGQUIT, ft_handler);
 			while (42)
 		{
-			
 			prompt = readline("minishell>");
 			if (ft_prompt(prompt) == NULL)
 				continue;
 			list = ft_parser_lexer(ft_prompt(prompt));
+			exit_code = 0;
 			if (!list)
 				continue;
 			minish = init_mini(list);
@@ -75,7 +75,8 @@ int main(int ac, char **av, char **envp)
 			if (minish->tab_heredoc)
 				free(minish->tab_heredoc);
 			free(minish);
-			// unlink("tmp.txt");
+			
+			unlink("tmp.txt");
 		}
 	}
 	

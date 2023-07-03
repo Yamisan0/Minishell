@@ -16,7 +16,7 @@
 #include <signal.h>
 
 extern struct s_env *global_env;
-
+extern int			exit_code;
 
 typedef struct s_env
 {

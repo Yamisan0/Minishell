@@ -38,7 +38,7 @@ void	ft_replace_by_litteral(t_lexer *head, t_env *env)
 		else if (tmp->token == DOLLAR && tmp->dollar == COMPLEX && tmp->str[1] == '?')
 		{
 			stock = tmp->str;
-			tmp->str = ft_itoa(errno);
+			tmp->str = ft_itoa(exit_code);
 			free(stock);
 		}
 		tmp = tmp->next;

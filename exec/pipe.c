@@ -50,7 +50,7 @@ int	set_exec(t_exec *ptr, int i)
 			write(2, "minishell: ", 11);
 			ft_putstr_fd(ptr->cmd, 2);
 			write(2, ": command not found\n", 20);
-			errno = 127;
+			exit_code = 127;
 			return (-1);
 		}
 	}
@@ -103,13 +103,14 @@ int 	ft_forking(t_exec *ptr, int i)
 		out = dup(1);
 	}
 	if (dup_close_fd_pipe(ptr, i) == -1)
-		return (dupg(in, out), -1);
+		return (dupg(in, out), exit_code = errno, -1);
 	if (ft_redir(ptr) == -1)
-		return (dupg(in, out), -1);
+		return (dupg(in, out), exit_code = errno, -1);
 	
 
 	if (ft_built_in(ptr->full_cmd) == -1 && ptr->path && ptr->full_cmd && ptr->env)
 		execve(ptr->path, ptr->full_cmd, ptr->env);
+	exit_code = errno;
 	dupg(in, out);
 	// ft_free_all(NULL, ptr);
 	return (1);
