@@ -93,27 +93,30 @@ void dupg(int in, int out)
 }
 int 	ft_forking(t_exec *ptr, int i, t_env *env)
 {
-	int in;
-	int out;
+	int in = -1;
+	int out = -1;
 	int	builtin;
 
 	if (set_exec(ptr, i, env) == -1)
 		return (-1);
-	if (!ptr->full_cmd || !ptr->cmd)
-	{
-		in = dup(0);
-		out = dup(1);
-	}
+	// if (!ptr->full_cmd || !ptr->cmd)
+	// {
+	// 	in = dup(0);
+	// 	out = dup(1);
+	// }
 	if (dup_close_fd_pipe(ptr, i) == -1)
-		return (dupg(in, out), exit_code = errno, -1);
+		return (exit_code = errno, -1);
 	if (ft_redir(ptr) == -1)
-		return (dupg(in, out), exit_code = errno, -1);
+		return (exit_code = errno, -1);
 	builtin = ft_built_in(ptr->full_cmd, env);
 	exit_code = 0;
 	if ( builtin == -1 && ptr->path && ptr->full_cmd && ptr->env)
 		execve(ptr->path, ptr->full_cmd, ptr->env);
+	// if (in != -1 && out != -1)
 	dupg(in, out);
-	// ft_free_all(NULL, ptr);
+	ft_free_all(NULL, ptr);
+	
+	// exit(0);
 	return (1);
 }
 
@@ -140,6 +143,8 @@ int	ft_pipex(t_exec *ptr)
 		}
 		i++;
 	}
+	dprintf(2, "prev FD [%d\n]", ptr->prev);
+	close(ptr->prev);
 	wait_all_pids(ptr);
 	free(ptr->pid);
 	return (1);
