@@ -93,8 +93,8 @@ void dupg(int in, int out)
 }
 int 	ft_forking(t_exec *ptr, int i, t_env *env)
 {
-	int in = -1;
-	int out = -1;
+	// int in = -1;
+	// int out = -1;
 	int	builtin;
 
 	if (set_exec(ptr, i, env) == -1)
@@ -113,7 +113,7 @@ int 	ft_forking(t_exec *ptr, int i, t_env *env)
 	if ( builtin == -1 && ptr->path && ptr->full_cmd && ptr->env)
 		execve(ptr->path, ptr->full_cmd, ptr->env);
 	// if (in != -1 && out != -1)
-	// dupg(in, out);
+	// 	dupg(in, out);
 	ft_free_all(NULL, ptr);
 	
 	exit(0);
@@ -137,7 +137,7 @@ int	ft_pipex(t_exec *ptr)
 				close(ptr->fd[0]);
 			}
 			if (ft_forking(ptr, i, ptr->data->env) == -1)
-				return (free(ptr->pid), -1);
+				return (free(ptr->pid),exit(0), -1);
 		}
 		else if (ptr->pid[i] > 0)
 		{
