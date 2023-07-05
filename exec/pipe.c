@@ -99,7 +99,7 @@ int 	ft_forking(t_exec *ptr, int i, t_env *env)
 
 	if (set_exec(ptr, i, env) == -1)
 		return (-1);
-	// if (!ptr->full_cmd || !ptr->cmd)
+	// if (!ptr->full_cmd)
 	// {
 	// 	in = dup(0);
 	// 	out = dup(1);
@@ -113,10 +113,10 @@ int 	ft_forking(t_exec *ptr, int i, t_env *env)
 	if ( builtin == -1 && ptr->path && ptr->full_cmd && ptr->env)
 		execve(ptr->path, ptr->full_cmd, ptr->env);
 	// if (in != -1 && out != -1)
-	dupg(in, out);
+	// dupg(in, out);
 	ft_free_all(NULL, ptr);
 	
-	// exit(0);
+	exit(0);
 	return (1);
 }
 
@@ -131,6 +131,11 @@ int	ft_pipex(t_exec *ptr)
 		ptr->pid[i] = fork();
 		if (ptr->pid[i] == 0)
 		{
+			if (ptr->data->nb_pipe == 0)
+			{
+				close(ptr->fd[1]);
+				close(ptr->fd[0]);
+			}
 			if (ft_forking(ptr, i, ptr->data->env) == -1)
 				return (free(ptr->pid), -1);
 		}
@@ -143,7 +148,6 @@ int	ft_pipex(t_exec *ptr)
 		}
 		i++;
 	}
-	dprintf(2, "prev FD [%d\n]", ptr->prev);
 	close(ptr->prev);
 	wait_all_pids(ptr);
 	free(ptr->pid);
