@@ -127,7 +127,7 @@ int	ft_pipex(t_exec *ptr)
 				close(ptr->fd[0]);
 			}
 			if (ft_forking(ptr, i, ptr->data->env) != 1)
-				return (free(ptr->pid),exit(0), -1);
+				return (free(ptr->pid), exit(0), -1);
 		}
 		else if (ptr->pid[i] > 0)
 		{

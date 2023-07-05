@@ -46,7 +46,7 @@ int		ft_nb_pipe(t_lexer *head)
 	return (count);
 }
 
-char		*ft_prompt(char *prompt)
+char		*ft_prompt(char *prompt, t_env *env)
 {
 	char *prompt_without_spaces;
 
@@ -55,7 +55,7 @@ char		*ft_prompt(char *prompt)
 	// if (!(*prompt))
 	// 	return (free(prompt), NULL);
 	if (!prompt)
-		return (ft_free_all_exit(), NULL);
+		return (ft_free_all_exit(env), NULL);
 	prompt_without_spaces = pars_prompt(prompt);
 	if (ft_strlen(prompt_without_spaces) == 0)
 		return (free(prompt), NULL);

@@ -139,8 +139,7 @@ void	delete_spaces(t_lexer *head);
 void	ft_fusion_double_quotes(t_lexer *head);
 
 /* PROMPT */
-char		*ft_prompt(char *prompt);
-
+char		*ft_prompt(char *prompt, t_env *env);
 /* PARSER */
 int	single_quote_state(t_lexer *head);
 int	double_quote_validity_check(t_lexer *head);

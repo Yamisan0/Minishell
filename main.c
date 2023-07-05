@@ -64,9 +64,9 @@ int main(int ac, char **av, char **envp)
 			while (42)
 		{
 			prompt = readline("minishell>");
-			if (ft_prompt(prompt) == NULL)
+			if (ft_prompt(prompt, minishell_env) == NULL)
 				continue;
-			list = ft_parser_lexer(ft_prompt(prompt), minishell_env);
+			list = ft_parser_lexer(ft_prompt(prompt, minishell_env), minishell_env);
 			exit_code = 0;
 			if (!list)
 				continue;

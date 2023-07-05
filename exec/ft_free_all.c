@@ -17,10 +17,10 @@ void	ft_free_parser_lexer(t_lexer *pile)
 
 void	ft_free_minishell_struct(t_mini *ptr, char *prompt)
 {
+
 	if (!ptr)
 		return ;
-	if (ptr->exec)
-		free(ptr->exec);
+	free(ptr->exec);
 	if (ptr->tab_heredoc)
 		ft_free_split(ptr->tab_heredoc);
 	ft_free_parser_lexer(ptr->args);
