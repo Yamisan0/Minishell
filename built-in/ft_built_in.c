@@ -21,6 +21,8 @@ int	ft_check_builtin(char **argv)
 
 int	ft_built_in(char **argv, t_env *env)
 {
+	if (!argv)
+		return (-1);
 	if (ft_strcmp(argv[0], "echo") == 0)
 		return (ft_echo(argv), 1);
 	if (ft_strcmp(argv[0], "env") == 0)

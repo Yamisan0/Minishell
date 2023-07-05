@@ -59,5 +59,5 @@ char		*ft_prompt(char *prompt)
 	prompt_without_spaces = pars_prompt(prompt);
 	if (ft_strlen(prompt_without_spaces) == 0)
 		return (free(prompt), NULL);
-	return (prompt_without_spaces);	
+	return (prompt_without_spaces);
 }

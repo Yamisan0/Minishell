@@ -72,9 +72,7 @@ int main(int ac, char **av, char **envp)
 				continue;
 			minish = init_mini(list, minishell_env);
 			ft_pipex(minish->exec);
-			if (minish->tab_heredoc)
-				free(minish->tab_heredoc);
-			free(minish);
+			ft_free_minishell_struct(minish, prompt);
 			unlink("tmp.txt");
 		}
 	}

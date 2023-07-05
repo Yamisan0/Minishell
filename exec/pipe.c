@@ -93,29 +93,19 @@ void dupg(int in, int out)
 }
 int 	ft_forking(t_exec *ptr, int i, t_env *env)
 {
-	// int in = -1;
-	// int out = -1;
 	int	builtin;
 
 	if (set_exec(ptr, i, env) == -1)
 		return (-1);
-	// if (!ptr->full_cmd)
-	// {
-	// 	in = dup(0);
-	// 	out = dup(1);
-	// }
 	if (dup_close_fd_pipe(ptr, i) == -1)
 		return (exit_code = errno, -1);
 	if (ft_redir(ptr) == -1)
 		return (exit_code = errno, -1);
 	builtin = ft_built_in(ptr->full_cmd, env);
 	exit_code = 0;
-	if ( builtin == -1 && ptr->path && ptr->full_cmd && ptr->env)
+	if (builtin == -1 && ptr->path && ptr->full_cmd && ptr->env)
 		execve(ptr->path, ptr->full_cmd, ptr->env);
-	// if (in != -1 && out != -1)
-	// 	dupg(in, out);
 	ft_free_all(NULL, ptr);
-	
 	exit(0);
 	return (1);
 }
@@ -136,7 +126,7 @@ int	ft_pipex(t_exec *ptr)
 				close(ptr->fd[1]);
 				close(ptr->fd[0]);
 			}
-			if (ft_forking(ptr, i, ptr->data->env) == -1)
+			if (ft_forking(ptr, i, ptr->data->env) != 1)
 				return (free(ptr->pid),exit(0), -1);
 		}
 		else if (ptr->pid[i] > 0)
@@ -153,11 +143,3 @@ int	ft_pipex(t_exec *ptr)
 	free(ptr->pid);
 	return (1);
 }
-
-
-
-
-// pas besoin de stocker les fd dans un tableau
-// faire fonction qui dup2 toutes les redirections d'entrees
-// d'un pipe a un autre et faire un autre fonction qui 
-// reinitialise le stdin a chaque pipe
