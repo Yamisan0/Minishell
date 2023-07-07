@@ -4,7 +4,7 @@ SOURCES = main.c built-in/env.c  built-in/pwd.c lexer/lexer.c \
 			lexer/dollar_lexer.c parser/double_quotes.c parser/env_parsing.c \
 			exec/exec_utils.c exec/pipe.c exec/check_command.c exec/ft_free_all.c \
 			exec/redirection.c exec/redirect_utils.c exec/heredoc.c built-in/echo.c \
-			built-in/ft_built_in.c built-in/ft_cd.c
+			built-in/ft_built_in.c built-in/ft_cd.c built-in/unset.c
 LIB_PATH = libft
 #compilation
 CC		= gcc
