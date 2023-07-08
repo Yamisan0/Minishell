@@ -71,7 +71,7 @@ int main(int ac, char **av, char **envp)
 			if (!list)
 				continue;
 			minish = init_mini(list, minishell_env);
-			ft_unset_export_no_fork(minish->args, minishell_env);
+			ft_unset_export_no_fork(minish->args, minish->env, minish);
 			ft_pipex(minish->exec);
 			ft_free_minishell_struct(minish, prompt);
 			unlink("tmp.txt");

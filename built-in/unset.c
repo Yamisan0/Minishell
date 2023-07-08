@@ -1,21 +1,31 @@
 #include "../includes/minishell.h"
 
-void	ft_delete_node(t_env *env, t_env *node)
+t_env *ft_delete_node(t_env *env, t_env *node)
 {
 	t_env	*tmp;
 
 	tmp = env;
 	free(node->var);
 	free(node->value);
-	while (tmp && tmp->next != node)
-		tmp = tmp->next;
-	tmp->next = node->next;
-	free(node);
+	if (tmp != node)
+	{
+		
+		while (tmp && tmp->next != node)
+			tmp = tmp->next;
+		tmp->next = node->next;
+		return (free(node), env);
+	}
+	else
+	{
+		env = env->next->next;
+		free(node);
+	}
+	return (env);
 }
 
 
 
-int ft_unset(t_env *env, char **argv)
+int ft_unset(t_env *env, char **argv, t_mini *ptr)
 {
 	int		i;
 	t_env	*tmp;
@@ -28,7 +38,7 @@ int ft_unset(t_env *env, char **argv)
 		{
 			if (ft_strcmp(argv[i], tmp->var) == 0)
 			{
-				ft_delete_node(env, tmp);
+				ptr->env = ft_delete_node(env, tmp);
 				break;
 			}
 			tmp = tmp->next;
@@ -39,11 +49,11 @@ int ft_unset(t_env *env, char **argv)
 }
 
 
-void	ft_unset_export_no_fork(t_lexer *args, t_env *env)
+void	ft_unset_export_no_fork(t_lexer *args, t_env *env, t_mini *ptr)
 {
 	char	**argv;
 
 	argv = ft_command(args);
 	if (ft_strcmp(argv[0], "unset") == 0)
-		ft_unset(env, argv);
+		ft_unset(env, argv, ptr);
 }
