@@ -32,6 +32,6 @@ int	ft_built_in(char **argv, t_env *env)
 	if (ft_strcmp(argv[0], "pwd") == 0)
 		return (ft_pwd(), 1);
 	if (ft_strcmp(argv[0], "unset") == 0)
-		return (ft_unset(env, argv[1]), 1);
+		return (1);
 	return (-1);
 }

@@ -12,7 +12,7 @@ t_exec  *init_exec(t_mini *ptr)
 	return (exe);
 }
 
-t_lexer	*ret_next_pipe(t_lexer *head, int	i)
+t_lexer	*ret_next_pipe(t_lexer *head, int i)
 {
 	t_lexer *tmp;
 	int		count_pipe;
@@ -43,8 +43,6 @@ int	set_exec(t_exec *ptr, int i, t_env *env)
 		ptr->cmd = ptr->full_cmd[0];
 		ptr->env = create_envp(env);
 		ptr->path = ft_path(ptr->cmd, ptr->env);
-		// if (!ptr->env || !ptr->full_cmd)
-		// 	return (-1);
 		if (ft_check_builtin(ptr->full_cmd) == -1 && !ptr->path)
 		{
 			write(2, "minishell: ", 11);
@@ -109,6 +107,7 @@ int 	ft_forking(t_exec *ptr, int i, t_env *env)
 	exit(0);
 	return (1);
 }
+
 
 int	ft_pipex(t_exec *ptr)
 {

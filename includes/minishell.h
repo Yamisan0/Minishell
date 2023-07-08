@@ -190,6 +190,7 @@ char **ft_command(t_lexer *head);
 char	*ft_path(char *command, char **envp);
 char **create_envp(t_env *env);
 t_exec  *init_exec(t_mini *ptr);
+t_lexer	*ret_next_pipe(t_lexer *head, int	i);
 int	count_in(t_lexer *head);
 t_lexer *ft_next_redirection(t_lexer *head, t_exec *ptr);
 int	ft_pipex(t_exec *ptr);
@@ -215,5 +216,6 @@ void    ft_echo(char **args);
 int	ft_cd(char **str);
 int	ft_check_builtin(char **argv);
 int ft_unset(t_env *env, char *var);
+void	ft_unset_export_no_fork(t_lexer *args, t_env *env);
 int	ft_built_in(char **argv, t_env *env);
 #endif

@@ -59,7 +59,7 @@ char	*check_slash(char *command)
 
 char	**get_entire_path(char **envp)
 {
-	char	**paths;
+	char	**paths = NULL;
 	int		i;
 
 	i = 0;
@@ -79,6 +79,7 @@ char	*ft_path(char *command, char **envp)
 	i = 0;
 	if (ft_strchr(command, '/'))
 		return (check_slash(command));
+	
 	entire_path = get_entire_path(envp);
 	while (entire_path[i])
 	{
