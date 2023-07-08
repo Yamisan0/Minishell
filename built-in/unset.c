@@ -1,19 +1,18 @@
 #include "../includes/minishell.h"
 
-t_env	*delete_node_env(t_env *env, t_env *node)
+void	ft_delete_node(t_env **env, t_env *node)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
-	tmp = env;
-	if (env == node)
-		return (free(node->value), free(node->var), free(node), NULL);
+	tmp = *env;
+	free(node->var);
+	free(node->value);
 	while (tmp && tmp->next != node)
 		tmp = tmp->next;
-	if (node->next == NULL)
-		tmp->next == NULL;
-	if (node->next)
-		tmp->next = node->next;
-		return (free(node->value), free(node->var), free(node), env);
+	printf("%s111\n", tmp->next->var);
+	tmp->next = node->next;
+	printf("%s222\n",node->next->var);
+	free(node);
 }
 
 int ft_unset(t_env *env, char *var)
@@ -25,8 +24,9 @@ int ft_unset(t_env *env, char *var)
 	{
 		if (ft_strcmp(tmp->var, var) == 0)
 		{
-			env = delete_node_env(env, tmp);
+			ft_delete_node(&env, tmp);
 		}
 		tmp = tmp->next;
 	}
+	return (1);
 }
