@@ -91,6 +91,7 @@ typedef struct	s_exe
 	char	*cmd;
 	char	*path;
 	char	**env;
+	char	**path_split;
 	t_lexer	*tmp_red;
 	t_tokens	redirect;
 	struct	s_minishell *data;
@@ -187,6 +188,7 @@ int	ft_open_n_dup(int indice, t_lexer *head, t_exec *ptr);
 int	ft_open(t_lexer *head, t_exec *ptr);
 /* EXEC */
 char **ft_command(t_lexer *head);
+char	**get_entire_path(char **envp);
 char	*ft_path(char *command, char **envp);
 char **create_envp(t_env *env);
 t_exec  *init_exec(t_mini *ptr);

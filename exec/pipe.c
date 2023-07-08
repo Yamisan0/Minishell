@@ -42,14 +42,19 @@ int	set_exec(t_exec *ptr, int i, t_env *env)
 	{
 		ptr->cmd = ptr->full_cmd[0];
 		ptr->env = create_envp(env);
-		printf("%d\n", __LINE__);
 		ptr->path = ft_path(ptr->cmd, ptr->env);
-		printf("%d\n", __LINE__);
-		if (ft_check_builtin(ptr->full_cmd) == -1 && !ptr->path)
+		if (ft_check_builtin(ptr->full_cmd) == -1 && !ptr->path) //check aussi si PATH existe, s'il existe il faut modifier l'erreur affichee en no such file or directory
 		{
+			ptr->path_split = get_entire_path(ptr->env);
 			write(2, "minishell: ", 11);
 			ft_putstr_fd(ptr->cmd, 2);
-			write(2, ": command not found\n", 20);
+			if (!ptr->path_split)
+				write(2, ": No such file or directory\n", 28);
+			else
+			{
+				free(ptr->path_split);
+				write(2, ": command not found\n", 20);
+			}
 			exit_code = 127;
 			return (-1);
 		}
