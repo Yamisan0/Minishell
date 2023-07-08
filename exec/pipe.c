@@ -42,7 +42,9 @@ int	set_exec(t_exec *ptr, int i, t_env *env)
 	{
 		ptr->cmd = ptr->full_cmd[0];
 		ptr->env = create_envp(env);
+		printf("%d\n", __LINE__);
 		ptr->path = ft_path(ptr->cmd, ptr->env);
+		printf("%d\n", __LINE__);
 		if (ft_check_builtin(ptr->full_cmd) == -1 && !ptr->path)
 		{
 			write(2, "minishell: ", 11);

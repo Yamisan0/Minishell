@@ -63,9 +63,12 @@ char	**get_entire_path(char **envp)
 	int		i;
 
 	i = 0;
-	while (!ft_strnstr(envp[i], "PATH", 4))
+	while (envp[i] && !ft_strnstr(envp[i], "PATH", 4))
 		i++;
+	if (!ft_strnstr(envp[i], "PATH", 4))
+		return (NULL);
 	paths = ft_split(envp[i] + 5, ':');
+
 	return (paths);
 }
 
@@ -79,8 +82,9 @@ char	*ft_path(char *command, char **envp)
 	i = 0;
 	if (ft_strchr(command, '/'))
 		return (check_slash(command));
-	
 	entire_path = get_entire_path(envp);
+	if (!entire_path)
+		return (NULL);
 	while (entire_path[i])
 	{
 		add_slash = ft_strjoin(entire_path[i], "/");
