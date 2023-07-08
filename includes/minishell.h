@@ -217,7 +217,7 @@ void	ft_free_all_exit(t_env *env);
 void    ft_echo(char **args);
 int	ft_cd(char **str);
 int	ft_check_builtin(char **argv);
-int ft_unset(t_env *env, char *var);
+int ft_unset(t_env *env, char **argv);
 void	ft_unset_export_no_fork(t_lexer *args, t_env *env);
 int	ft_built_in(char **argv, t_env *env);
 #endif
