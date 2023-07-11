@@ -170,6 +170,7 @@ t_env	*set_env(char **envp);
 int		ft_print_env(t_env *env);
 t_env	*add_to_list(t_env *head, t_env *new_node);
 t_env   *create_node(char *str_to_cpy);
+void	set_index_env(t_env	*env);
 
 /* EXPORT */
 void	ft_export(char *var, char *value, t_env *env);
@@ -217,7 +218,6 @@ void	ft_free_all_exit(t_env *env);
 void    ft_echo(char **args);
 int	ft_cd(char **str);
 int	ft_check_builtin(char **argv);
-int ft_unset(t_env *env, char **argv, t_mini *ptr);
-void	ft_unset_export_no_fork(t_lexer *args, t_env *env, t_mini *ptr);
+void	ft_unset_export_no_fork(t_lexer *args, t_env **env);
 int	ft_built_in(char **argv, t_env *env);
 #endif

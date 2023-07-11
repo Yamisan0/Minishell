@@ -4,6 +4,7 @@ int	exit_code = 0;
 t_mini	*init_mini(t_lexer *head, t_env *env)
 {
 	t_mini	*ptr;
+	(void)env;
 	char	**heredoc;
 
 	ptr = ft_calloc(1, sizeof(t_mini));
@@ -46,14 +47,15 @@ void ft_handler(int i)
 	}
 	else if (i == SIGQUIT)
 		write(1, "\b\b  \b\b", 6);
-		// ft_free_all_exit();
 }
 int main(int ac, char **av, char **envp)
 {
 	char *prompt;
 	(void)	av;
 	(void)ac;
+	(void)envp;
 	t_lexer *list;
+	char	*epured_prompt;
 	t_mini	*minish;
 	t_env *minishell_env = set_env(envp);
 
@@ -64,14 +66,15 @@ int main(int ac, char **av, char **envp)
 			while (42)
 		{
 			prompt = readline("minishell>");
-			if (ft_prompt(prompt, minishell_env) == NULL)
+			epured_prompt = ft_prompt(prompt, minishell_env);
+			if ( epured_prompt == NULL)
 				continue;
-			list = ft_parser_lexer(ft_prompt(prompt, minishell_env), minishell_env);
+			list = ft_parser_lexer(ft_prompt(epured_prompt, minishell_env), minishell_env);
 			exit_code = 0;
 			if (!list)
 				continue;
+			ft_unset_export_no_fork(list, &minishell_env);
 			minish = init_mini(list, minishell_env);
-			ft_unset_export_no_fork(minish->args, minish->env, minish);
 			ft_pipex(minish->exec);
 			ft_free_minishell_struct(minish, prompt);
 			unlink("tmp.txt");

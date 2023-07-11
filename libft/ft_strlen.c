@@ -23,14 +23,3 @@ size_t	ft_strlen(const char *str)
 		i++;
 	return (i);
 }
-/* int main()
-{
-	char *s1 = "123";
-	char *s2 = "";
-
-	printf("real = %ld\n", strlen(s1));
-	printf("real2 = %ld\n", strlen(s2));
-
-	printf("test = %ld\n", strlen(s1));
-	printf("test2 = %ld\n", strlen(s2));
-} */

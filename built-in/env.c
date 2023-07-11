@@ -1,5 +1,20 @@
 #include "../includes/minishell.h"
 
+void	set_index_env(t_env	*env)
+{
+	t_env	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = env;
+	while (tmp)
+	{
+		tmp->index = i;
+		tmp = tmp->next;
+		i++;
+	}
+}
+
 t_env   *create_node(char *str_to_cpy)
 {
 	t_env	*node;
@@ -73,6 +88,7 @@ t_env	*set_env(char **envp)
 		head = add_to_list(head, new);
 		i++;
 	}
+	set_index_env(head);
 	return (head);
 }
 
