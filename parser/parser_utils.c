@@ -46,18 +46,20 @@ int		ft_nb_pipe(t_lexer *head)
 	return (count);
 }
 
-char		*ft_prompt(char *prompt, t_env *env)
+char		*ft_prompt(t_env *env)
 {
-	char *prompt_without_spaces;
+	char *prompt;
+	// (void)env;
 
+	prompt = readline("minishell>");
 	if (prompt && prompt[0])
 		add_history(prompt);
-	// if (!(*prompt))
-	// 	return (free(prompt), NULL);
 	if (!prompt)
-		return (ft_free_all_exit(env), NULL);
-	prompt_without_spaces = pars_prompt(prompt);
-	if (ft_strlen(prompt_without_spaces) == 0)
+		return (ft_free_all_exit(0, exit_code, env), NULL);
+	if (!(*prompt))
 		return (free(prompt), NULL);
-	return (prompt_without_spaces);
+	prompt = pars_prompt(prompt);
+	if (ft_strlen(prompt) == 0)
+		return (free(prompt), NULL);
+	return (prompt);
 }

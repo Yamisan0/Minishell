@@ -26,6 +26,7 @@ t_lexer	*ret_next_pipe(t_lexer *head, int i)
 		if (tmp->token == PIPE)
 		{
 			count_pipe++;
+			head->index_pipe = count_pipe;
 			if (count_pipe == i)
 				return (tmp->next);
 		}
@@ -106,7 +107,7 @@ int 	ft_forking(t_exec *ptr, int i, t_env *env)
 		return (exit_code = errno, -1);
 	if (ft_redir(ptr) == -1)
 		return (exit_code = errno, -1);
-	builtin = ft_built_in(ptr->full_cmd, env);
+	builtin = ft_built_in(ptr->full_cmd, env, ptr->tmp);
 	exit_code = 0;
 	if (builtin == -1 && ptr->path && ptr->full_cmd && ptr->env)
 		execve(ptr->path, ptr->full_cmd, ptr->env);

@@ -72,7 +72,7 @@ typedef struct s_lexer
 {
 	char        *str;
 	t_tokens	token;
-	int         i;
+	int         index_pipe;
 	t_state		state;
 	t_dollar	dollar;
 	t_fds		redirection;
@@ -140,7 +140,7 @@ void	delete_spaces(t_lexer *head);
 void	ft_fusion_double_quotes(t_lexer *head);
 
 /* PROMPT */
-char		*ft_prompt(char *prompt, t_env *env);
+char		*ft_prompt(t_env *env);
 /* PARSER */
 int	single_quote_state(t_lexer *head);
 int	double_quote_validity_check(t_lexer *head);
@@ -212,12 +212,14 @@ char	**fill_heredoc_tab(char **tab, t_lexer *head);
 void    ft_free_parser_lexer(t_lexer *head);
 void	ft_free_minishell_struct(t_mini *ptr, char *prompt);
 void    ft_free_all(char *msg, t_exec *ptr);
-void	ft_free_all_exit(t_env *env);
+void	ft_free_all_exit(int indice, int code, t_env *env);
 
 /* BUILT-IN */
 void    ft_echo(char **args);
 int	ft_cd(char **str);
 int	ft_check_builtin(char **argv);
 void	ft_unset_export_no_fork(t_lexer *args, t_env **env);
-int	ft_built_in(char **argv, t_env *env);
+int		ft_exit_parsing(char **argv);
+void    ft_exit(char **argv, t_env *env);
+int	ft_built_in(char **argv, t_env *env, t_lexer *args);
 #endif

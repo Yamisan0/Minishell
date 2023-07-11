@@ -50,12 +50,11 @@ void ft_handler(int i)
 }
 int main(int ac, char **av, char **envp)
 {
-	char *prompt;
 	(void)	av;
 	(void)ac;
 	(void)envp;
 	t_lexer *list;
-	char	*epured_prompt;
+	char	*prompt;
 	t_mini	*minish;
 	t_env *minishell_env = set_env(envp);
 
@@ -65,11 +64,11 @@ int main(int ac, char **av, char **envp)
 			signal(SIGQUIT, ft_handler);
 			while (42)
 		{
-			prompt = readline("minishell>");
-			epured_prompt = ft_prompt(prompt, minishell_env);
-			if ( epured_prompt == NULL)
+			
+			prompt = ft_prompt(minishell_env);
+			if ( prompt == NULL)
 				continue;
-			list = ft_parser_lexer(ft_prompt(epured_prompt, minishell_env), minishell_env);
+			list = ft_parser_lexer(prompt, minishell_env);
 			exit_code = 0;
 			if (!list)
 				continue;
@@ -80,5 +79,4 @@ int main(int ac, char **av, char **envp)
 			unlink("tmp.txt");
 		}
 	}
-	
 }

@@ -81,6 +81,8 @@ t_env	*set_env(char **envp)
 	t_env	*new;
 
 	i = 0;
+	if (!envp)
+		return (NULL);
 	while (envp[i])
 	{
 		new = create_node(envp[i]);

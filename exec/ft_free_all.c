@@ -61,9 +61,10 @@ void	free_env(t_env *env)
 	}
 }
 
-void	ft_free_all_exit(t_env *env)
+void	ft_free_all_exit(int indice, int code, t_env *env)
 {
 	free_env(env);
-	printf("\nexit\n");
-	exit(0);
+	if (indice == 0)
+		printf("\nexit\n");
+	exit(code);
 }
