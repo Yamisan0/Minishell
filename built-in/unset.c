@@ -57,6 +57,8 @@ void	ft_unset_export_no_fork(t_lexer *args, t_env **env)
 	argv = ft_command(args);
 	if (ft_strcmp(argv[0], "unset") == 0)
 		ft_unset(env, argv);
+	if (ft_strcmp(argv[0], "export") == 0)
+		ft_export(env, argv);
 	if (ft_strcmp(argv[0], "exit") == 0)
 		ft_exit(argv, *env);
 }

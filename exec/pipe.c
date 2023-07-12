@@ -26,7 +26,6 @@ t_lexer	*ret_next_pipe(t_lexer *head, int i)
 		if (tmp->token == PIPE)
 		{
 			count_pipe++;
-			head->index_pipe = count_pipe;
 			if (count_pipe == i)
 				return (tmp->next);
 		}

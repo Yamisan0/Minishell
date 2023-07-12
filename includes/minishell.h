@@ -72,7 +72,7 @@ typedef struct s_lexer
 {
 	char        *str;
 	t_tokens	token;
-	int         index_pipe;
+	int         i;
 	t_state		state;
 	t_dollar	dollar;
 	t_fds		redirection;
@@ -169,11 +169,12 @@ int		ft_nb_pipe(t_lexer *head);
 t_env	*set_env(char **envp);
 int		ft_print_env(t_env *env);
 t_env	*add_to_list(t_env *head, t_env *new_node);
+void	cpy_tab(char *str, t_env *node);
 t_env   *create_node(char *str_to_cpy);
 void	set_index_env(t_env	*env);
 
 /* EXPORT */
-void	ft_export(char *var, char *value, t_env *env);
+void	ft_export(t_env **env, char **argv);
 
 
 int		ft_pwd(void);
