@@ -1,24 +1,57 @@
 #include "../includes/minishell.h"
 
-void	ft_export(char *var, char *value, t_env *env)
+void	ft_export_sans_arg(t_env *env)
 {
-	t_env	*tmp;
-	t_env	*new;
-
+	t_env   *tmp;
+	if (!env)
+		return ;
+	tmp = env;
 	while (tmp)
 	{
-		if (ft_strncmp(var, tmp->var, sizeof(tmp)) == 0)
-		{
-			free(tmp->value);
-			tmp->value = ft_strdup(value);
-			return ;
-		}
+		printf("export %s=\"%s\"", tmp->var, tmp->value);
 		tmp = tmp->next;
 	}
-	new = ft_calloc(1, sizeof(t_env));
-	if (!new)
-		return ;
-	new->var = ft_strdup(var);
-	new->value = ft_strdup(value);
-	add_to_list(env, new);
+}
+
+t_env		*ft_check_exist(t_env *env, char *var)
+{
+	t_env *tmp;
+
+	tmp = env;
+	while (tmp)
+	{
+		if (ft_strcmp(var, tmp->var) == 0)
+			return (tmp);
+		tmp = tmp->next;
+	}
+}
+
+char *return_equal(char *arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (arg[i] == '=')
+			return (arg + i);
+	}
+	return (NULL);
+}
+
+void	ft_export(t_env *env, char **argv)
+{
+	t_env	*tmp;
+
+	int	i;
+	i = 1;
+	while (argv[i])
+	{
+		tmp = ft_check_exist(env, argv[i]);
+		if (tmp)
+		{
+			
+		}
+		i++;
+	}
 }
