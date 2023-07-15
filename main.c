@@ -43,7 +43,12 @@ void ft_handler(int i)
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
-		rl_redisplay();
+		if (exit_code > 0)
+		{
+			if (exit_code != 130)
+				rl_redisplay();
+		}
+		exit_code = 130;
 	}
 	else if (i == SIGQUIT)
 		write(1, "\b\b  \b\b", 6);

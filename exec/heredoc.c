@@ -88,12 +88,14 @@ char	*ft_get_heredoc(char *delimiter)
 	char	*tmp;
 
 	while (1)
-	{
-		prompt = readline("heredoc>");
-		if (!prompt)
+	{	
+		if (exit_code != 130)
+			prompt = readline("heredoc>");
+		if (!prompt || exit_code == 130)
 		{
-			printf("\nminishell: warning: here-document delimited by end-of-file (wanted `%s')\n", delimiter);
-				free(heredoc);
+			if (exit_code != 130)
+				printf("\nminishell: warning: here-document delimited by end-of-file (wanted `%s')\n", delimiter);
+			free(heredoc);
 			return (NULL);
 		}
 		if (ft_strcmp(prompt, delimiter) == 0)
@@ -109,6 +111,7 @@ char	*ft_get_heredoc(char *delimiter)
 	}
 	return (heredoc);
 }
+
 
 char	**fill_heredoc_tab(char **tab, t_lexer *head)
 {
