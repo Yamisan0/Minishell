@@ -83,13 +83,19 @@ void	ft_write_in_file(char *str_doc, int fd, t_env *env)
 
 char	*ft_get_heredoc(char *delimiter)
 {
-	char	*prompt = NULL;
+	char	*prompt;
 	char	*heredoc = NULL;
 	char	*tmp;
 
 	while (1)
 	{
 		prompt = readline("heredoc>");
+		if (!prompt)
+		{
+			printf("\nminishell: warning: here-document delimited by end-of-file (wanted `%s')\n", delimiter);
+				free(heredoc);
+			return (NULL);
+		}
 		if (ft_strcmp(prompt, delimiter) == 0)
 			break;
 		tmp = ft_strdup(prompt);
