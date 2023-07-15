@@ -33,12 +33,19 @@ int	ft_built_in(char **argv, t_env *env, t_lexer *args)
 		return (ft_pwd(), 1);
 	if (ft_strcmp(argv[0], "unset") == 0)
 		return (1);
+	if (ft_strcmp(argv[0], "export") == 0)
+	{
+		if (!argv[1])
+			ft_export_sans_arg(env);
+		if (args->prev)
+			return (export_parsing(argv), 1);
+		return (1);
+	}
 	if (ft_strcmp(argv[0], "exit") == 0)
 	{
 		if (args->prev)
 			return (ft_exit_parsing(argv), 1);
-		else
-			return (1);
+		return (1);
 	}
 	return (-1);
 }
