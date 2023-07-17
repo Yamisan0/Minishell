@@ -57,12 +57,6 @@ char **create_envp(t_env *env)
 	return (array);
 }
 
-void	close_fds(int *fd)
-{
-	close(fd[0]);
-	close(fd[1]);
-}
-
 int count_pipe(t_lexer *head)
 {
 	t_lexer *tmp;

@@ -1,6 +1,31 @@
 #include "includes/minishell.h"
 int	exit_code = 0;
 
+void	ft_handler_heredoc(int i)
+{
+	if (i == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		exit_code = 130;
+	}
+	else if (i == SIGQUIT)
+		write(1, "\b\b  \b\b", 6);
+}
+
+void ft_handler(int i)
+{
+	if (i == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else if (i == SIGQUIT)
+		write(1, "\b\b  \b\b", 6);
+}
+
 t_mini	*init_mini(t_lexer *head, t_env *env)
 {
 	t_mini	*ptr;
@@ -15,6 +40,8 @@ t_mini	*init_mini(t_lexer *head, t_env *env)
 	ptr->exec = init_exec(ptr);
 	ptr->exec->data = ptr;
 	ptr->env = env;
+	signal(SIGINT, ft_handler_heredoc);
+	signal(SIGQUIT, ft_handler_heredoc);
 	heredoc = get_heredoc_tab(head);
 	ptr->tab_heredoc = fill_heredoc_tab(heredoc, head);
 	return (ptr);
@@ -36,23 +63,7 @@ t_lexer	*ft_parser_lexer(char *prompt, t_env *env)
 	return (head);
 }
 
-void ft_handler(int i)
-{
-	if (i == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		if (exit_code > 0)
-		{
-			if (exit_code != 130)
-				rl_redisplay();
-		}
-		exit_code = 130;
-	}
-	else if (i == SIGQUIT)
-		write(1, "\b\b  \b\b", 6);
-}
+
 int main(int ac, char **av, char **envp)
 {
 	(void)	av;
@@ -65,11 +76,10 @@ int main(int ac, char **av, char **envp)
 
 	if (ac == 1)
 	{
-			signal(SIGINT, ft_handler);
-			signal(SIGQUIT, ft_handler);
 			while (42)
 		{
-			
+			signal(SIGINT, ft_handler);
+			signal(SIGQUIT, ft_handler);
 			prompt = ft_prompt(minishell_env);
 			if ( prompt == NULL)
 				continue;
@@ -79,6 +89,8 @@ int main(int ac, char **av, char **envp)
 				continue;
 			ft_unset_export_no_fork(list, &minishell_env);
 			minish = init_mini(list, minishell_env);
+			if (exit_code == 130)
+				continue;
 			ft_pipex(minish->exec);
 			ft_free_minishell_struct(minish, prompt);
 			unlink("tmp.txt");

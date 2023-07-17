@@ -88,7 +88,7 @@ char	*ft_get_heredoc(char *delimiter)
 	char	*tmp;
 
 	while (1)
-	{	
+	{
 		if (exit_code != 130)
 			prompt = readline("heredoc>");
 		if (!prompt || exit_code == 130)
