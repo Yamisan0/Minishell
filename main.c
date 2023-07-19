@@ -6,8 +6,8 @@ void	ft_handler_heredoc(int i)
 	if (i == SIGINT)
 	{
 		write(1, "\n", 1);
-		rl_on_new_line();
 		exit_code = 130;
+		rl_done = 1;
 	}
 	else if (i == SIGQUIT)
 		write(1, "\b\b  \b\b", 6);
