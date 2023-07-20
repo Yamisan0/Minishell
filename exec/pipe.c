@@ -52,7 +52,7 @@ int	set_exec(t_exec *ptr, int i, t_env *env)
 				write(2, ": No such file or directory\n", 28);
 			else
 			{
-				free(ptr->path_split);
+				ft_free_split(ptr->path_split);
 				write(2, ": command not found\n", 20);
 			}
 			exit_code = 127;
