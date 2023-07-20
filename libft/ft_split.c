@@ -102,17 +102,3 @@ char	**ft_split(char const *s, char c)
 	split_tab[nbr_word((char *)s, c)] = 0;
 	return (split_tab);
 }
-/* int main(void)
-{
-	const char *s1 = "Bonjour tout le monde";
-	char c = ' ';
-	int d = nbr_word(s1, c);
-	printf("la taille du tableau est :%d\n", d);
-	 int i = 0;
-	char **tab = ft_split(s1, c);
-	while(i < nbr_word(s1, c))
-	{
-		printf("%s\n",tab[i]);
-		i++;
-	}
-} */

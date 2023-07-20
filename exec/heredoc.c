@@ -1,5 +1,6 @@
 #include "../includes/minishell.h"
 
+
 int		write_expand(char *str, int fd, t_env *env)
 {
 	char	var[10000];
@@ -86,6 +87,7 @@ char	*ft_get_heredoc(char *delimiter)
 	char	*prompt;
 	char	*heredoc = NULL;
 	char	*tmp;
+	char	*tmp_stock;
 
 	while (1)
 	{
@@ -99,11 +101,17 @@ char	*ft_get_heredoc(char *delimiter)
 			return (NULL);
 		}
 		if (ft_strcmp(prompt, delimiter) == 0)
+		{
+			free(prompt);
 			break;
-		tmp = ft_strdup(prompt);
-		tmp = ft_strjoin(tmp, "\n");
+		}
+		tmp_stock = ft_strdup(prompt);
+		tmp = ft_strjoin(tmp_stock, "\n");
+		free(tmp_stock);
 		if (!heredoc)
+		{
 			heredoc = ft_strjoin("", tmp);
+		}
 		else
 			heredoc = ft_strjoin(heredoc, tmp);
 		free(tmp);

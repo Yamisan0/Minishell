@@ -49,19 +49,19 @@ void    ft_exit(char **argv, t_env *env)
 		ft_free_split(argv);
 		return ;
 	}
-	if (argv[1] == NULL)
+	else if (argv[1] == NULL)
 	{
 		ft_free_split(argv);
 		ft_free_all_exit(5, 0, env);
 	}
-	if (error == 2)
+	else if (error == 2)
 	{
 		ft_free_split(argv);
 		ft_free_all_exit(5, 2, env);
 	}
-	if (argv[1] && error == 0)
+	else if (argv[1] && error == 0)
 	{
-		ft_free_split(argv);
+		// ft_free_split(argv);
 		ft_free_all_exit(5, ft_atoi(argv[1]), env);
 	}
 }
