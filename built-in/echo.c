@@ -19,6 +19,7 @@ int	verif_n(char *str)
 void    ft_echo(char **args)
 {
 	int i;
+	int	var;
 
 	if (args[1] == NULL)
 	{
@@ -29,6 +30,7 @@ void    ft_echo(char **args)
 		i = 2;
 	else
 		i = 1;
+	var = i;
 	while (args[i])
 	{
 		printf("%s", args[i]);
@@ -36,6 +38,7 @@ void    ft_echo(char **args)
 			printf(" ");
 		i++;
 	}
-	if (ft_strcmp(args[1], "-n") != 0 && verif_n(args[1] + 2) == 0)
+	if (ft_strncmp(args[1], "-n", 2) != 0 || var == 1)
 		printf("\n");
+
 }
