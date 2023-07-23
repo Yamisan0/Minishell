@@ -80,6 +80,7 @@ void	ft_write_in_file(char *str_doc, int fd, t_env *env)
 		write(fd, "\n", 1);
 		i++;
 	}
+	ft_free_split(tab);
 }
 
 char	*ft_get_heredoc(char *delimiter)
@@ -88,6 +89,7 @@ char	*ft_get_heredoc(char *delimiter)
 	char	*heredoc = NULL;
 	char	*tmp;
 	char	*tmp_stock;
+	char	*tmp_heredoc;
 
 	while (1)
 	{
@@ -98,6 +100,7 @@ char	*ft_get_heredoc(char *delimiter)
 			if (exit_code != 130)
 				printf("\nminishell: warning: here-document delimited by end-of-file (wanted `%s')\n", delimiter);
 			free(heredoc);
+			free(prompt);
 			return (NULL);
 		}
 		if (ft_strcmp(prompt, delimiter) == 0)
@@ -109,11 +112,13 @@ char	*ft_get_heredoc(char *delimiter)
 		tmp = ft_strjoin(tmp_stock, "\n");
 		free(tmp_stock);
 		if (!heredoc)
-		{
 			heredoc = ft_strjoin("", tmp);
-		}
 		else
-			heredoc = ft_strjoin(heredoc, tmp);
+		{
+			tmp_heredoc = heredoc;
+			heredoc = ft_strjoin(tmp_heredoc, tmp);
+			free(tmp_heredoc);
+		}
 		free(tmp);
 		free(prompt);
 	}
