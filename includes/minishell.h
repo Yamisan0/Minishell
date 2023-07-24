@@ -181,6 +181,7 @@ int		ft_pwd(void);
 
 /* UTILS */
 void	display_env(char **array);
+int count_pipe(t_lexer *head);
 
 
 /* REDIRECTION */
