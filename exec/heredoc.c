@@ -14,7 +14,7 @@ int		write_expand(char *str, int fd, t_env *env)
 		return (write(fd, "$", 1), 1);
 	if ( str[1] && str[1] == '?')
 	{
-		value = ft_itoa(errno);
+		value = ft_itoa(exit_code);
 		ft_putstr_fd(value, fd);
 		return (2);
 	}

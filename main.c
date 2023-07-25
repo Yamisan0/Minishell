@@ -44,6 +44,8 @@ t_mini	*init_mini(t_lexer *head, t_env *env)
 	signal(SIGQUIT, ft_handler_heredoc);
 	heredoc = get_heredoc_tab(head);
 	ptr->tab_heredoc = fill_heredoc_tab(heredoc, head);
+	signal(SIGINT, ft_handler);
+	signal(SIGQUIT, SIG_IGN);
 	return (ptr);
 }
 
@@ -94,6 +96,7 @@ int main(int ac, char **av, char **envp)
 			ft_pipex(minish->exec);
 			ft_free_minishell_struct(minish, prompt);
 			unlink("tmp.txt");
+			printf("%d\n", exit_code);
 		}
 	}
 }

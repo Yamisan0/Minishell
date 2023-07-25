@@ -68,22 +68,22 @@ int	dup_close_fd_pipe(t_exec *ptr, int i)
 	if (i == 0 && ptr->data->nb_pipe > 0)
 	{
 		if (dup2(ptr->fd[1], STDOUT_FILENO) == -1)
-			return (-1);
+			return (close(ptr->fd[1]), -1);
 		close(ptr->fd[1]);
 	}
 	else if (i != ptr->data->nb_pipe)
 	{
 		if (dup2(ptr->prev, STDIN_FILENO) == -1)
-			return (-1);
+			return (close(ptr->prev), -1);
 		close(ptr->prev);
 		if (dup2(ptr->fd[1], STDOUT_FILENO) == -1)
-			return (-1);
+			return (close(ptr->fd[1]), -1);
 		close(ptr->fd[1]);
 	}
 	if (i == ptr->data->nb_pipe && i > 0)
 	{
 		if (dup2(ptr->prev, STDIN_FILENO) == -1)
-			return (-1);
+			return (close(ptr->prev), -1);
 		close(ptr->prev);
 	}
 	return (1);
@@ -107,7 +107,6 @@ int 	ft_forking(t_exec *ptr, int i, t_env *env)
 	if (ft_redir(ptr) == -1)
 		return (exit_code = errno, -1);
 	builtin = ft_built_in(ptr->full_cmd, env, ptr->tmp);
-	exit_code = 0;
 	if (builtin == -1 && ptr->path && ptr->full_cmd && ptr->env)
 		execve(ptr->path, ptr->full_cmd, ptr->env);
 	ft_free_all(NULL, ptr);
@@ -133,7 +132,7 @@ int	ft_pipex(t_exec *ptr)
 				close(ptr->fd[0]);
 			}
 			if (ft_forking(ptr, i, ptr->data->env) != 1)
-				return (free(ptr->pid), exit(0), -1);
+				return (free(ptr->pid), exit(exit_code), -1);
 		}
 		else if (ptr->pid[i] > 0)
 		{
@@ -147,5 +146,6 @@ int	ft_pipex(t_exec *ptr)
 	close(ptr->prev);
 	wait_all_pids(ptr);
 	free(ptr->pid);
+	printf("%d\n", exit_code);
 	return (1);
 }
