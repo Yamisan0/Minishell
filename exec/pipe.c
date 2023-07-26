@@ -43,7 +43,7 @@ int	set_exec(t_exec *ptr, int i, t_env *env)
 		ptr->cmd = ptr->full_cmd[0];
 		ptr->env = create_envp(env);
 		ptr->path = ft_path(ptr->cmd, ptr->env);
-		if (ft_check_builtin(ptr->full_cmd) == -1 && !ptr->path) //check aussi si PATH existe, s'il existe il faut modifier l'erreur affichee en no such file or directory
+		if (ft_check_builtin(ptr->full_cmd) == -1 && !ptr->path)
 		{
 			ptr->path_split = get_entire_path(ptr->env);
 			write(2, "minishell: ", 11);
@@ -55,7 +55,6 @@ int	set_exec(t_exec *ptr, int i, t_env *env)
 				ft_free_split(ptr->path_split);
 				write(2, ": command not found\n", 20);
 			}
-			exit_code = 127;
 			return (-1);
 		}
 	}
@@ -103,14 +102,13 @@ int 	ft_forking(t_exec *ptr, int i, t_env *env)
 	if (set_exec(ptr, i, env) == -1)
 		return (-1);
 	if (dup_close_fd_pipe(ptr, i) == -1)
-		return (exit_code = errno, -1);
+		return (-1);
 	if (ft_redir(ptr) == -1)
-		return (exit_code = errno, -1);
+		return (-1);
 	builtin = ft_built_in(ptr->full_cmd, env, ptr->tmp);
 	if (builtin == -1 && ptr->path && ptr->full_cmd && ptr->env)
 		execve(ptr->path, ptr->full_cmd, ptr->env);
 	ft_free_all(NULL, ptr);
-	exit(0);
 	return (1);
 }
 
@@ -133,6 +131,7 @@ int	ft_pipex(t_exec *ptr)
 			}
 			if (ft_forking(ptr, i, ptr->data->env) != 1)
 				return (free(ptr->pid), exit(exit_code), -1);
+			exit(exit_code);
 		}
 		else if (ptr->pid[i] > 0)
 		{
@@ -146,6 +145,5 @@ int	ft_pipex(t_exec *ptr)
 	close(ptr->prev);
 	wait_all_pids(ptr);
 	free(ptr->pid);
-	printf("%d\n", exit_code);
 	return (1);
 }

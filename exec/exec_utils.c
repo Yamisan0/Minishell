@@ -80,9 +80,10 @@ void    wait_all_pids(t_exec *args)
 	i = 0;
 	while (i < (args->data->nb_pipe + 1))
 	{
-		waitpid(args->pid[i], NULL, 0);
+		waitpid(args->pid[i], &exit_code, 0);
 		i++;
 	}
+	exit_code = WEXITSTATUS(exit_code);
 }
 
 //calcule le nombre de pipe
