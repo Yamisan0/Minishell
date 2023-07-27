@@ -50,7 +50,6 @@ void	cpy_tab(char *str, t_env *node)
 		node->var[i] = str[i];
 		i++;
 	}
-	str[i] = '\0';
 	j = i + 1;
 	while (str[j])
 	{
@@ -58,7 +57,6 @@ void	cpy_tab(char *str, t_env *node)
 		j++;
 		k++;
 	}
-	node->value[k] = '\0';
 }
 
 t_env	*add_to_list(t_env *head, t_env *new_node)

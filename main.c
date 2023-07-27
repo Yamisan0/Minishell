@@ -69,12 +69,11 @@ t_lexer	*ft_parser_lexer(char *prompt, t_env *env)
 int main(int ac, char **av, char **envp)
 {
 	(void)	av;
-	(void)ac;
-	(void)envp;
 	t_lexer *list;
 	char	*prompt;
 	t_mini	*minish;
-	t_env *minishell_env = set_env(envp);
+	t_env *minishell_env = NULL;
+	minishell_env = set_env(envp);
 
 	if (ac == 1)
 	{
