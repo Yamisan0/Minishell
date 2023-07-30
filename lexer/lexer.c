@@ -7,13 +7,16 @@ t_lexer *pre_lexing(char *prompt)
 	t_lexer		*head = NULL;
 	char		*str;
 
-	i = -1;
-	while (prompt[++i])
+	i = 0;
+	while (prompt[i] && (prompt[i] == ' ' || prompt[i] == '\t'))
+		i++;
+	while (prompt[i])
 	{
 		str = c_to_str(prompt[i]);
 		new = new_node(str);
 		new->token = get_token_type(prompt[i]);
 		head = ft_add_back_lex(head, new);
+		i++;
 	}
 	return (head);
 }

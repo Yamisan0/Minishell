@@ -17,7 +17,7 @@ void	ft_free_parser_lexer(t_lexer *pile)
 
 void	ft_free_minishell_struct(t_mini *ptr, char *prompt)
 {
-	(void)prompt;
+	// (void)prompt;
 
 	if (!ptr)
 		return ;
@@ -26,7 +26,7 @@ void	ft_free_minishell_struct(t_mini *ptr, char *prompt)
 		ft_free_split(ptr->tab_heredoc);
 	ft_free_parser_lexer(ptr->args);
 	free(ptr);
-	// free(prompt);
+	free(prompt);
 	ptr = NULL;
 }
 

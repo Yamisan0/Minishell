@@ -24,7 +24,7 @@ int check_pipe_prev(t_lexer *args)
 	 t_lexer *tmp;
 
 	tmp = args;
-	while (args)
+	while (tmp)
 	{
 		if (args->prev && args->token == PIPE)
 			return(1);

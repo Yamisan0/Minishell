@@ -49,7 +49,6 @@ int		ft_nb_pipe(t_lexer *head)
 char		*ft_prompt(t_env *env)
 {
 	char *prompt;
-	char	*prompt_sans_espace;
 	// (void)env;
 
 	prompt = readline("minishell>");
@@ -59,8 +58,7 @@ char		*ft_prompt(t_env *env)
 		return (ft_free_all_exit(0, exit_code, env), NULL);
 	if (!(*prompt))
 		return (free(prompt), NULL);
-	prompt_sans_espace = pars_prompt(prompt);
-	if (ft_strlen(prompt_sans_espace) == 0)
+	if (pars_prompt(prompt) == NULL)
 		return (free(prompt), NULL);
-	return (prompt_sans_espace);
+	return (prompt);
 }
