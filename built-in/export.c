@@ -65,7 +65,7 @@ void	ft_add_back_export(t_env **env, t_env *new_node)
 int		check_valid_variable(char *str)
 {
 		if (str[0] && str[0] == '=')
-			return (printf("minishell: export: `%s': not a valid identifier\n", str), 0);
+			return (ft_printf("minishell: export: `%s': not a valid identifier\n", str), 0);
 	return (1);
 }
 

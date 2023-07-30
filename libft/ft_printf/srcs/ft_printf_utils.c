@@ -17,7 +17,7 @@ int	ft_putchar(char c)
 	int	i;
 
 	i = 1;
-	write(1, &c, 1);
+	write(2, &c, 1);
 	return (i);
 }
 
@@ -41,7 +41,7 @@ static int	len_itoa(int n)
 	return (i);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa_printf(int n)
 {
 	int				i;
 	unsigned int	nb;
@@ -73,7 +73,7 @@ int	ft_putnbr(int n)
 	char	*str;
 	size_t	len;
 
-	str = ft_itoa(n);
+	str = ft_itoa_printf(n);
 	ft_putstr(str);
 	len = ft_strlen(str);
 	free(str);

@@ -28,7 +28,7 @@ int		ft_putchar(char c);
 int		ft_puthexa(unsigned int nb, char c);
 int		print_percent(va_list param);
 int		print_ptr(void *ptr);
-char	*ft_itoa(int n);
+char	*ft_itoa_printf(int n);
 int		ft_putnbr(int n);
 int		print_unsigned_int(unsigned int nbr);
 char	*ft_unsigned_itoa(unsigned int n);

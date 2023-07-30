@@ -30,7 +30,7 @@ int	ft_printf(const char *str, ...)
 		}
 		else
 		{
-			write(1, &str[i], 1);
+			write(2, &str[i], 1);
 			len++;
 		}
 		i++;

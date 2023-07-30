@@ -19,13 +19,13 @@ int	print_ptr(void *ptr)
 	len = 0;
 	if (ptr == NULL || ptr == 0)
 	{
-		write(1, "(nil)", 5);
+		write(2, "(nil)", 5);
 		len = 5;
 		return (len);
 	}
 	else
 	{
-		write(1, "0x", 2);
+		write(2, "0x", 2);
 		len = 2 + ft_puthexa_ptr((uintptr_t)ptr, 'x');
 	}
 	return (len);

@@ -24,13 +24,3 @@ void	*ft_calloc(size_t nmenb, size_t size)
 	ft_bzero(ptr, nmenb * size);
 	return (ptr);
 }
-/* int main(void)
-{
-	char *str;
-	char *tab;
-	
-	str = ft_calloc(3, 0);
-	tab = calloc(3,0);
-	printf("%s\n",str);
-	printf("%s", tab);
-*/

@@ -98,7 +98,7 @@ char	*ft_get_heredoc(char *delimiter)
 		if (!prompt || exit_code == 130)
 		{
 			if (exit_code != 130)
-				printf("\nminishell: warning: here-document delimited by end-of-file (wanted `%s')\n", delimiter);
+				ft_printf("\nminishell: warning: here-document delimited by end-of-file (wanted `%s')\n", delimiter);
 			free(heredoc);
 			free(prompt);
 			prompt = NULL;
