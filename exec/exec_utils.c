@@ -85,6 +85,3 @@ void    wait_all_pids(t_exec *args)
 	}
 	exit_code = WEXITSTATUS(exit_code);
 }
-
-//calcule le nombre de pipe
-//x

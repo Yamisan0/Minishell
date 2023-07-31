@@ -22,8 +22,16 @@ void ft_handler(int i)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	else if (i == SIGQUIT)
-		write(1, "\b\b  \b\b", 6);
+}
+
+void ft_handler_exec(int i)
+{
+	if (i == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+	}
 }
 
 t_mini	*init_mini(t_lexer *head, t_env *env)
@@ -80,7 +88,7 @@ int main(int ac, char **av, char **envp)
 			while (42)
 		{
 			signal(SIGINT, ft_handler);
-			signal(SIGQUIT, ft_handler);
+			signal(SIGQUIT, SIG_IGN);
 			prompt = ft_prompt(minishell_env);
 			if ( prompt == NULL)
 				continue;

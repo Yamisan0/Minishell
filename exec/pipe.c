@@ -55,6 +55,7 @@ int	set_exec(t_exec *ptr, int i, t_env *env)
 				ft_free_split(ptr->path_split);
 				write(2, ": command not found\n", 20);
 			}
+			exit_code = 127;
 			return (-1);
 		}
 	}
