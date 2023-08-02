@@ -82,6 +82,7 @@ int	dup_close_fd_pipe(t_exec *ptr, int i)
 	}
 	if (i == ptr->data->nb_pipe && i > 0)
 	{
+		close(ptr->fd[1]);
 		if (dup2(ptr->prev, STDIN_FILENO) == -1)
 			return (close(ptr->prev), -1);
 		close(ptr->prev);
