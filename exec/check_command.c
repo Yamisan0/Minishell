@@ -16,20 +16,29 @@ void	free_2darray(char	**split)
 	split = NULL;
 }
 
+int	size_tab(t_lexer *head)
+{
+	t_lexer *tmp;
+	int		size;
+
+	size = 0;
+	tmp = head;
+	while (tmp && tmp->token != PIPE)
+	{
+		if (tmp->token == WORD)
+			size++;
+		tmp = tmp->next;
+	}
+	return (size);
+}
+
 char **ft_command(t_lexer *head)
 {
 	t_lexer *tmp;
 	char    **tab;
 	int     i;
 
-	i = 0;
-	tmp = head;
-	while (tmp && tmp->token != PIPE)
-	{
-		if (tmp->token == WORD)
-			i++;
-		tmp = tmp->next;
-	}
+	i = size_tab(head);
 	if (i == 0)
 		return (NULL);
 	tmp = head;
@@ -72,6 +81,12 @@ char	**get_entire_path(char **envp)
 	return (paths);
 }
 
+char	*ft_path_norm(char **big_path)
+{
+	free(big_path);
+	return (NULL);
+}
+
 char	*ft_path(char *command, char **envp)
 {
 	char	**entire_path;
@@ -98,6 +113,5 @@ char	*ft_path(char *command, char **envp)
 		free(command_path);
 		i++;
 	}
-	free_2darray(entire_path);
-	return (NULL);
+	return (ft_path_norm(entire_path));
 }

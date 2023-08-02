@@ -90,13 +90,6 @@ int	dup_close_fd_pipe(t_exec *ptr, int i)
 	return (1);
 }
 
-void dupg(int in, int out)
-{
-	dup2(in, STDIN_FILENO);
-	dup2(out, STDOUT_FILENO);
-	close(in);
-	close(out);
-}
 int 	ft_forking(t_exec *ptr, int i, t_env *env)
 {
 	int	builtin;
