@@ -83,5 +83,9 @@ void    wait_all_pids(t_exec *args)
 		waitpid(args->pid[i], &exit_code, 0);
 		i++;
 	}
+	if (exit_code == 2)
+		exit_code = 130;
+	if (exit_code == 130 || exit_code == 131)
+		return ;
 	exit_code = WEXITSTATUS(exit_code);
 }

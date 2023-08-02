@@ -31,6 +31,11 @@ void ft_handler_exec(int i)
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
+		exit_code = 130;
+	}
+	else if (i == SIGQUIT)
+	{
+		ft_printf("Quit (core dumped)\n");
 	}
 }
 
@@ -100,6 +105,8 @@ int main(int ac, char **av, char **envp)
 			minish = init_mini(list, minishell_env);
 			if (exit_code == 130)
 				continue;
+			signal(SIGINT, ft_handler_exec);
+			signal(SIGQUIT, ft_handler_exec);
 			ft_pipex(minish->exec);
 			ft_free_minishell_struct(minish, prompt);
 			unlink("tmp.txt");

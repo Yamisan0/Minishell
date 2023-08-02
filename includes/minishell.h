@@ -226,4 +226,8 @@ void    ft_exit(char **argv, t_env *env);
 int		export_parsing(char **argv);
 void	ft_export_sans_arg(t_env *env);
 int	ft_built_in(char **argv, t_env *env, t_lexer *args);
+
+/* SIGNALS */
+void ft_handler_exec(int i);
+
 #endif
