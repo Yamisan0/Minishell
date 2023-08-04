@@ -7,8 +7,11 @@ void	ft_export_sans_arg(t_env *env)
 		return ;
 	tmp = env;
 	while (tmp)
-	{
-		printf("export %s=\"%s\"\n", tmp->var, tmp->value);
+	{	
+		if (tmp->value)
+			printf("export %s=\"%s\"\n", tmp->var, tmp->value);
+		else
+			printf("export %s\n", tmp->var);
 		tmp = tmp->next;
 	}
 }
@@ -38,6 +41,8 @@ char *return_equal(char *arg)
 	int	i;
 
 	i = 0;
+	if (!arg)
+		return (NULL);
 	while (arg[i])
 	{
 		if (arg[i] == '=')
@@ -83,6 +88,22 @@ int		export_parsing(char **argv)
 	return (1);
 }
 
+void	ft_norm_export(t_env *tmp, char **argv, int i, t_env *head)
+{
+	if (tmp)
+	{
+		if (tmp->value)
+			free(tmp->value);
+		tmp->value = ft_strdup(return_equal(argv[i]));
+	}
+	else
+	{
+		tmp = create_node(argv[i]);
+		cpy_tab(argv[i], tmp);
+		head = add_to_list(head, tmp);
+	}
+}
+
 void	ft_export(t_env **env, char **argv)
 {
 	t_env	*tmp;
@@ -100,18 +121,7 @@ void	ft_export(t_env **env, char **argv)
 			continue;
 		}
 		tmp = ft_check_exist(*env, argv[i]);
-		if (tmp)
-		{
-			if (tmp->value)
-				free(tmp->value);
-			tmp->value = ft_strdup(return_equal(argv[i]));
-		}
-		else
-		{
-			tmp = create_node(argv[i]);
-			cpy_tab(argv[i], tmp);
-			head = add_to_list(head, tmp);
-		}
+		ft_norm_export(tmp, argv, i, head);
 		i++;
 	}
 	*env = head;

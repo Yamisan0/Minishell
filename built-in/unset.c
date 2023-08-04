@@ -23,7 +23,6 @@ void	ft_delete_node(t_env **env, t_env *node)
 		free(node->value);
 		free(node);
 	}
-	// set_index_env(env);
 }
 
 

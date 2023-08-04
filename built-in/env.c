@@ -28,10 +28,16 @@ t_env   *create_node(char *str_to_cpy)
 	while (str_to_cpy[i] && str_to_cpy[i] != '=')
 		i++;
 	j = i + 1;
-	while (str_to_cpy[j])
-		j++;
+	if (str_to_cpy[i] == '=')
+	{
+		while (str_to_cpy[j])
+			j++;
+	}
 	node->var = ft_calloc(i + 1, sizeof(char));
-	node->value = ft_calloc((j - i) + 1, sizeof(char));
+	if (str_to_cpy[i] == '=')
+		node->value = ft_calloc((j - i) + 1, sizeof(char));
+	else
+		node->value = NULL;
 	return (node);
 }
 
@@ -50,12 +56,15 @@ void	cpy_tab(char *str, t_env *node)
 		node->var[i] = str[i];
 		i++;
 	}
-	j = i + 1;
-	while (str[j])
+	if (str[i] == '=')
 	{
-		node->value[k] = str[j];
-		j++;
-		k++;
+		j = i + 1;
+		while (str[j])
+		{
+			node->value[k] = str[j];
+			j++;
+			k++;
+		}
 	}
 }
 
@@ -98,7 +107,10 @@ int		ft_print_env(t_env *env)
 		return (0);
 	while (env)
 	{
-		printf("%s=%s\n", env->var, env->value);
+		if (env->value)
+			printf("%s=%s\n", env->var, env->value);
+		else
+			printf("%s\n", env->var);
 		env = env->next;
 	}
 	return (1);

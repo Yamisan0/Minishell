@@ -33,10 +33,11 @@ void	ft_free_minishell_struct(t_mini *ptr, char *prompt)
 void    ft_free_all(char *msg, t_exec *ptr)
 {
 	if (ptr->full_cmd)
-		ft_free_split(ptr->full_cmd);
-	if (ptr->full_cmd)
 		ft_free_split(ptr->env);
+	if (ptr->full_cmd)
+		ft_free_split(ptr->full_cmd);
 	free(ptr->path);
+	free(ptr->pid);
 	ptr->tmp = NULL;
 	ft_free_parser_lexer(ptr->data->args);
 	if (ptr)

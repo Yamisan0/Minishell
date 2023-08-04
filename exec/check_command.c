@@ -83,7 +83,7 @@ char	**get_entire_path(char **envp)
 
 char	*ft_path_norm(char **big_path)
 {
-	free(big_path);
+	ft_free_split(big_path);
 	return (NULL);
 }
 
