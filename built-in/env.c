@@ -96,6 +96,7 @@ t_env	*set_env(char **envp)
 		cpy_tab(envp[i], new);
 		head = add_to_list(head, new);
 		i++;
+		new = NULL;
 	}
 	set_index_env(head);
 	return (head);

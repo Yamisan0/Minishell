@@ -215,6 +215,7 @@ void    ft_free_parser_lexer(t_lexer *head);
 void	ft_free_minishell_struct(t_mini *ptr, char *prompt);
 void    ft_free_all(char *msg, t_exec *ptr);
 void	ft_free_all_exit(int indice, int code, t_env *env);
+void	free_env(t_env *env);
 
 /* BUILT-IN */
 void    ft_echo(char **args);
