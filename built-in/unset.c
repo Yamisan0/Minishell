@@ -69,7 +69,10 @@ void	ft_unset_export_no_fork(t_lexer *args, t_env **env)
 		ft_free_split(argv);
 	}
 	else if (ft_strcmp(argv[0], "exit") == 0)
+	{
+		ft_free_parser_lexer(args);
 		ft_exit(argv, *env);
+	}
 	else if (ft_strcmp(argv[0], "cd") == 0)
 		ft_cd(argv + 1);
 	else

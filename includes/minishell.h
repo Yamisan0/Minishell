@@ -214,7 +214,7 @@ char	**fill_heredoc_tab(char **tab, t_lexer *head);
 void    ft_free_parser_lexer(t_lexer *head);
 void	ft_free_minishell_struct(t_mini *ptr, char *prompt, int indice);
 void    ft_free_all(char *msg, t_exec *ptr);
-void	ft_free_all_exit(int indice, int code, t_env *env);
+void	ft_free_all_exit(int indice, int code, t_env *env, char **argv);
 void	free_env(t_env *env);
 
 /* BUILT-IN */

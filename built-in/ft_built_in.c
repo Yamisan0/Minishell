@@ -33,6 +33,15 @@ int check_pipe_prev(t_lexer *args)
 	return (0);
 }
 
+int	ft_norm_built_in(char **argv)
+{
+	if (ft_strcmp(argv[0], "pwd") == 0)
+		return (ft_pwd(), 1);
+	if (ft_strcmp(argv[0], "unset") == 0)
+		return (1);
+	return (0);
+}
+
 int	ft_built_in(char **argv, t_env *env, t_lexer *args)
 {
 	if (!argv)
@@ -43,9 +52,7 @@ int	ft_built_in(char **argv, t_env *env, t_lexer *args)
 		return (ft_print_env(env), 1);
 	if (ft_strcmp(argv[0], "cd") == 0 && check_pipe_prev(args) == 1)
 		return (ft_cd(argv + 1), 1);
-	if (ft_strcmp(argv[0], "pwd") == 0)
-		return (ft_pwd(), 1);
-	if (ft_strcmp(argv[0], "unset") == 0)
+	if (ft_norm_built_in(argv) == 1)
 		return (1);
 	if (ft_strcmp(argv[0], "export") == 0)
 	{

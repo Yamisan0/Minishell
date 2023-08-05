@@ -55,7 +55,7 @@ char		*ft_prompt(t_env *env)
 	if (prompt && prompt[0])
 		add_history(prompt);
 	if (!prompt)
-		return (ft_free_all_exit(0, exit_code, env), NULL);
+		return (ft_free_all_exit(0, exit_code, env, NULL), NULL);
 	if (!(*prompt))
 		return (free(prompt), NULL);
 	if (pars_prompt(prompt) == NULL)

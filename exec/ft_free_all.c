@@ -65,8 +65,10 @@ void    ft_free_all(char *msg, t_exec *ptr)
 }
 
 
-void	ft_free_all_exit(int indice, int code, t_env *env)
+void	ft_free_all_exit(int indice, int code, t_env *env, char **argv)
 {
+	if (argv)
+		ft_free_split(argv);
 	free_env(env);
 	if (indice == 0)
 		printf("exit\n");
