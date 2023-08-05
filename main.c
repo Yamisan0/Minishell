@@ -79,6 +79,19 @@ t_lexer	*ft_parser_lexer(char *prompt, t_env *env)
 }
 
 
+void	ft_norm_main(t_mini *minish, char *prompt)
+{
+	if (exit_code == 130)
+	{
+		ft_free_minishell_struct(minish, prompt, 130);
+		return ;
+	}
+	signal(SIGINT, ft_handler_exec);
+	signal(SIGQUIT, ft_handler_exec);
+	ft_pipex(minish->exec);
+	ft_free_minishell_struct(minish, prompt, 0);
+}
+
 int main(int ac, char **av, char **envp)
 {
 	(void)	av;
@@ -103,16 +116,7 @@ int main(int ac, char **av, char **envp)
 				continue;
 			ft_unset_export_no_fork(list, &minishell_env);
 			minish = init_mini(list, minishell_env);
-			if (exit_code == 130)
-			{
-
-				ft_free_minishell_struct(minish, prompt, 130);
-				continue;
-			}
-			signal(SIGINT, ft_handler_exec);
-			signal(SIGQUIT, ft_handler_exec);
-			ft_pipex(minish->exec);
-			ft_free_minishell_struct(minish, prompt, 0);
+			ft_norm_main(minish, prompt);
 		}
 	}
 }

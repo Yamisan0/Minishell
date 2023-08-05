@@ -22,7 +22,8 @@ void	ft_replace_by_litteral(t_lexer *head, t_env *env)
 	tmp = head;
 	while (tmp)
 	{
-		if (tmp->token == DOLLAR && tmp->dollar == COMPLEX && get_token_type(tmp->str[1]) == ALPHA_NUM)
+		if (tmp->token == DOLLAR && tmp->dollar == COMPLEX
+				&& get_token_type(tmp->str[1]) == ALPHA_NUM)
 		{
 			stock = tmp->str;
 			tmp->str = ft_give_val(env, tmp->str + 1);

@@ -34,6 +34,12 @@ t_lexer	*ret_next_pipe(t_lexer *head, int i)
 	return (NULL);
 }
 
+void	ft_norm_exec(t_exec *ptr)
+{
+	ft_free_split(ptr->path_split);
+	write(2, ": command not found\n", 20);
+}
+
 int	set_exec(t_exec *ptr, int i, t_env *env)
 {
 	ptr->tmp = ret_next_pipe(ptr->data->args, i);
@@ -53,10 +59,7 @@ int	set_exec(t_exec *ptr, int i, t_env *env)
 			if (!ptr->path_split)
 				write(2, ": No such file or directory\n", 28);
 			else
-			{
-				ft_free_split(ptr->path_split);
-				write(2, ": command not found\n", 20);
-			}
+				ft_norm_exec(ptr);
 			exit_code = 127;
 			return (-1);
 		}

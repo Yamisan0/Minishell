@@ -2,7 +2,8 @@
 
 int	is_special_token(t_lexer *node)
 {
-	if (node->token == PIPE || node->token == REDIRECTION_LEFT || node->token == REDIRECTION_RIGHT)
+	if (node->token == PIPE || node->token == REDIRECTION_LEFT
+			|| node->token == REDIRECTION_RIGHT)
 		return (1);
 	return (0);
 }
@@ -49,7 +50,6 @@ int		ft_nb_pipe(t_lexer *head)
 char		*ft_prompt(t_env *env)
 {
 	char *prompt;
-	// (void)env;
 
 	prompt = readline("minishell>");
 	if (prompt && prompt[0])

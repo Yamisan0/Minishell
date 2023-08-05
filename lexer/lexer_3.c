@@ -44,7 +44,8 @@ void	fusion_reste(t_lexer *head)
 	{
 		if (tmp->token == WORD)
 		{
-			if (tmp->next && tmp->next->token != WHITE_SPACE && !is_special_token(tmp->next) && tmp->next == DEFAULT)
+			if (tmp->next && tmp->next->token != WHITE_SPACE &&
+				!is_special_token(tmp->next) && tmp->next == DEFAULT)
 			{
 				tmp->str = alloc_strcat(tmp->str, tmp->next->str);
 				ft_destroy_node(tmp->next);

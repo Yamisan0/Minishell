@@ -24,7 +24,8 @@ int	ft_open_dup_heredoc(t_lexer *head, t_exec *ptr)
 	fd = open_files(4, "");
 	if ( fd == -1)
 		return (perror("minishell"), -1);
-	ft_write_in_file(ptr->data->tab_heredoc[head->index_heredoc], fd, ptr->data->env);
+	ft_write_in_file(ptr->data->tab_heredoc[head->index_heredoc],
+		fd, ptr->data->env);
 	close(fd);
 	fd = open_files(5, "");
 	if (fd == -1)
