@@ -191,6 +191,8 @@ int	ft_open_n_dup(int indice, t_lexer *head, t_exec *ptr);
 int	ft_open(t_lexer *head, t_exec *ptr);
 /* EXEC */
 char **ft_command(t_lexer *head);
+int	set_exec(t_exec *ptr, int i, t_env *env);
+int	dup_close_fd_pipe(t_exec *ptr, int i);
 char	**get_entire_path(char **envp);
 char	*ft_path(char *command, char **envp);
 char **create_envp(t_env *env);
@@ -224,11 +226,15 @@ int	ft_check_builtin(char **argv);
 void	ft_unset_export_no_fork(t_lexer *args, t_env **env);
 int		ft_exit_parsing(char **argv);
 void    ft_exit(char **argv, t_env *env);
+char *return_equal(char *arg);
 int		export_parsing(char **argv);
+t_env		*ft_check_exist(t_env *env, char *arg);
 void	ft_export_sans_arg(t_env *env);
 int	ft_built_in(char **argv, t_env *env, t_lexer *args);
 
 /* SIGNALS */
-void ft_handler_exec(int i);
+void	ft_handler_exec(int i);
+void	ft_handler(int i);
+void	ft_handler_heredoc(int i);
 
 #endif

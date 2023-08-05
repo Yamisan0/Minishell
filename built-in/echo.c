@@ -42,3 +42,18 @@ void    ft_echo(char **args)
 		printf("\n");
 
 }
+
+int		ft_print_env(t_env *env)
+{
+	if (!env)
+		return (0);
+	while (env)
+	{
+		if (env->value)
+			printf("%s=%s\n", env->var, env->value);
+		else
+			printf("%s\n", env->var);
+		env = env->next;
+	}
+	return (1);
+}
