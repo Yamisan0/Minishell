@@ -122,6 +122,16 @@ void	ft_main_process(t_exec *ptr)
 	ptr->prev = ptr->fd[0];
 }
 
+void	ft_free_process(t_exec *ptr)
+{
+	ft_free_split(ptr->env);
+	free(ptr->pid);
+	ft_free_split(ptr->full_cmd);
+	ft_free_parser_lexer(ptr->data->args);
+	free(ptr->data);
+	free(ptr);
+}
+
 int	ft_pipex(t_exec *ptr)
 {
 	int	i;
@@ -136,7 +146,8 @@ int	ft_pipex(t_exec *ptr)
 			if (ptr->data->nb_pipe == 0)
 				close_fds(ptr->fd);
 			if (ft_forking(ptr, i, ptr->data->env) != 1)
-				return (free(ptr->pid), exit(exit_code), -1);
+				return (ft_free_process(ptr), exit(exit_code), -1);
+			
 			exit(exit_code);
 		}
 		else if (ptr->pid[i] > 0)
