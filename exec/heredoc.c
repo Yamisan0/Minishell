@@ -83,14 +83,35 @@ void	ft_write_in_file(char *str_doc, int fd, t_env *env)
 	ft_free_split(tab);
 }
 
-char	*ft_get_heredoc(char *delimiter)
+char	*fusion_heredoc(char *prompt, char *heredoc)
 {
-	char	*prompt = NULL;
-	char	*heredoc = NULL;
 	char	*tmp;
 	char	*tmp_stock;
 	char	*tmp_heredoc;
 
+	tmp_stock = ft_strdup(prompt);
+	tmp = ft_strjoin(tmp_stock, "\n");
+	free(tmp_stock);
+	if (!heredoc)
+		heredoc = ft_strjoin("", tmp);
+	else
+	{
+		tmp_heredoc = heredoc;
+		heredoc = ft_strjoin(tmp_heredoc, tmp);
+		free(tmp_heredoc);
+	}
+	free(tmp);
+	free(prompt);
+	return (heredoc);
+}
+
+char	*ft_get_heredoc(char *delimiter)
+{
+	char	*prompt;
+	char	*heredoc;
+
+	prompt = NULL;
+	heredoc = NULL;
 	while (1)
 	{
 		if (exit_code != 130)
@@ -109,19 +130,7 @@ char	*ft_get_heredoc(char *delimiter)
 			free(prompt);
 			break;
 		}
-		tmp_stock = ft_strdup(prompt);
-		tmp = ft_strjoin(tmp_stock, "\n");
-		free(tmp_stock);
-		if (!heredoc)
-			heredoc = ft_strjoin("", tmp);
-		else
-		{
-			tmp_heredoc = heredoc;
-			heredoc = ft_strjoin(tmp_heredoc, tmp);
-			free(tmp_heredoc);
-		}
-		free(tmp);
-		free(prompt);
+		heredoc = fusion_heredoc(prompt, heredoc);
 	}
 	return (heredoc);
 }

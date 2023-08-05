@@ -104,12 +104,15 @@ int main(int ac, char **av, char **envp)
 			ft_unset_export_no_fork(list, &minishell_env);
 			minish = init_mini(list, minishell_env);
 			if (exit_code == 130)
+			{
+
+				ft_free_minishell_struct(minish, prompt, 130);
 				continue;
+			}
 			signal(SIGINT, ft_handler_exec);
 			signal(SIGQUIT, ft_handler_exec);
 			ft_pipex(minish->exec);
-			ft_free_minishell_struct(minish, prompt);
-			unlink("tmp.txt");
+			ft_free_minishell_struct(minish, prompt, 0);
 		}
 	}
 }

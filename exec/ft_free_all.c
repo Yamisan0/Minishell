@@ -15,10 +15,10 @@ void	ft_free_parser_lexer(t_lexer *pile)
 	}
 }
 
-void	ft_free_minishell_struct(t_mini *ptr, char *prompt)
+void	ft_free_minishell_struct(t_mini *ptr, char *prompt, int indice)
 {
-	// (void)prompt;
-
+	if (indice == 130)
+		free(ptr->exec->pid);
 	if (!ptr)
 		return ;
 	free(ptr->exec);
@@ -28,6 +28,7 @@ void	ft_free_minishell_struct(t_mini *ptr, char *prompt)
 	free(ptr);
 	free(prompt);
 	ptr = NULL;
+	unlink("tmp.txt");
 }
 
 void	free_env(t_env *env)
@@ -46,6 +47,8 @@ void	free_env(t_env *env)
 }
 void    ft_free_all(char *msg, t_exec *ptr)
 {
+	ft_free_split(ptr->data->tab_heredoc);
+	free_env(ptr->data->env);
 	if (ptr->full_cmd)
 		ft_free_split(ptr->env);
 	if (ptr->full_cmd)
