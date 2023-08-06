@@ -89,3 +89,13 @@ void    wait_all_pids(t_exec *args)
 		return ;
 	exit_code = WEXITSTATUS(exit_code);
 }
+
+void	ft_write_error(char *s1, char *s2, char *s3)
+{
+	char string[1000];
+	
+	ft_strlcpy(string, s1, 1000);
+	ft_strlcat(string, s2, 1000);
+	ft_strlcat(string, s3, 1000);
+	write(2, &string, ft_strlen(string));
+}

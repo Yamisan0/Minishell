@@ -37,7 +37,7 @@ t_lexer	*ret_next_pipe(t_lexer *head, int i)
 void	ft_norm_exec(t_exec *ptr)
 {
 	ft_free_split(ptr->path_split);
-	write(2, ": command not found\n", 20);
+	ft_write_error("minishell: ", ptr->cmd, ": command not found\n");
 }
 
 int	set_exec(t_exec *ptr, int i, t_env *env)
@@ -52,12 +52,10 @@ int	set_exec(t_exec *ptr, int i, t_env *env)
 		ptr->data->env = NULL;
 		ptr->path = ft_path(ptr->cmd, ptr->env);
 		if (ft_check_builtin(ptr->full_cmd) == -1 && !ptr->path)
-		{
+		{	
 			ptr->path_split = get_entire_path(ptr->env);
-			write(2, "minishell: ", 11);
-			ft_putstr_fd(ptr->cmd, 2);
 			if (!ptr->path_split)
-				write(2, ": No such file or directory\n", 28);
+				ft_write_error("minishell: ", ptr->cmd, ": No such file or directory\n");
 			else
 				ft_norm_exec(ptr);
 			exit_code = 127;
