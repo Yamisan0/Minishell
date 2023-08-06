@@ -36,6 +36,7 @@ void	ft_main_process(t_exec *ptr)
 void	ft_free_process(t_exec *ptr)
 {
 	ft_free_split(ptr->env);
+	free_env(ptr->data->env);
 	free(ptr->pid);
 	ft_free_split(ptr->full_cmd);
 	ft_free_parser_lexer(ptr->data->args);
