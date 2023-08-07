@@ -5,15 +5,15 @@ int	double_quote_validity_check(t_lexer *head)
 	t_lexer *tmp;
 	int		nb;
 
-	nb = 1;
+	nb = 0;
 	tmp = head;
 	while (tmp)
 	{
-		if (tmp->token == DOUBLE_QUOTE)
+		if (tmp->token == DOUBLE_QUOTE && tmp->str[0] == '\"')
 			nb++;
 		tmp = tmp->next;
 	}
-	if (nb % 2 == 0 || nb == 0)
+	if (nb % 2 != 0)
 		return (1);
 	return (0);
 }

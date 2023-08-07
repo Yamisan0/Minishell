@@ -7,7 +7,7 @@ void	ft_export_sans_arg(t_env *env)
 		return ;
 	tmp = env;
 	while (tmp)
-	{	
+	{
 		if (tmp->value)
 			printf("export %s=\"%s\"\n", tmp->var, tmp->value);
 		else
