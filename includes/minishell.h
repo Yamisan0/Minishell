@@ -224,7 +224,7 @@ void	free_env(t_env *env);
 void    ft_echo(char **args);
 int	ft_cd(char **str);
 int	ft_check_builtin(char **argv);
-void	ft_unset_export_no_fork(t_lexer *args, t_env **env);
+void	ft_unset_export_no_fork(t_lexer **args, t_env **env);
 int		ft_exit_parsing(char **argv);
 void    ft_exit(char **argv, t_env *env);
 char *return_equal(char *arg);

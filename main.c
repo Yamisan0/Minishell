@@ -7,6 +7,8 @@ t_mini	*init_mini(t_lexer *head, t_env *env)
 	(void)env;
 	char	**heredoc;
 
+	if (!head)
+		return (NULL);
 	ptr = ft_calloc(1, sizeof(t_mini));
 	if (!ptr)
 		return (NULL);
@@ -76,9 +78,10 @@ int main(int ac, char **av, char **envp)
 			exit_code = 0;
 			if (!list)
 				continue;
-			ft_unset_export_no_fork(list, &minishell_env);
+			ft_unset_export_no_fork(&list, &minishell_env);
 			minish = init_mini(list, minishell_env);
-			ft_norm_main(minish, prompt);
+			if (minish)
+				ft_norm_main(minish, prompt);
 		}
 	}
 }

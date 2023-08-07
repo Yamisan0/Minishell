@@ -3,8 +3,10 @@
 
 void	ft_free_parser_lexer(t_lexer *pile)
 {
+	t_lexer **tmp_2;
 	t_lexer	*tmp;
-
+	
+	tmp_2 = &pile;
 	tmp = pile;
 	while (pile)
 	{
@@ -13,6 +15,7 @@ void	ft_free_parser_lexer(t_lexer *pile)
 		free(tmp);
 		tmp = pile;
 	}
+	*tmp_2 = NULL;
 }
 
 void	ft_free_minishell_struct(t_mini *ptr, char *prompt, int indice)

@@ -78,7 +78,6 @@ int ft_parser(t_lexer *head)
 		return (-1);
 	set_redirection_type(head);
 	ft_set_infile_outfile(head);
-	// ft_heredoc_tokens(head);
 	return (1);
 }
 
