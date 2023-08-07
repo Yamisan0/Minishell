@@ -24,6 +24,11 @@ int 	ft_forking(t_exec *ptr, int i, t_env *env)
 		ptr->data->env = NULL;
 		execve(ptr->path, ptr->full_cmd, ptr->env);
 	}
+	if (errno == 13)
+	{
+		ft_printf("minishell: %s: %s\n", ptr->cmd, strerror(errno));
+		exit_code = 126;
+	}
 	ft_free_all(NULL, ptr);
 	return (1);
 }

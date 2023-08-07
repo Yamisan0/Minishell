@@ -23,7 +23,9 @@ char **ft_command(t_lexer *head)
 	t_lexer *tmp;
 	char    **tab;
 	int     i;
+	int		passed;
 
+	passed = 0;
 	i = size_tab(head);
 	if (i == 0)
 		return (NULL);
@@ -34,7 +36,9 @@ char **ft_command(t_lexer *head)
 	i = 0;
 	while (tmp && tmp->token != PIPE)
 	{
-		if (tmp->token == WORD)
+		if (tmp->token == WORD && tmp->str[0] != '\0')
+			passed = 1;
+		if(tmp->token == WORD && passed == 1)
 		{
 			tab[i] = ft_strdup(tmp->str);
 			i++;

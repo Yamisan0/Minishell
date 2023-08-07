@@ -94,3 +94,6 @@ void	ft_lexer_part_2(t_lexer *lexer, t_env *env)
 	fusion_words(lexer);
 	delete_spaces(lexer);
 }
+
+
+

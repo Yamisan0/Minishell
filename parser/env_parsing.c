@@ -12,7 +12,6 @@ char	*ft_give_val(t_env *env, char *name)
 			return (ft_strdup(tmp->value));
 		tmp = tmp->next;
 	}
-
 	return (ft_strdup(str_vide));
 }
 
