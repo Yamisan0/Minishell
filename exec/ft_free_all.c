@@ -52,6 +52,7 @@ void    ft_free_all(char *msg, t_exec *ptr)
 {
 	ft_free_split(ptr->data->tab_heredoc);
 	free_env(ptr->data->env);
+	ptr->data->env = NULL;
 	ft_free_split(ptr->env);
 	ptr->env = NULL;
 	if (ptr->full_cmd)

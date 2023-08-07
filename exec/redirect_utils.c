@@ -44,7 +44,8 @@ int	ft_open_n_dup(int indice, t_lexer *head, t_exec *ptr)
 	{
 		fd = open_files(indice, head->str);
 		if (fd == -1)
-			return (-1);
+			return (ft_printf("minishell: %s: %s\n",
+						head->str, strerror(errno)), exit_code = 1, -1);
 		if (dup2(fd, STDOUT_FILENO) == -1)
 			return(perror("minishell"), close(fd), -1);
 	}

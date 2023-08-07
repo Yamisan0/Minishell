@@ -40,6 +40,26 @@ void	ft_norm_exec(t_exec *ptr)
 	ft_write_error("minishell: ", ptr->cmd, ": command not found\n");
 }
 
+int	ft_check_directory(char *str)
+{
+	struct stat stats;
+	int			var;
+
+	var = 0;
+	if ((str[0] && str[1] && str[0] == '.' && str[1] == '/')
+			|| (str[0] && str[0] == '/' && !str[1]) || str[ft_strlen(str + 1)] == '/')
+		var = 1;
+	if (stat(str, &stats) == -1)
+		return (1);
+	if (S_ISDIR(stats.st_mode) && var == 1)
+	{
+		ft_printf("minishell: %s: Is a directory\n", str);
+		exit_code = 126;
+		return (-1);
+	}
+	return (1);
+}
+
 int	set_exec(t_exec *ptr, int i, t_env *env)
 {
 	ptr->tmp = ret_next_pipe(ptr->data->args, i);
@@ -48,13 +68,13 @@ int	set_exec(t_exec *ptr, int i, t_env *env)
 	{
 		ptr->cmd = ptr->full_cmd[0];
 		ptr->env = create_envp(env);
-		free_env(ptr->data->env);
-		ptr->data->env = NULL;
 		ptr->path = ft_path(ptr->cmd, ptr->env);
+		if (ft_check_directory(ptr->cmd) == -1)
+			return (free(ptr->path), -1);
 		if (ft_check_builtin(ptr->full_cmd) == -1 && !ptr->path)
-		{	
+		{
 			ptr->path_split = get_entire_path(ptr->env);
-			if (!ptr->path_split)
+			if (!ptr->path_split || ft_strchr(ptr->cmd, '/'))
 				ft_write_error("minishell: ", ptr->cmd, ": No such file or directory\n");
 			else
 				ft_norm_exec(ptr);

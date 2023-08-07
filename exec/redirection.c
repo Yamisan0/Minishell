@@ -43,7 +43,7 @@ int	ft_open(t_lexer *head, t_exec *ptr)
 	if (ptr->redirect == IN)
 	{
 		if (ft_open_n_dup(1, head, ptr) == -1)
-			return (ft_printf("minishell: %s: %s", head->str, strerror(errno)), -1);
+			return (ft_printf("minishell: %s: %s\n", head->str, strerror(errno)),exit_code = 1, -1);
 	}
 	else if (ptr->redirect == OUT)
 	{

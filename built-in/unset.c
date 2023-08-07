@@ -51,7 +51,6 @@ void	ft_unset(t_env **env, char **argv)
 void	ft_norm_unset_export(t_env **env, char **argv)
 {
 	ft_unset(env, argv);
-	ft_free_split(argv);
 }
 
 void	ft_unset_export_no_fork(t_lexer **args, t_env **env)
@@ -68,7 +67,6 @@ void	ft_unset_export_no_fork(t_lexer **args, t_env **env)
 	else if (ft_strcmp(argv[0], "export") == 0)
 	{
 		ft_export(env, argv);
-		ft_free_split(argv);
 	}
 	else if (ft_strcmp(argv[0], "exit") == 0)
 	{
@@ -78,6 +76,6 @@ void	ft_unset_export_no_fork(t_lexer **args, t_env **env)
 	}
 	else if (ft_strcmp(argv[0], "cd") == 0)
 		ft_cd(argv + 1);
-	else
-		ft_free_split(argv);
+	ft_free_split(argv);
+	argv = NULL;
 }

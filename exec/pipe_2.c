@@ -19,7 +19,11 @@ int 	ft_forking(t_exec *ptr, int i, t_env *env)
 		return (-1);
 	builtin = ft_built_in(ptr->full_cmd, env, ptr->tmp);
 	if (builtin == -1 && ptr->path && ptr->full_cmd && ptr->env)
+	{
+		free_env(ptr->data->env);
+		ptr->data->env = NULL;
 		execve(ptr->path, ptr->full_cmd, ptr->env);
+	}
 	ft_free_all(NULL, ptr);
 	return (1);
 }
@@ -37,6 +41,7 @@ void	ft_free_process(t_exec *ptr)
 {
 	ft_free_split(ptr->env);
 	free_env(ptr->data->env);
+	ptr->data->env = NULL;
 	free(ptr->pid);
 	ft_free_split(ptr->full_cmd);
 	ft_free_parser_lexer(ptr->data->args);

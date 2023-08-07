@@ -2,8 +2,19 @@
 
 int		check_valid_variable(char *str)
 {
-		if (str[0] && str[0] == '=')
-			return (ft_printf("minishell: export: `%s': not a valid identifier\n", str), 0);
+	int	i;
+	int	check;
+
+	check = 0;
+	i = 0;
+	while (str[i] && str[i] != '=')
+	{
+		if (str[i] == '-')
+			check = 1;
+		i++;
+	}
+	if ((str[0] && str[0] == '=') || check == 1 || (str[0] && ft_isdigit(str[0])))
+		return (ft_printf("minishell: export: `%s': not a valid identifier\n", str),exit_code = 1, 0);
 	return (1);
 }
 
