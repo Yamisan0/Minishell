@@ -16,6 +16,16 @@ int	verif_n(char *str)
 	return (1);
 }
 
+int		ft_len_argv(char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+		i++;
+	return (i);
+}
+
 void    ft_echo(char **args)
 {
 	int i;
@@ -34,7 +44,7 @@ void    ft_echo(char **args)
 	while (args[i])
 	{
 		printf("%s", args[i]);
-		if (args[i + 1])
+		if (args[i + 1] && args[i][0] != '\0')
 			printf(" ");
 		i++;
 	}

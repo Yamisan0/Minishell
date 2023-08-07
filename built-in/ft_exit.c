@@ -24,7 +24,7 @@ int		ft_exit_parsing(char **argv)
 		if (i >= 2)
 		{
 			write(2, "minishell: exit: too many arguments\n",37);
-			return (1);
+			return (exit_code = 1, 1);
 		}
 		if (word_numeric(argv[i]) == 0)
 		{
@@ -45,10 +45,7 @@ void    ft_exit(char **argv, t_env *env)
 	printf("exit\n");
 	error = ft_exit_parsing(argv);
 	if (error == 1)
-	{
-		ft_free_split(argv);
 		return ;
-	}
 	else if (argv[1] == NULL)
 		ft_free_all_exit(5, 0, env, argv);
 	else if (error == 2)
