@@ -52,6 +52,8 @@ int		ft_exit_parsing(char **argv)
 			write(2, "minishell: exit: too many arguments\n",37);
 			return (exit_code = 1, 1);
 		}
+		if (ft_strcmp("-9223372036854775808", argv[i]) == 0)
+			return (0);
 		if (word_numeric(argv[i]) == 0 || ft_check_one_sign(argv[i]) == -1 || (ft_atoi(argv[i]) == -1625893402))
 		{
 			write(2, "minishell: exit: ", 17);
@@ -63,6 +65,19 @@ int		ft_exit_parsing(char **argv)
 		i++;
 	}
 	return (0);
+}
+
+int	nbr_exit_negatif(char *str)
+{
+	long long	nbr;
+
+	if (ft_strcmp("-9223372036854775808", str) == 0)
+		return (0);
+	nbr = ft_atoi(str);
+	nbr = nbr * (-1);
+	nbr = nbr % 256;
+	nbr = 256 - nbr;
+	return (nbr);
 }
 
 void    ft_exit(char **argv, t_env *env)
@@ -83,7 +98,7 @@ void    ft_exit(char **argv, t_env *env)
 			ft_free_all_exit(5, ft_atoi(argv[1]), env, argv);
 		else
 		{
-
+			ft_free_all_exit(5, nbr_exit_negatif(argv[1]), env, argv);
 		}
 	}
 }
