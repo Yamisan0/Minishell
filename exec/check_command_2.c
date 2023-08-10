@@ -31,6 +31,8 @@ char	*ft_path(char *command, char **envp)
 	int		i;
 
 	i = 0;
+	if (!command)
+		return (NULL);
 	if (ft_strchr(command, '/'))
 		return (check_slash(command));
 	entire_path = get_entire_path(envp);

@@ -46,6 +46,8 @@ int	ft_check_directory(char *str)
 	int			var;
 
 	var = 0;
+	if (!str)
+		return (1);
 	if ((str[0] && str[1] && str[0] == '.' && str[1] == '/')
 			|| (str[0] && str[0] == '/') || str[ft_strlen(str + 1)] == '/')
 		var = 1;
