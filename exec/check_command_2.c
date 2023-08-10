@@ -22,11 +22,6 @@ char	*check_slash(char *command)
 	return (NULL);
 }
 
-char	*ft_path_norm(char **big_path)
-{
-	ft_free_split(big_path);
-	return (NULL);
-}
 
 char	*ft_path(char *command, char **envp)
 {
@@ -48,11 +43,11 @@ char	*ft_path(char *command, char **envp)
 		free(add_slash);
 		if (access(command_path, F_OK) == 0)
 		{
-			free_2darray(entire_path);
+			ft_free_split(entire_path);
 			return (command_path);
 		}
 		free(command_path);
 		i++;
 	}
-	return (ft_path_norm(entire_path));
+	return (ft_free_split(entire_path), NULL);
 }

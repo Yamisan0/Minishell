@@ -9,6 +9,8 @@ int valid_pipe(t_lexer *head)
 	{
 		if (tmp->token == PIPE)
 		{
+			if (!tmp->prev)
+				return (-1);
 			if (ft_strlen(tmp->str) > 1)
 				return (-1);
 			if ((tmp->prev && tmp->prev->token == PIPE)
@@ -73,7 +75,7 @@ int ft_parser(t_lexer *head)
 {
 	if (valid_pipe(head) == -1)
 		return (ft_printf(
-					"minishell syntax error near unexpected token `|'\n"), -1);
+					"minishell: syntax error near unexpected token `|'\n"), -1);
 	if (valid_simple_redirection(head) == -1)
 		return (-1);
 	set_redirection_type(head);
