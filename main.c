@@ -36,6 +36,7 @@ t_lexer	*ft_parser_lexer(char *prompt, t_env *env)
 		return (NULL);
 	if (quote_pars(head) == 0)
 		return (free(prompt), ft_free_parser_lexer(head), NULL);
+	
 	ft_lexer_part_2(head, env);
 	if (ft_parser(head) == -1)
 		return (free(prompt), ft_free_parser_lexer(head), NULL);

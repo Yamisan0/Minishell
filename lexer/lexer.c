@@ -86,6 +86,7 @@ t_lexer *ft_lexer(char *prompt)
 
 void	ft_lexer_part_2(t_lexer *lexer, t_env *env)
 {
+	
 	ft_replace_by_litteral(lexer, env);
 	ft_supp_simple_quotes(lexer);
 	double_quote_fusion(lexer);

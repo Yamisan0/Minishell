@@ -71,6 +71,7 @@ void	ft_heredoc_tokens(t_lexer *head)
 }
 
 
+
 int ft_parser(t_lexer *head)
 {
 	if (valid_pipe(head) == -1)
@@ -78,6 +79,7 @@ int ft_parser(t_lexer *head)
 					"minishell: syntax error near unexpected token `|'\n"), -1);
 	if (valid_simple_redirection(head) == -1)
 		return (-1);
+	
 	set_redirection_type(head);
 	ft_set_infile_outfile(head);
 	return (1);

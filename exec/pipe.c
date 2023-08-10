@@ -62,9 +62,12 @@ int	ft_check_directory(char *str)
 	return (1);
 }
 
+
+
 int	set_exec(t_exec *ptr, int i, t_env *env)
 {
 	ptr->tmp = ret_next_pipe(ptr->data->args, i);
+
 	ptr->full_cmd = ft_command(ptr->tmp);
 	if (ptr->full_cmd)
 	{
