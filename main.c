@@ -69,6 +69,8 @@ int main(int ac, char **av, char **envp)
 	{
 			while (42)
 		{
+			if (isatty(STDIN_FILENO) == 0)
+				return (free_env(minishell_env), 0);
 			signal(SIGINT, ft_handler);
 			signal(SIGQUIT, SIG_IGN);
 			prompt = ft_prompt(minishell_env);
