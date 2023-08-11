@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:13:01 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 16:20:13 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:55:57 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_check_directory(char *str)
 	if (S_ISDIR(stats.st_mode) && var == 1)
 	{
 		ft_printf("minishell: %s: Is a directory\n", str);
-		exit_code = 126;
+		g_ecode = 126;
 		return (-1);
 	}
 	return (1);
@@ -90,11 +90,12 @@ int	set_exec(t_exec *ptr, int i, t_env *env)
 			ptr->path_split = get_entire_path(ptr->env);
 			if (!ptr->path_split || ft_strchr(ptr->cmd, '/'))
 				return (ft_free_split(ptr->path_split),
-							ft_write_error("minishell: ", ptr->cmd, ": No such file or directory\n")
-								, exit_code = 127, -1);
+					ft_write_error("minishell: ", ptr->cmd,
+						": No such file or directory\n")
+					, g_ecode = 127, -1);
 			else
 				ft_norm_exec(ptr);
-			exit_code = 127;
+			g_ecode = 127;
 			return (-1);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:05:12 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 15:09:15 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:39:43 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ char	*ft_strcat_env(char *s1, char *s2)
 	str[i] = '=';
 	i++;
 	if (s2)
+	{
 		while (s2[++j])
 		{
 			str[i] = s2[j];
 			i++;
 		}
+	}
 	str[i] = '\0';
 	return (str);
 }
@@ -90,14 +92,14 @@ void	wait_all_pids(t_exec *args)
 	i = 0;
 	while (i < (args->data->nb_pipe + 1))
 	{
-		waitpid(args->pid[i], &exit_code, 0);
+		waitpid(args->pid[i], &g_ecode, 0);
 		i++;
 	}
-	if (exit_code == 2)
-		exit_code = 130;
-	if (exit_code == 130 || exit_code == 131)
+	if (g_ecode == 2)
+		g_ecode = 130;
+	if (g_ecode == 130 || g_ecode == 131)
 		return ;
-	exit_code = WEXITSTATUS(exit_code);
+	g_ecode = WEXITSTATUS(g_ecode);
 }
 
 void	ft_write_error(char *s1, char *s2, char *s3)

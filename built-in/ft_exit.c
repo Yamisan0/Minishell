@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:58:51 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 14:00:09 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:38:09 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,17 @@ int	ft_exit_parsing(char **argv)
 		if (i >= 2)
 		{
 			write(2, "minishell: exit: too many arguments\n", 37);
-			return (exit_code = 1, 1);
+			return (g_ecode = 1, 1);
 		}
 		if (ft_strcmp("-9223372036854775808", argv[i]) == 0)
 			return (0);
-		if (word_numeric(argv[i]) == 0 || ft_check_one_sign(argv[i]) == -1 || (ft_atoi(argv[i]) == -1625893402))
+		if (word_numeric(argv[i]) == 0 || ft_check_one_sign(argv[i]) == -1
+			|| (ft_atoi(argv[i]) == -1625893402))
 		{
 			write(2, "minishell: exit: ", 17);
 			ft_putstr_fd(argv[i], 2);
 			write(2, ": numeric argument required\n", 29);
-			exit_code = 2;
+			g_ecode = 2;
 			return (2);
 		}
 		i++;
@@ -103,7 +104,7 @@ void	ft_exit(char **argv, t_env *env)
 	else if (argv[1] == NULL)
 		ft_free_all_exit(5, 0, env, argv);
 	else if (error == 2)
-		ft_free_all_exit(5, exit_code, env, argv);
+		ft_free_all_exit(5, g_ecode, env, argv);
 	else if (argv[1] && error == 0)
 	{
 		if (argv[1][0] != '-')

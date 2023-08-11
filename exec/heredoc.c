@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:10:14 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 14:11:24 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:31:41 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	write_expand(char *str, int fd, t_env *env)
 		return (write(fd, "$", 1), 1);
 	if (str[1] && str[1] == '?')
 	{
-		value = ft_itoa(exit_code);
+		value = ft_itoa(g_ecode);
 		ft_putstr_fd(value, fd);
 		return (free(value), 2);
 	}

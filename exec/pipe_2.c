@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:11:51 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 14:12:28 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:31:41 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_forking(t_exec *ptr, int i, t_env *env)
 	if (errno == 13)
 	{
 		ft_printf("minishell: %s: %s\n", ptr->cmd, strerror(errno));
-		exit_code = 126;
+		g_ecode = 126;
 	}
 	ft_free_all(NULL, ptr);
 	return (1);
@@ -80,8 +80,8 @@ int	ft_pipex(t_exec *ptr)
 			if (ptr->data->nb_pipe == 0)
 				close_fds(ptr->fd, ptr->prev);
 			if (ft_forking(ptr, i, ptr->data->env) != 1)
-				return (ft_free_process(ptr), exit(exit_code), -1);
-			exit(exit_code);
+				return (ft_free_process(ptr), exit(g_ecode), -1);
+			exit(g_ecode);
 		}
 		else if (ptr->pid[i] > 0)
 			ft_main_process(ptr);

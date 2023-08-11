@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:15:05 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 15:12:49 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:57:11 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	ft_open(t_lexer *head, t_exec *ptr)
 	if (ptr->redirect == IN)
 	{
 		if (ft_open_n_dup(1, head, ptr) == -1)
-			return (ft_printf("minishell: %s: %s\n", head->str, strerror(errno)), exit_code = 1, -1);
+			return (ft_printf("minishell: %s: %s\n",
+					head->str, strerror(errno)), g_ecode = 1, -1);
 	}
 	else if (ptr->redirect == OUT)
 	{

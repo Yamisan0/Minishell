@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:09:00 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 15:10:31 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:54:23 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,22 @@ char	*fusion_heredoc(char *prompt, char *heredoc)
 	return (heredoc);
 }
 
+void	ft_error_heredoc(char *s1, char *s2, char *delimiter, char *s3)
+{
+	char	to_print[1000];
+
+	ft_strlcpy(to_print, s1, 1000);
+	ft_strlcat(to_print, s2, 1000);
+	ft_strlcat(to_print, delimiter, 1000);
+	ft_strlcat(to_print, s3, 1000);
+	write(2, &to_print, ft_strlen(to_print));
+}
+
 void	ft_norn_heredoc(char *delimiter)
 {
-	if (exit_code != 130)
-		ft_printf(
-			"minishell: warning: here-document delimited by end-of-file (wanted `%s')\n",
-			delimiter);
+	if (g_ecode != 130)
+		ft_error_heredoc("minishell: warning: here-document delimited",
+			" by end-of-file (wanted `", delimiter, "')\n");
 }
 
 char	*ft_get_heredoc(char *delimiter)
@@ -51,9 +61,10 @@ char	*ft_get_heredoc(char *delimiter)
 	heredoc = NULL;
 	while (1)
 	{
-		if (exit_code != 130)
+		signal(SIGQUIT, SIG_IGN);
+		if (g_ecode != 130)
 			prompt = readline("heredoc>");
-		if (!prompt || exit_code == 130)
+		if (!prompt || g_ecode == 130)
 		{
 			ft_norn_heredoc(delimiter);
 			free(prompt);

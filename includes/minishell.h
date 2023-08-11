@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:19:51 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 16:50:54 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:31:41 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <sys/stat.h>
 # include <signal.h>
 
-extern int			exit_code;
+extern int			g_ecode;
 
 typedef struct s_env
 {

@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:28:05 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 16:24:58 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:11:24 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,15 @@ int	ft_check_debut_null(t_lexer *lexer)
 	tmp = lexer;
 	while (tmp && tmp->token != PIPE)
 	{
+		if (tmp->token == PIPE)
+			return (1);
 		if (tmp->token != DOUBLE_QUOTE && tmp->str[0] == '\0')
 		{
 			tmp = tmp->next;
-			while (tmp && tmp->token != PIPE)
+			while (tmp)
 			{
+				if (tmp->token == PIPE)
+					return (1);
 				if (tmp->str[0] != '\0' && ft_strlen(tmp->str) > 1)
 					return (1);
 				tmp = tmp->next;
@@ -106,3 +110,4 @@ int	ft_check_debut_null(t_lexer *lexer)
 	}
 	return (1);
 }
+

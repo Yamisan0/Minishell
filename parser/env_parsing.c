@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:56:32 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 15:18:43 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:31:41 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_replace_by_litteral(t_lexer *head, t_env *env)
 		else if (tmp->token == DOLLAR && tmp->dollar == COMPLEX && tmp->str[1] == '?')
 		{
 			stock = tmp->str;
-			tmp->str = ft_itoa(exit_code);
+			tmp->str = ft_itoa(g_ecode);
 			free(stock);
 		}
 		tmp = tmp->next;

@@ -6,13 +6,13 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:40:02 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 15:42:48 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:31:41 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-int	exit_code = 0;
+int	g_ecode = 0;
 
 t_mini	*init_mini(t_lexer *head, t_env *env)
 {
@@ -57,7 +57,7 @@ t_lexer	*ft_parser_lexer(char *prompt, t_env *env)
 
 void	ft_norm_main(t_mini *minish, char *prompt)
 {
-	if (exit_code == 130)
+	if (g_ecode == 130)
 	{
 		ft_free_minishell_struct(minish, prompt, 130);
 		return ;
@@ -71,8 +71,8 @@ void	ft_norm_main(t_mini *minish, char *prompt)
 int	ft_norm_main_part_2(char **av)
 {
 	(void)av;
-	if (isatty(STDIN_FILENO) == 0)
-		return (0);
+	// if (isatty(STDIN_FILENO) == 0)
+	// 	return (0);
 	signal(SIGINT, ft_handler);
 	signal(SIGQUIT, SIG_IGN);
 	return (1);
@@ -96,7 +96,7 @@ int	main(int ac, char **av, char **envp)
 			if (prompt == NULL)
 				continue ;
 			list = ft_parser_lexer(prompt, minishell_env);
-			exit_code = 0;
+			g_ecode = 0;
 			if (!list)
 				continue ;
 			ft_unset_export_no_fork(&list, &minishell_env);

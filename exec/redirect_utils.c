@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:17:26 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 15:13:31 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:31:41 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	ft_open_n_dup(int indice, t_lexer *head, t_exec *ptr)
 		fd = open_files(indice, head->str);
 		if (fd == -1)
 			return (ft_printf("minishell: %s: %s\n",
-					head->str, strerror(errno)), exit_code = 1, -1);
+					head->str, strerror(errno)), g_ecode = 1, -1);
 		if (dup2(fd, STDOUT_FILENO) == -1)
 			return (perror("minishell"), close(fd), -1);
 	}

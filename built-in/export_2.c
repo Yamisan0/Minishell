@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:52:40 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 15:05:56 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:36:48 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ int	check_valid_variable(char *str)
 			check = 1;
 		i++;
 	}
-	if ((str[0] && str[0] == '=') || check == 1 || (str[0] && ft_isdigit(str[0])))
+	if ((str[0] && str[0] == '=')
+		|| check == 1 || (str[0] && ft_isdigit(str[0])))
 		return (ft_printf(
-				"minishell: export: `%s': not a valid identifier\n", str), exit_code = 1, 0);
+				"minishell: export: `%s': not a valid identifier\n", str)
+			, g_ecode = 1, 0);
 	return (1);
 }
 

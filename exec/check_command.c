@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:03:10 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 15:08:32 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:39:04 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,11 @@ char	**ft_command(t_lexer *head)
 
 char	**get_entire_path(char **envp)
 {
-	char	**paths = NULL;
+	char	**paths;
 	int		i;
 
 	i = 0;
+	paths = NULL;
 	while (envp[i] && !ft_strnstr(envp[i], "PATH", 4))
 		i++;
 	if (!ft_strnstr(envp[i], "PATH", 4))

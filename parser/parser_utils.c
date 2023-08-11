@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:01:16 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 15:02:22 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:31:41 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*ft_prompt(t_env *env)
 	if (prompt && prompt[0])
 		add_history(prompt);
 	if (!prompt)
-		return (ft_free_all_exit(0, exit_code, env, NULL), NULL);
+		return (ft_free_all_exit(0, g_ecode, env, NULL), NULL);
 	if (!(*prompt))
 		return (free(prompt), NULL);
 	if (pars_prompt(prompt) == NULL)

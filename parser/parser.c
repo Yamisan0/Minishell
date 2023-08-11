@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:59:22 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 15:19:21 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:22:18 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,22 @@ int	valid_pipe(t_lexer *head)
 	return (1);
 }
 
+void	ft_print_redirection(int indice, t_lexer *tmp)
+{
+	if (indice == 1)
+		ft_printf("minishell : syntax error near unexpected token `%s'\n",
+					tmp->str + ft_strlen(tmp->str) - 2);
+	if (indice == 2)
+		ft_printf("minishell : syntax error near unexpected token `%s'\n",
+						tmp->next->str + ft_strlen(tmp->next->str) - 2);
+	if (indice == 3)
+		ft_printf("minishell : syntax error near unexpected token `%s'\n",
+						tmp->next->str);
+	if (indice == 4)
+		ft_printf(
+				"minishell : syntax error near unexpected token `newline'\n");
+}
+
 int	valid_simple_redirection(t_lexer *head)
 {
 	t_lexer	*tmp;
@@ -46,17 +62,13 @@ int	valid_simple_redirection(t_lexer *head)
 		if (tmp->token == REDIRECTION_RIGHT || tmp->token == REDIRECTION_LEFT)
 		{
 			if (ft_strlen(tmp->str) > 2)
-				return (ft_printf("minishell : syntax error near unexpected token `%s'\n",
-						tmp->str + ft_strlen(tmp->str) - 2), -1);
+				return (ft_print_redirection(1, tmp), -1);
 			if (tmp->next && is_special_token(tmp->next) && ft_strlen(tmp->next->str) > 1)
-				return (ft_printf("minishell : syntax error near unexpected token `%s'\n",
-						tmp->next->str + ft_strlen(tmp->next->str) - 2), -1);
+				return (ft_print_redirection(2, tmp),-1);
 			if (tmp->next && is_special_token(tmp->next))
-				return (ft_printf(
-						"minishell : syntax error near unexpected token `%s'\n", tmp->next->str), -1);
+				return (ft_print_redirection(3, tmp), -1);
 			if (tmp->next == NULL)
-				return (ft_printf(
-						"minishell : syntax error near unexpected token `newline'\n"), -1);
+				return (ft_print_redirection(4, tmp), -1);
 		}
 		tmp = tmp->next;
 	}
