@@ -195,7 +195,7 @@ int			count_pipe(t_lexer *head);
 void		ft_write_error(char *s1, char *s2, char *s3);
 
 // REDIRECTION //
-int	open_files(int indice, char *path, char *name);
+int			open_files(int indice, char *path, char *name);
 int			ft_redir(t_exec *ptr);
 int			ft_open_n_dup(int indice, t_lexer *head, t_exec *ptr);
 int			ft_open(t_lexer *head, t_exec *ptr);

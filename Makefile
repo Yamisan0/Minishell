@@ -17,7 +17,7 @@ SOURCES = main.c built-in/env.c  built-in/pwd.c lexer/lexer.c \
 			libft/ft_printf/srcs/print_unsigned_int.c libft/ft_printf/srcs/ft_putstr.c
 #compilation
 CC		= gcc
-FLAGS	= -Wall -Wextra -Werror -lreadline
+FLAGS	= -Wall -Wextra -Werror -g3 -lreadline
 
 RM = rm -f
 LIB_PATH_EXEC = libft/libft.a

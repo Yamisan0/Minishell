@@ -29,7 +29,7 @@ int	ft_forking(t_exec *ptr, int i, t_env *env)
 	if (dup_close_fd_pipe(ptr, i) == -1)
 		return (-1);
 	if (ft_redir(ptr) == -1)
-		return (-1);
+		return (free(ptr->path), -1);
 	builtin = ft_built_in(ptr->full_cmd, env, ptr->tmp);
 	if (builtin == -1 && ptr->path && ptr->full_cmd && ptr->env)
 	{

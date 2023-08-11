@@ -46,7 +46,7 @@ int	ft_open_n_dup(int indice, t_lexer *head, t_exec *ptr)
 	(void)ptr;
 	if (indice == 1)
 	{
-		fd = open_files(1, head->str);
+		fd = open_files(1, head->str, NULL);
 		if (fd == -1)
 			return (-1);
 		if (dup2(fd, STDIN_FILENO) == -1)
@@ -54,7 +54,7 @@ int	ft_open_n_dup(int indice, t_lexer *head, t_exec *ptr)
 	}
 	else if (indice > 1)
 	{
-		fd = open_files(indice, head->str);
+		fd = open_files(indice, head->str, NULL);
 		if (fd == -1)
 			return (ft_printf("minishell: %s: %s\n",
 					head->str, strerror(errno)), g_ecode = 1, -1);
