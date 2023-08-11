@@ -37,7 +37,8 @@ t_lexer	*ft_parser_lexer(char *prompt, t_env *env)
 	if (quote_pars(head) == 0)
 		return (free(prompt), ft_free_parser_lexer(head), NULL);
 	
-	ft_lexer_part_2(head, env);
+	if (ft_lexer_part_2(head, env) == -1)
+		return (free(prompt), ft_free_parser_lexer(head), NULL);
 	if (ft_parser(head) == -1)
 		return (free(prompt), ft_free_parser_lexer(head), NULL);
 	return (head);
@@ -70,8 +71,8 @@ int main(int ac, char **av, char **envp)
 	{
 			while (42)
 		{
-			if (isatty(STDIN_FILENO) == 0)
-				return (free_env(minishell_env), 0);
+			// if (isatty(STDIN_FILENO) == 0)
+			// 	return (free_env(minishell_env), 0);
 			signal(SIGINT, ft_handler);
 			signal(SIGQUIT, SIG_IGN);
 			prompt = ft_prompt(minishell_env);

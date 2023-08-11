@@ -84,16 +84,41 @@ t_lexer *ft_lexer(char *prompt)
 	return (lexer);
 }
 
-void	ft_lexer_part_2(t_lexer *lexer, t_env *env)
+int	ft_check_debut_null(t_lexer *lexer)
+{
+	t_lexer	*tmp;
+
+	tmp = lexer;
+	while (tmp && tmp->token != PIPE)
+	{
+		if (tmp->token != DOUBLE_QUOTE && tmp->str[0] == '\0')
+		{
+			tmp = tmp->next;
+			while (tmp && tmp->token != PIPE)
+			{
+				if (tmp->str[0] != '\0' && ft_strlen(tmp->str) > 1)
+					return (1);
+				tmp = tmp->next;
+			}
+			return (-1);
+		}
+		tmp = tmp->next;
+	}
+	return (1);
+}
+int	ft_lexer_part_2(t_lexer *lexer, t_env *env)
 {
 	
 	ft_replace_by_litteral(lexer, env);
 	ft_supp_simple_quotes(lexer);
 	double_quote_fusion(lexer);
 	ft_supp_double_quotes(lexer);
+	if (ft_check_debut_null(lexer) == -1)
+		return (-1);
 	ft_word(lexer);
 	fusion_words(lexer);
 	delete_spaces(lexer);
+	return (1);
 }
 
 

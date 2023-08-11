@@ -128,28 +128,28 @@ void	fusion_words(t_lexer *head);
 void	ft_word(t_lexer *head);
 void    big_lexer(t_lexer *head);
 t_lexer	*ft_parser_lexer(char *prompt, t_env *env);
-void    single_quote_fusion(t_lexer *head);
+void	single_quote_fusion(t_lexer *head);
 void	ft_supp_simple_quotes(t_lexer * head);
 void	ft_supp_double_quotes(t_lexer * head);
 void    double_quote_fusion(t_lexer *head);
-t_lexer *ft_lexer(char *prompt);
-void	ft_lexer_part_2(t_lexer *lexer, t_env *env);
+t_lexer	*ft_lexer(char *prompt);
+int	ft_lexer_part_2(t_lexer *lexer, t_env *env);
 void    dollar_lexer(t_lexer *head);
 void	fusion_reste(t_lexer *head);
 void	delete_spaces(t_lexer *head);
 void	ft_fusion_double_quotes(t_lexer *head);
 
 /* PROMPT */
-char		*ft_prompt(t_env *env);
+char	*ft_prompt(t_env *env);
 /* PARSER */
-int	single_quote_state(t_lexer *head);
-int	double_quote_validity_check(t_lexer *head);
+int		single_quote_state(t_lexer *head);
+int		double_quote_validity_check(t_lexer *head);
 void    set_state_quotes(t_lexer *head);
-int	quote_pars(t_lexer *head);
+int		quote_pars(t_lexer *head);
 void	set_redirection_type(t_lexer *head);
-int    ft_check_in_redirect(t_lexer *head);
+int		t_check_in_redirect(t_lexer *head);
 void	ft_set_infile_outfile(t_lexer *head);
-int ft_parser(t_lexer *head);
+int		ft_parser(t_lexer *head);
 
 /* PARSER UTILS */
 int	ft_strcmp(char *s1, char *s2);
@@ -222,7 +222,7 @@ void	free_env(t_env *env);
 
 /* BUILT-IN */
 void    ft_echo(char **args);
-int	ft_cd(char **str);
+int	ft_cd(char **str, t_env **env);
 int	ft_check_builtin(char **argv);
 void	ft_unset_export_no_fork(t_lexer **args, t_env **env);
 int		ft_exit_parsing(char **argv);

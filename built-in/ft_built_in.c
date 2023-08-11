@@ -51,7 +51,7 @@ int	ft_built_in(char **argv, t_env *env, t_lexer *args)
 	if (ft_strcmp(argv[0], "env") == 0)
 		return (ft_print_env(env), 1);
 	if (ft_strcmp(argv[0], "cd") == 0 && check_pipe_prev(args) == 1)
-		return (ft_cd(argv + 1), 1);
+		return (ft_cd(argv + 1, NULL), 1);
 	if (ft_norm_built_in(argv) == 1)
 		return (1);
 	if (ft_strcmp(argv[0], "export") == 0)

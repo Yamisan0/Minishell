@@ -75,7 +75,7 @@ void	ft_unset_export_no_fork(t_lexer **args, t_env **env)
 		ft_exit(argv, *env);
 	}
 	else if (ft_strcmp(argv[0], "cd") == 0)
-		ft_cd(argv + 1);
+		ft_cd(argv + 1, env);
 	ft_free_split(argv);
 	argv = NULL;
 }
