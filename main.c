@@ -58,23 +58,30 @@ void	ft_norm_main(t_mini *minish, char *prompt)
 	ft_free_minishell_struct(minish, prompt, 0);
 }
 
+int	ft_norm_main_part_2(char **av)
+{
+	(void)av;
+	if (isatty(STDIN_FILENO) == 0)
+		return (0);
+	signal(SIGINT, ft_handler);
+	signal(SIGQUIT, SIG_IGN);
+	return (1);
+}
+
 int main(int ac, char **av, char **envp)
 {
-	(void)	av;
 	t_lexer *list;
 	char	*prompt;
 	t_mini	*minish;
-	t_env *minishell_env = NULL;
+	t_env *minishell_env;
 	minishell_env = set_env(envp);
 
 	if (ac == 1)
 	{
 			while (42)
 		{
-			// if (isatty(STDIN_FILENO) == 0)
-			// 	return (free_env(minishell_env), 0);
-			signal(SIGINT, ft_handler);
-			signal(SIGQUIT, SIG_IGN);
+			if (ft_norm_main_part_2(av) == 0)
+				return (free_env(minishell_env), 0);
 			prompt = ft_prompt(minishell_env);
 			if ( prompt == NULL)
 				continue;

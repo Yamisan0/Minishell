@@ -92,32 +92,5 @@ int	set_exec(t_exec *ptr, int i, t_env *env)
 	return (1);
 }
 
-int	dup_close_fd_pipe(t_exec *ptr, int i)
-{
-	close(ptr->fd[0]);
-	if (i == 0 && ptr->data->nb_pipe > 0)
-	{
-		if (dup2(ptr->fd[1], STDOUT_FILENO) == -1)
-			return (close(ptr->fd[1]), -1);
-		close(ptr->fd[1]);
-	}
-	else if (i != ptr->data->nb_pipe)
-	{
-		if (dup2(ptr->prev, STDIN_FILENO) == -1)
-			return (close(ptr->prev), -1);
-		close(ptr->prev);
-		if (dup2(ptr->fd[1], STDOUT_FILENO) == -1)
-			return (close(ptr->fd[1]), -1);
-		close(ptr->fd[1]);
-	}
-	if (i == ptr->data->nb_pipe && i > 0)
-	{
-		close(ptr->fd[1]);
-		if (dup2(ptr->prev, STDIN_FILENO) == -1)
-			return (close(ptr->prev), -1);
-		close(ptr->prev);
-	}
-	return (1);
-}
 
 

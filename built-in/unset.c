@@ -48,11 +48,6 @@ void	ft_unset(t_env **env, char **argv)
 	}
 }
 
-void	ft_norm_unset_export(t_env **env, char **argv)
-{
-	ft_unset(env, argv);
-}
-
 void	ft_unset_export_no_fork(t_lexer **args, t_env **env)
 {
 	char	**argv;
@@ -63,7 +58,7 @@ void	ft_unset_export_no_fork(t_lexer **args, t_env **env)
 	if (!argv)
 		return ;
 	if (ft_strcmp(argv[0], "unset") == 0)
-		ft_norm_unset_export(env, argv);
+		ft_unset(env, argv);
 	else if (ft_strcmp(argv[0], "export") == 0)
 	{
 		ft_export(env, argv);

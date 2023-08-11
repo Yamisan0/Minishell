@@ -84,28 +84,6 @@ t_lexer *ft_lexer(char *prompt)
 	return (lexer);
 }
 
-int	ft_check_debut_null(t_lexer *lexer)
-{
-	t_lexer	*tmp;
-
-	tmp = lexer;
-	while (tmp && tmp->token != PIPE)
-	{
-		if (tmp->token != DOUBLE_QUOTE && tmp->str[0] == '\0')
-		{
-			tmp = tmp->next;
-			while (tmp && tmp->token != PIPE)
-			{
-				if (tmp->str[0] != '\0' && ft_strlen(tmp->str) > 1)
-					return (1);
-				tmp = tmp->next;
-			}
-			return (-1);
-		}
-		tmp = tmp->next;
-	}
-	return (1);
-}
 int	ft_lexer_part_2(t_lexer *lexer, t_env *env)
 {
 	

@@ -18,6 +18,12 @@ int	size_tab(t_lexer *head)
 	return (size);
 }
 
+void	ft_norm_command(char **tab, t_lexer *tmp, int *i)
+{
+	tab[*i] = ft_strdup(tmp->str);
+	(*i)++;
+}
+
 char **ft_command(t_lexer *head)
 {
 	t_lexer *tmp;
@@ -39,10 +45,7 @@ char **ft_command(t_lexer *head)
 		if (tmp->token == WORD && tmp->str[0] != '\0')
 			passed = 1;
 		if(tmp->token == WORD && passed == 1)
-		{
-			tab[i] = ft_strdup(tmp->str);
-			i++;
-		}
+			ft_norm_command(tab, tmp, &i);
 		tmp = tmp->next;
 	}
 	tab[i] = NULL;

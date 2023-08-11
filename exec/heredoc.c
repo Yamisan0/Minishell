@@ -16,7 +16,7 @@ int		write_expand(char *str, int fd, t_env *env)
 	{
 		value = ft_itoa(exit_code);
 		ft_putstr_fd(value, fd);
-		return (2);
+		return (free(value), 2);
 	}
 	while (str[i] && str[i] != ' ' && str[i] != '$' && ft_isalnum(str[i]))
 		i++;
@@ -25,6 +25,7 @@ int		write_expand(char *str, int fd, t_env *env)
 	if (!value)
 		return (i);
 	ft_putstr_fd(value, fd);
+	free(value);
 	return (i);
 }
 

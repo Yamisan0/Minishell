@@ -136,6 +136,7 @@ t_lexer	*ft_lexer(char *prompt);
 int	ft_lexer_part_2(t_lexer *lexer, t_env *env);
 void    dollar_lexer(t_lexer *head);
 void	fusion_reste(t_lexer *head);
+int		ft_check_debut_null(t_lexer *lexer);
 void	delete_spaces(t_lexer *head);
 void	ft_fusion_double_quotes(t_lexer *head);
 
