@@ -84,6 +84,7 @@ typedef struct s_lexer
 	char			*str;
 	int				i;
 	int				index_heredoc;
+	int				index_pipe;
 	t_tokens		token;
 	t_state			state;
 	t_dollar		dollar;
@@ -133,6 +134,7 @@ void		ft_destroy_node(t_lexer *node_to_delete);
 char		*c_to_str(char c);
 t_lexer		*new_node(char *str);
 t_lexer		*ft_add_back_lex(t_lexer *head, t_lexer *new);
+void	ft_set_index_pipe(t_lexer *lexer);
 
 // LEXER //
 t_lexer		*pre_lexing(char *prompt);
@@ -193,7 +195,7 @@ int			count_pipe(t_lexer *head);
 void		ft_write_error(char *s1, char *s2, char *s3);
 
 // REDIRECTION //
-int			open_files(int indice, char *path);
+int	open_files(int indice, char *path, char *name);
 int			ft_redir(t_exec *ptr);
 int			ft_open_n_dup(int indice, t_lexer *head, t_exec *ptr);
 int			ft_open(t_lexer *head, t_exec *ptr);

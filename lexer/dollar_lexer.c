@@ -72,3 +72,28 @@ void	dollar_lexer(t_lexer *head)
 	dollar_lexer_2(head);
 	dollar_lexer_3(head);
 }
+
+void	ft_set_index_pipe(t_lexer *lexer)
+{
+	t_lexer	*tmp;
+	int		index;
+
+	index = 0;
+	tmp = lexer;
+	while (tmp)
+	{
+		if (tmp->token == PIPE)
+		{
+			tmp->index_pipe = index;
+			tmp = tmp->next;
+			while (tmp && tmp->token != PIPE)
+			{
+				tmp->index_pipe = index;
+				tmp = tmp->next;
+			}
+			index++;
+			continue;
+		}
+		tmp = tmp->next;
+	}
+}

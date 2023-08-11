@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int	open_files(int indice, char *path)
+int	open_files(int indice, char *path, char *name)
 {
 	int	fd;
 
@@ -23,29 +23,36 @@ int	open_files(int indice, char *path)
 	else if (indice == 3)
 		fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	else if (indice == 4)
-		fd = open("tmp.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
+		fd = open(name, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	else if (indice == 5)
-		fd = open("tmp.txt", O_RDONLY);
+		fd = open(name, O_RDONLY);
 	return (fd);
 }
 
 int	ft_open_dup_heredoc(t_lexer *head, t_exec *ptr)
 {
 	int	fd;
+	char	name[50];
+	char	*nbr;
 
-	fd = open_files(4, "");
+	nbr = ft_itoa(head->index_pipe);
+	ft_strlcpy(name, ".minishell_heredoc", 30);
+	ft_strlcat(name, nbr, 50);
+	free(nbr);
+	fd = open_files(4, "", name);
 	if (fd == -1)
 		return (perror("minishell"), -1);
 	ft_write_in_file(ptr->data->tab_heredoc[head->index_heredoc],
 		fd, ptr->data->env);
 	close(fd);
-	fd = open_files(5, "");
+	fd = open_files(5, "", name);
 	if (fd == -1)
 		return (-1);
+
 	if (dup2(fd, STDIN_FILENO) == -1)
-		return (perror("minishell"), close(fd), -1);
+		return (perror("minishell"), close(fd), unlink(name), -1);
 	close(fd);
-	return (1);
+	return (unlink(name), 1);
 }
 
 int	ft_open(t_lexer *head, t_exec *ptr)
