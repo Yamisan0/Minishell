@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:01:16 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 17:31:41 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 18:19:26 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_prompt(t_env *env)
 {
 	char	*prompt;
 
-	prompt = readline("minishell>");
+	prompt = readline("minishell> ");
 	if (prompt && prompt[0])
 		add_history(prompt);
 	if (!prompt)
