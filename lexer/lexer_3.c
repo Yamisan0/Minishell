@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:28:05 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 17:11:24 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 18:17:01 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	fusion_reste(t_lexer *head)
 	{
 		if (tmp->token == WORD)
 		{
-			if (tmp->next && tmp->next->token != WHITE_SPACE &&
-				!is_special_token(tmp->next) && tmp->next == DEFAULT)
+			if (tmp->next && tmp->next->token != WHITE_SPACE
+				&& !is_special_token(tmp->next) && tmp->next == DEFAULT)
 			{
 				tmp->str = alloc_strcat(tmp->str, tmp->next->str);
 				ft_destroy_node(tmp->next);
@@ -110,4 +110,3 @@ int	ft_check_debut_null(t_lexer *lexer)
 	}
 	return (1);
 }
-

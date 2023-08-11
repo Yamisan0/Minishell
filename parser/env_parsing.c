@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:56:32 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 17:31:41 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 18:16:35 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 char	*ft_give_val(t_env *env, char *name)
 {
 	t_env	*tmp;
-	char	str_vide[] = "";
+	char	*str_vide;
 
+	str_vide = ft_strdup("");
 	tmp = env;
 	while (tmp)
 	{
@@ -24,7 +25,7 @@ char	*ft_give_val(t_env *env, char *name)
 			return (ft_strdup(tmp->value));
 		tmp = tmp->next;
 	}
-	return (ft_strdup(str_vide));
+	return (str_vide);
 }
 
 void	ft_replace_by_litteral(t_lexer *head, t_env *env)
@@ -42,7 +43,8 @@ void	ft_replace_by_litteral(t_lexer *head, t_env *env)
 			tmp->str = ft_give_val(env, tmp->str + 1);
 			free(stock);
 		}
-		else if (tmp->token == DOLLAR && tmp->dollar == COMPLEX && tmp->str[1] == '?')
+		else if (tmp->token == DOLLAR && tmp->dollar == COMPLEX
+			&& tmp->str[1] == '?')
 		{
 			stock = tmp->str;
 			tmp->str = ft_itoa(g_ecode);

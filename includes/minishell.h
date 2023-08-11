@@ -6,7 +6,7 @@
 /*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:19:51 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 17:31:41 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/11 18:08:46 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-typedef enum
+typedef enum s_tokens
 {
 	WORD,
 	HEREDOC,
@@ -59,21 +59,21 @@ typedef enum
 	DOLLAR,
 	INTERRO,
 	OTHER
-}	t_tokens;
+}			t_tokens;
 
-typedef enum
+typedef enum s_state
 {
 	DEFAULT,
 	OPENED
-}	t_state;
+}			t_state;
 
-typedef	enum
+typedef enum s_dollar
 {
 	LITTERAL,
 	COMPLEX
-}	t_dollar;
+}			t_dollar;
 
-typedef enum
+typedef enum s_fds
 {
 	NOT,
 	VISITED
