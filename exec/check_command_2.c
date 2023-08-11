@@ -22,12 +22,21 @@ char	*check_slash(char *command)
 	return (NULL);
 }
 
+char	*ft_norm_path(char **entire_path, char *command, int i)
+{
+	char	*command_path;
+	char	*add_slash;
+
+	add_slash = ft_strjoin(entire_path[i], "/");
+	command_path = ft_strjoin(add_slash, command);
+	free(add_slash);
+	return (command_path);
+}
 
 char	*ft_path(char *command, char **envp)
 {
 	char	**entire_path;
 	char	*command_path;
-	char	*add_slash;
 	int		i;
 
 	i = 0;
@@ -40,9 +49,7 @@ char	*ft_path(char *command, char **envp)
 		return (NULL);
 	while (entire_path[i])
 	{
-		add_slash = ft_strjoin(entire_path[i], "/");
-		command_path = ft_strjoin(add_slash, command);
-		free(add_slash);
+		command_path = ft_norm_path(entire_path, command, i);
 		if (access(command_path, F_OK) == 0)
 		{
 			ft_free_split(entire_path);
