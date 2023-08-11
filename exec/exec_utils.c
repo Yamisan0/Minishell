@@ -1,5 +1,16 @@
-#include "../includes/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 14:05:12 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 15:09:15 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../includes/minishell.h"
 
 char	*ft_strcat_env(char *s1, char *s2)
 {
@@ -27,12 +38,11 @@ char	*ft_strcat_env(char *s1, char *s2)
 	return (str);
 }
 
-
-char **create_envp(t_env *env)
+char	**create_envp(t_env *env)
 {
-	t_env *tmp;
-	char    **array;
-	int     len;
+	t_env	*tmp;
+	char	**array;
+	int		len;
 	int		i;
 
 	i = 0;
@@ -57,9 +67,9 @@ char **create_envp(t_env *env)
 	return (array);
 }
 
-int count_pipe(t_lexer *head)
+int	count_pipe(t_lexer *head)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 	int		nb_pipe;
 
 	nb_pipe = 0;
@@ -73,7 +83,7 @@ int count_pipe(t_lexer *head)
 	return (nb_pipe);
 }
 
-void    wait_all_pids(t_exec *args)
+void	wait_all_pids(t_exec *args)
 {
 	int		i;
 
@@ -92,7 +102,8 @@ void    wait_all_pids(t_exec *args)
 
 void	ft_write_error(char *s1, char *s2, char *s3)
 {
-	char string[1000];
+	char	string[1000];
+
 	if (!s2)
 	{
 		ft_strlcpy(string, s1, 1000);

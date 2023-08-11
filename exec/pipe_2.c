@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe_2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 14:11:51 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 14:12:28 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void	close_fds(int *fd_tab, int prev_fd)
@@ -7,7 +19,8 @@ void	close_fds(int *fd_tab, int prev_fd)
 	if (prev_fd != -1)
 		close(prev_fd);
 }
-int 	ft_forking(t_exec *ptr, int i, t_env *env)
+
+int	ft_forking(t_exec *ptr, int i, t_env *env)
 {
 	int	builtin;
 
@@ -32,7 +45,6 @@ int 	ft_forking(t_exec *ptr, int i, t_env *env)
 	ft_free_all(NULL, ptr);
 	return (1);
 }
-
 
 void	ft_main_process(t_exec *ptr)
 {

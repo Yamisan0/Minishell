@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 14:59:22 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 15:19:21 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-int valid_pipe(t_lexer *head)
+int	valid_pipe(t_lexer *head)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 
 	tmp = head;
 	while (tmp)
@@ -24,9 +36,9 @@ int valid_pipe(t_lexer *head)
 	return (1);
 }
 
-int valid_simple_redirection(t_lexer *head)
+int	valid_simple_redirection(t_lexer *head)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 
 	tmp = head;
 	while (tmp)
@@ -35,16 +47,16 @@ int valid_simple_redirection(t_lexer *head)
 		{
 			if (ft_strlen(tmp->str) > 2)
 				return (ft_printf("minishell : syntax error near unexpected token `%s'\n",
-							tmp->str + ft_strlen(tmp->str) - 2), -1);
+						tmp->str + ft_strlen(tmp->str) - 2), -1);
 			if (tmp->next && is_special_token(tmp->next) && ft_strlen(tmp->next->str) > 1)
 				return (ft_printf("minishell : syntax error near unexpected token `%s'\n",
-							tmp->next->str + ft_strlen(tmp->next->str) - 2), -1);
+						tmp->next->str + ft_strlen(tmp->next->str) - 2), -1);
 			if (tmp->next && is_special_token(tmp->next))
 				return (ft_printf(
-							"minishell : syntax error near unexpected token `%s'\n", tmp->next->str), -1);
+						"minishell : syntax error near unexpected token `%s'\n", tmp->next->str), -1);
 			if (tmp->next == NULL)
 				return (ft_printf(
-							"minishell : syntax error near unexpected token `newline'\n"), -1);
+						"minishell : syntax error near unexpected token `newline'\n"), -1);
 		}
 		tmp = tmp->next;
 	}
@@ -53,7 +65,7 @@ int valid_simple_redirection(t_lexer *head)
 
 void	ft_heredoc_tokens(t_lexer *head)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 	int		i;
 
 	i = 0;
@@ -70,21 +82,14 @@ void	ft_heredoc_tokens(t_lexer *head)
 	}
 }
 
-
-
-int ft_parser(t_lexer *head)
+int	ft_parser(t_lexer *head)
 {
 	if (valid_pipe(head) == -1)
 		return (ft_printf(
-					"minishell: syntax error near unexpected token `|'\n"), -1);
+				"minishell: syntax error near unexpected token `|'\n"), -1);
 	if (valid_simple_redirection(head) == -1)
 		return (-1);
-	
 	set_redirection_type(head);
 	ft_set_infile_outfile(head);
 	return (1);
 }
-
-
-
-

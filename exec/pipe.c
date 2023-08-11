@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 14:13:01 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 16:20:13 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-t_exec  *init_exec(t_mini *ptr)
+t_exec	*init_exec(t_mini *ptr)
 {
 	t_exec	*exe;
 
@@ -14,7 +26,7 @@ t_exec  *init_exec(t_mini *ptr)
 
 t_lexer	*ret_next_pipe(t_lexer *head, int i)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 	int		count_pipe;
 
 	count_pipe = 0;
@@ -42,14 +54,14 @@ void	ft_norm_exec(t_exec *ptr)
 
 int	ft_check_directory(char *str)
 {
-	struct stat stats;
+	struct stat	stats;
 	int			var;
 
 	var = 0;
 	if (!str)
 		return (1);
 	if ((str[0] && str[1] && str[0] == '.' && str[1] == '/')
-			|| (str[0] && str[0] == '/') || str[ft_strlen(str + 1)] == '/')
+		|| (str[0] && str[0] == '/') || str[ft_strlen(str + 1)] == '/')
 		var = 1;
 	if (stat(str, &stats) == -1)
 		return (1);
@@ -62,12 +74,9 @@ int	ft_check_directory(char *str)
 	return (1);
 }
 
-
-
 int	set_exec(t_exec *ptr, int i, t_env *env)
 {
 	ptr->tmp = ret_next_pipe(ptr->data->args, i);
-
 	ptr->full_cmd = ft_command(ptr->tmp);
 	if (ptr->full_cmd)
 	{
@@ -91,6 +100,3 @@ int	set_exec(t_exec *ptr, int i, t_env *env)
 	}
 	return (1);
 }
-
-
-

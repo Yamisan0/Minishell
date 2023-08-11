@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 14:53:26 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 14:54:47 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-char *c_to_str(char c)
+char	*c_to_str(char c)
 {
-	char *str;
+	char	*str;
 
 	str = ft_calloc(2, sizeof(char));
 	if (!str)
@@ -10,9 +22,10 @@ char *c_to_str(char c)
 	str[0] = c;
 	return (str);
 }
+
 t_lexer	*new_node(char *str)
 {
-	t_lexer *new;
+	t_lexer	*new;
 
 	new = ft_calloc(1, sizeof(t_lexer));
 	if (!new)
@@ -28,12 +41,12 @@ t_lexer	*new_node(char *str)
 	return (new);
 }
 
-t_lexer *ft_add_back_lex(t_lexer *head, t_lexer *new)
+t_lexer	*ft_add_back_lex(t_lexer *head, t_lexer *new)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 
 	if (!head)
-			return (new);
+		return (new);
 	tmp = head;
 	while (tmp->next)
 	{
@@ -49,7 +62,7 @@ t_lexer *ft_add_back_lex(t_lexer *head, t_lexer *new)
 	return (head);
 }
 
-void    ft_destroy_node(t_lexer *node_to_delete)
+void	ft_destroy_node(t_lexer *node_to_delete)
 {
 	if (!node_to_delete->next)
 	{
@@ -64,7 +77,7 @@ void    ft_destroy_node(t_lexer *node_to_delete)
 	}
 }
 
-char *alloc_strcat(char *s1, char *s2)
+char	*alloc_strcat(char *s1, char *s2)
 {
 	char	*str;
 	int		i;
@@ -77,8 +90,8 @@ char *alloc_strcat(char *s1, char *s2)
 		return (NULL);
 	if (s1)
 	{
-	while (s1[++i])
-		str[i] = s1[i];
+		while (s1[++i])
+			str[i] = s1[i];
 	}
 	if (s2)
 	{

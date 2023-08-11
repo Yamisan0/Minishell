@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 14:01:09 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 14:01:32 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void	ft_delete_node(t_env **env, t_env *node)
 {
 	t_env	*tmp;
-	
+
 	tmp = *env;
 	if (!(*env))
 		return ;
@@ -25,7 +37,6 @@ void	ft_delete_node(t_env **env, t_env *node)
 	}
 }
 
-
 void	ft_unset(t_env **env, char **argv)
 {
 	int		i;
@@ -40,7 +51,7 @@ void	ft_unset(t_env **env, char **argv)
 			if (ft_strcmp(argv[i], tmp->var) == 0)
 			{
 				ft_delete_node(env, tmp);
-				break;
+				break ;
 			}
 			tmp = tmp->next;
 		}

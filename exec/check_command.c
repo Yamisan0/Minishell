@@ -1,10 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_command.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 14:03:10 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 15:08:32 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
-
-
 
 int	size_tab(t_lexer *head)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 	int		size;
 
 	size = 0;
@@ -24,11 +34,11 @@ void	ft_norm_command(char **tab, t_lexer *tmp, int *i)
 	(*i)++;
 }
 
-char **ft_command(t_lexer *head)
+char	**ft_command(t_lexer *head)
 {
-	t_lexer *tmp;
-	char    **tab;
-	int     i;
+	t_lexer	*tmp;
+	char	**tab;
+	int		i;
 	int		passed;
 
 	passed = 0;
@@ -44,7 +54,7 @@ char **ft_command(t_lexer *head)
 	{
 		if (tmp->token == WORD && tmp->str[0] != '\0')
 			passed = 1;
-		if(tmp->token == WORD && passed == 1)
+		if (tmp->token == WORD && passed == 1)
 			ft_norm_command(tab, tmp, &i);
 		tmp = tmp->next;
 	}
@@ -63,7 +73,5 @@ char	**get_entire_path(char **envp)
 	if (!ft_strnstr(envp[i], "PATH", 4))
 		return (NULL);
 	paths = ft_split(envp[i] + 5, ':');
-
 	return (paths);
 }
-

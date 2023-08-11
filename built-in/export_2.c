@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export_2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 13:52:40 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 15:05:56 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-int		check_valid_variable(char *str)
+int	check_valid_variable(char *str)
 {
 	int	i;
 	int	check;
@@ -15,11 +27,11 @@ int		check_valid_variable(char *str)
 	}
 	if ((str[0] && str[0] == '=') || check == 1 || (str[0] && ft_isdigit(str[0])))
 		return (ft_printf(
-					"minishell: export: `%s': not a valid identifier\n", str),exit_code = 1, 0);
+				"minishell: export: `%s': not a valid identifier\n", str), exit_code = 1, 0);
 	return (1);
 }
 
-int		export_parsing(char **argv)
+int	export_parsing(char **argv)
 {
 	int		i;
 
@@ -53,7 +65,7 @@ void	ft_export(t_env **env, char **argv)
 {
 	t_env	*tmp;
 	t_env	*head;
-	int	i;
+	int		i;
 
 	head = *env;
 	tmp = *env;
@@ -63,7 +75,7 @@ void	ft_export(t_env **env, char **argv)
 		if (check_valid_variable(argv[i]) == 0)
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		tmp = ft_check_exist(*env, argv[i]);
 		ft_norm_export(tmp, argv, i, head);

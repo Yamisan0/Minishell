@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_parsing.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 14:56:32 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 15:18:43 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 char	*ft_give_val(t_env *env, char *name)
@@ -24,7 +36,7 @@ void	ft_replace_by_litteral(t_lexer *head, t_env *env)
 	while (tmp)
 	{
 		if (tmp->token == DOLLAR && tmp->dollar == COMPLEX
-				&& get_token_type(tmp->str[1]) == ALPHA_NUM)
+			&& get_token_type(tmp->str[1]) == ALPHA_NUM)
 		{
 			stock = tmp->str;
 			tmp->str = ft_give_val(env, tmp->str + 1);

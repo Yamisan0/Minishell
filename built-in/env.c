@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 13:51:07 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 15:05:07 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void	set_index_env(t_env	*env)
@@ -15,7 +27,7 @@ void	set_index_env(t_env	*env)
 	}
 }
 
-t_env   *create_node(char *str_to_cpy)
+t_env	*create_node(char *str_to_cpy)
 {
 	t_env	*node;
 	int		i;
@@ -84,9 +96,10 @@ t_env	*add_to_list(t_env *head, t_env *new_node)
 t_env	*set_env(char **envp)
 {
 	int		i;
-	t_env	*head = NULL;
+	t_env	*head;
 	t_env	*new;
 
+	head = NULL;
 	i = 0;
 	if (!envp)
 		return (NULL);
@@ -101,5 +114,3 @@ t_env	*set_env(char **envp)
 	set_index_env(head);
 	return (head);
 }
-
-

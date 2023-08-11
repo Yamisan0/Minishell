@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirection.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 14:15:05 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 15:12:49 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-int open_files(int  indice, char *path)
+int	open_files(int indice, char *path)
 {
-	int fd;
+	int	fd;
 
 	if (indice == 1)
 		fd = open(path, O_RDONLY);
@@ -22,7 +34,7 @@ int	ft_open_dup_heredoc(t_lexer *head, t_exec *ptr)
 	int	fd;
 
 	fd = open_files(4, "");
-	if ( fd == -1)
+	if (fd == -1)
 		return (perror("minishell"), -1);
 	ft_write_in_file(ptr->data->tab_heredoc[head->index_heredoc],
 		fd, ptr->data->env);
@@ -43,7 +55,7 @@ int	ft_open(t_lexer *head, t_exec *ptr)
 	if (ptr->redirect == IN)
 	{
 		if (ft_open_n_dup(1, head, ptr) == -1)
-			return (ft_printf("minishell: %s: %s\n", head->str, strerror(errno)),exit_code = 1, -1);
+			return (ft_printf("minishell: %s: %s\n", head->str, strerror(errno)), exit_code = 1, -1);
 	}
 	else if (ptr->redirect == OUT)
 	{
@@ -65,8 +77,9 @@ int	ft_open(t_lexer *head, t_exec *ptr)
 
 int	ft_redir(t_exec *ptr)
 {
-	t_lexer *tmp = NULL;
-	
+	t_lexer	*tmp;
+
+	tmp = NULL;
 	tmp = ft_next_redirection(ptr->tmp, ptr);
 	if (!tmp)
 		return (1);
@@ -78,4 +91,3 @@ int	ft_redir(t_exec *ptr)
 	}
 	return (1);
 }
-

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 15:01:16 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 15:02:22 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	is_special_token(t_lexer *node)
 {
 	if (node->token == PIPE || node->token == REDIRECTION_LEFT
-			|| node->token == REDIRECTION_RIGHT)
+		|| node->token == REDIRECTION_RIGHT)
 		return (1);
 	return (0);
 }
@@ -23,6 +35,7 @@ int	ft_strcmp(char *s1, char *s2)
 	}
 	return (0);
 }
+
 char	*pars_prompt(char *str)
 {
 	int	i;
@@ -33,7 +46,7 @@ char	*pars_prompt(char *str)
 	return (str + i);
 }
 
-int		ft_nb_pipe(t_lexer *head)
+int	ft_nb_pipe(t_lexer *head)
 {
 	int		count;
 
@@ -47,9 +60,9 @@ int		ft_nb_pipe(t_lexer *head)
 	return (count);
 }
 
-char		*ft_prompt(t_env *env)
+char	*ft_prompt(t_env *env)
 {
-	char *prompt;
+	char	*prompt;
 
 	prompt = readline("minishell>");
 	if (prompt && prompt[0])

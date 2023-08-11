@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 13:58:51 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 14:00:09 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-int		word_numeric(char *str)
+int	word_numeric(char *str)
 {
 	int	i;
 	int	var;
@@ -40,7 +52,7 @@ int	ft_check_one_sign(char *str)
 	return (1);
 }
 
-int		ft_exit_parsing(char **argv)
+int	ft_exit_parsing(char **argv)
 {
 	int		i;
 
@@ -49,7 +61,7 @@ int		ft_exit_parsing(char **argv)
 	{
 		if (i >= 2)
 		{
-			write(2, "minishell: exit: too many arguments\n",37);
+			write(2, "minishell: exit: too many arguments\n", 37);
 			return (exit_code = 1, 1);
 		}
 		if (ft_strcmp("-9223372036854775808", argv[i]) == 0)
@@ -80,10 +92,10 @@ int	nbr_exit_negatif(char *str)
 	return (nbr);
 }
 
-void    ft_exit(char **argv, t_env *env)
+void	ft_exit(char **argv, t_env *env)
 {
 	int		error;
-	
+
 	printf("exit\n");
 	error = ft_exit_parsing(argv);
 	if (error == 1)

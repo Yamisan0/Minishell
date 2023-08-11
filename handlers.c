@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handlers.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 15:39:33 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 15:39:44 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/minishell.h"
 
 void	ft_handler_heredoc(int i)
@@ -12,7 +24,7 @@ void	ft_handler_heredoc(int i)
 		write(1, "\b\b  \b\b", 6);
 }
 
-void ft_handler(int i)
+void	ft_handler(int i)
 {
 	if (i == SIGINT)
 	{
@@ -23,7 +35,7 @@ void ft_handler(int i)
 	}
 }
 
-void ft_handler_exec(int i)
+void	ft_handler_exec(int i)
 {
 	if (i == SIGINT)
 	{

@@ -1,11 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_3.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 14:28:05 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 16:24:58 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
-
-
 
 void	delete_spaces(t_lexer *head)
 {
-	t_lexer *tmp;
-	t_lexer *stock;
+	t_lexer	*tmp;
+	t_lexer	*stock;
 
 	tmp = head;
 	while (tmp)
@@ -17,7 +27,7 @@ void	delete_spaces(t_lexer *head)
 			if (stock->str)
 				free(stock->str);
 			ft_destroy_node(stock);
-			continue;
+			continue ;
 		}
 			tmp = tmp->next;
 	}
@@ -25,7 +35,7 @@ void	delete_spaces(t_lexer *head)
 
 void	ft_word(t_lexer *head)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 
 	tmp = head;
 	while (tmp)
@@ -35,9 +45,10 @@ void	ft_word(t_lexer *head)
 		tmp = tmp->next;
 	}
 }
+
 void	fusion_reste(t_lexer *head)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 
 	tmp = head;
 	while (tmp)
@@ -49,7 +60,7 @@ void	fusion_reste(t_lexer *head)
 			{
 				tmp->str = alloc_strcat(tmp->str, tmp->next->str);
 				ft_destroy_node(tmp->next);
-				continue;
+				continue ;
 			}
 		}
 		tmp = tmp->next;
@@ -58,7 +69,7 @@ void	fusion_reste(t_lexer *head)
 
 void	fusion_words(t_lexer *head)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 
 	tmp = head;
 	while (tmp)
@@ -67,7 +78,7 @@ void	fusion_words(t_lexer *head)
 		{
 			tmp->str = alloc_strcat(tmp->str, tmp->next->str);
 			ft_destroy_node(tmp->next);
-			continue;
+			continue ;
 		}
 		tmp = tmp->next;
 	}
@@ -95,7 +106,3 @@ int	ft_check_debut_null(t_lexer *lexer)
 	}
 	return (1);
 }
-
-
-
-

@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 13:54:16 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 13:55:40 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void	ft_export_sans_arg(t_env *env)
 {
-	t_env   *tmp;
+	t_env	*tmp;
+
 	if (!env)
 		return ;
 	tmp = env;
@@ -16,7 +29,7 @@ void	ft_export_sans_arg(t_env *env)
 	}
 }
 
-t_env		*ft_check_exist(t_env *env, char *arg)
+t_env	*ft_check_exist(t_env *env, char *arg)
 {
 	t_env	*tmp;
 	char	var_name[100];
@@ -36,7 +49,7 @@ t_env		*ft_check_exist(t_env *env, char *arg)
 	return (NULL);
 }
 
-char *return_equal(char *arg)
+char	*return_equal(char *arg)
 {
 	int	i;
 
@@ -54,7 +67,7 @@ char *return_equal(char *arg)
 
 void	ft_add_back_export(t_env **env, t_env *new_node)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = *env;
 	if (!tmp)
@@ -66,4 +79,3 @@ void	ft_add_back_export(t_env **env, t_env *new_node)
 		tmp->next = new_node;
 	}
 }
-

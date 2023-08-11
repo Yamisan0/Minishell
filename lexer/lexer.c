@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 14:49:17 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 16:22:39 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-t_lexer *pre_lexing(char *prompt)
+t_lexer	*pre_lexing(char *prompt)
 {
 	int			i;
 	t_lexer		*new;
-	t_lexer		*head = NULL;
+	t_lexer		*head;
 	char		*str;
 
+	head = NULL;
 	i = 0;
 	while (prompt[i] && (prompt[i] == ' ' || prompt[i] == '\t'))
 		i++;
@@ -21,9 +34,9 @@ t_lexer *pre_lexing(char *prompt)
 	return (head);
 }
 
-void    big_lexer(t_lexer *head)
+void	big_lexer(t_lexer *head)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 
 	tmp = head;
 	if (!head)
@@ -32,13 +45,13 @@ void    big_lexer(t_lexer *head)
 	{
 		while (head->next)
 		{
-			if (head->token == head->next->token &&
-					head->token != DOUBLE_QUOTE && head->token != SINGLE_QUOTE
-					 && head->token != DOLLAR)
+			if (head->token == head->next->token && head->token
+				!= DOUBLE_QUOTE && head->token != SINGLE_QUOTE
+				&& head->token != DOLLAR)
 			{
 				head->str = alloc_strcat(head->str, head->next->str);
 				ft_destroy_node(head->next);
-				break;
+				break ;
 			}
 			head = head->next;
 		}
@@ -47,7 +60,7 @@ void    big_lexer(t_lexer *head)
 	}
 }
 
-t_tokens get_token_type(char c)
+t_tokens	get_token_type(char c)
 {
 	if (c == ' ' || c == '\t')
 		return (WHITE_SPACE);
@@ -70,7 +83,7 @@ t_tokens get_token_type(char c)
 	return (OTHER);
 }
 
-t_lexer *ft_lexer(char *prompt)
+t_lexer	*ft_lexer(char *prompt)
 {
 	t_lexer	*lexer;
 
@@ -86,7 +99,6 @@ t_lexer *ft_lexer(char *prompt)
 
 int	ft_lexer_part_2(t_lexer *lexer, t_env *env)
 {
-	
 	ft_replace_by_litteral(lexer, env);
 	ft_supp_simple_quotes(lexer);
 	double_quote_fusion(lexer);
@@ -98,6 +110,3 @@ int	ft_lexer_part_2(t_lexer *lexer, t_env *env)
 	delete_spaces(lexer);
 	return (1);
 }
-
-
-

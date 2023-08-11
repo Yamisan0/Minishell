@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 15:40:02 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 15:42:48 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/minishell.h"
+
 int	exit_code = 0;
 
 t_mini	*init_mini(t_lexer *head, t_env *env)
 {
 	t_mini	*ptr;
-	(void)env;
 	char	**heredoc;
 
+	(void)env;
 	if (!head)
 		return (NULL);
 	ptr = ft_calloc(1, sizeof(t_mini));
@@ -26,7 +39,6 @@ t_mini	*init_mini(t_lexer *head, t_env *env)
 	return (ptr);
 }
 
-
 t_lexer	*ft_parser_lexer(char *prompt, t_env *env)
 {
 	t_lexer	*head;
@@ -36,14 +48,12 @@ t_lexer	*ft_parser_lexer(char *prompt, t_env *env)
 		return (NULL);
 	if (quote_pars(head) == 0)
 		return (free(prompt), ft_free_parser_lexer(head), NULL);
-	
 	if (ft_lexer_part_2(head, env) == -1)
 		return (free(prompt), ft_free_parser_lexer(head), NULL);
 	if (ft_parser(head) == -1)
 		return (free(prompt), ft_free_parser_lexer(head), NULL);
 	return (head);
 }
-
 
 void	ft_norm_main(t_mini *minish, char *prompt)
 {
@@ -68,27 +78,27 @@ int	ft_norm_main_part_2(char **av)
 	return (1);
 }
 
-int main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
-	t_lexer *list;
+	t_lexer	*list;
 	char	*prompt;
 	t_mini	*minish;
-	t_env *minishell_env;
-	minishell_env = set_env(envp);
+	t_env	*minishell_env;
 
+	minishell_env = set_env(envp);
 	if (ac == 1)
 	{
-			while (42)
+		while (42)
 		{
 			if (ft_norm_main_part_2(av) == 0)
 				return (free_env(minishell_env), 0);
 			prompt = ft_prompt(minishell_env);
-			if ( prompt == NULL)
-				continue;
+			if (prompt == NULL)
+				continue ;
 			list = ft_parser_lexer(prompt, minishell_env);
 			exit_code = 0;
 			if (!list)
-				continue;
+				continue ;
 			ft_unset_export_no_fork(&list, &minishell_env);
 			minish = init_mini(list, minishell_env);
 			if (minish)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 13:49:42 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 15:04:15 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	verif_n(char *str)
@@ -16,7 +28,7 @@ int	verif_n(char *str)
 	return (1);
 }
 
-int		ft_len_argv(char **argv)
+int	ft_len_argv(char **argv)
 {
 	int	i;
 
@@ -26,9 +38,9 @@ int		ft_len_argv(char **argv)
 	return (i);
 }
 
-void    ft_echo(char **args)
+void	ft_echo(char **args)
 {
-	int i;
+	int	i;
 	int	var;
 
 	if (args[1] == NULL)
@@ -36,7 +48,8 @@ void    ft_echo(char **args)
 		printf("\n");
 		return ;
 	}
-	if (args[1] && (ft_strncmp(args[1], "-n", 2) == 0) && verif_n(args[1] + 2) == 1)
+	if (args[1] && (ft_strncmp(args[1], "-n", 2) == 0)
+		&& verif_n(args[1] + 2) == 1)
 		i = 2;
 	else
 		i = 1;
@@ -50,10 +63,9 @@ void    ft_echo(char **args)
 	}
 	if (ft_strncmp(args[1], "-n", 2) != 0 || var == 1)
 		printf("\n");
-
 }
 
-int		ft_print_env(t_env *env)
+int	ft_print_env(t_env *env)
 {
 	if (!env)
 		return (0);

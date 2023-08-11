@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_built_in.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 13:55:58 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 13:56:53 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int	ft_check_builtin(char **argv)
@@ -19,15 +31,15 @@ int	ft_check_builtin(char **argv)
 	return (-1);
 }
 
-int check_pipe_prev(t_lexer *args)
+int	check_pipe_prev(t_lexer *args)
 {
-	 t_lexer *tmp;
+	t_lexer	*tmp;
 
 	tmp = args;
 	while (tmp)
 	{
 		if (args->prev && args->token == PIPE)
-			return(1);
+			return (1);
 		tmp = tmp->prev;
 	}
 	return (0);

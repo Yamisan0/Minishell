@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imessaad <imessaad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:37:40 by imessaad          #+#    #+#             */
-/*   Updated: 2022/11/22 12:29:38 by imessaad         ###   ########.fr       */
+/*   Updated: 2023/08/11 16:19:00 by akdjebal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	
 	int	i;
 
 	i = ft_strlen((char *)s);

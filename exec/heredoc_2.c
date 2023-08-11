@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc_2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 14:09:00 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 15:10:31 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 char	*fusion_heredoc(char *prompt, char *heredoc)
@@ -25,10 +37,11 @@ char	*fusion_heredoc(char *prompt, char *heredoc)
 void	ft_norn_heredoc(char *delimiter)
 {
 	if (exit_code != 130)
-				ft_printf(
-					"minishell: warning: here-document delimited by end-of-file (wanted `%s')\n",
-						delimiter);
+		ft_printf(
+			"minishell: warning: here-document delimited by end-of-file (wanted `%s')\n",
+			delimiter);
 }
+
 char	*ft_get_heredoc(char *delimiter)
 {
 	char	*prompt;
@@ -50,17 +63,16 @@ char	*ft_get_heredoc(char *delimiter)
 		if (ft_strcmp(prompt, delimiter) == 0)
 		{
 			free(prompt);
-			break;
+			break ;
 		}
 		heredoc = fusion_heredoc(prompt, heredoc);
 	}
 	return (heredoc);
 }
 
-
 char	**fill_heredoc_tab(char **tab, t_lexer *head)
 {
-	int	i;
+	int		i;
 	t_lexer	*tmp;
 
 	if (!tab)

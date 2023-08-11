@@ -1,11 +1,22 @@
-#include "../includes/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_free_all.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 14:07:07 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 14:08:45 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../includes/minishell.h"
 
 void	ft_free_parser_lexer(t_lexer *pile)
 {
-	t_lexer **tmp_2;
+	t_lexer	**tmp_2;
 	t_lexer	*tmp;
-	
+
 	tmp_2 = &pile;
 	tmp = pile;
 	while (pile)
@@ -48,7 +59,8 @@ void	free_env(t_env *env)
 		tmp = env;
 	}
 }
-void    ft_free_all(char *msg, t_exec *ptr)
+
+void	ft_free_all(char *msg, t_exec *ptr)
 {
 	ft_free_split(ptr->data->tab_heredoc);
 	free_env(ptr->data->env);
@@ -64,10 +76,9 @@ void    ft_free_all(char *msg, t_exec *ptr)
 	free(ptr->data);
 	if (ptr)
 		free(ptr);
-    if (msg)
+	if (msg)
 		perror(msg);
 }
-
 
 void	ft_free_all_exit(int indice, int code, t_env *env, char **argv)
 {

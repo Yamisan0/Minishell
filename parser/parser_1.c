@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_1.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 14:57:23 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 14:59:09 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void	set_redirection_type(t_lexer *head)
 {
-	t_lexer *tmp;
-	
+	t_lexer	*tmp;
+
 	tmp = head;
 	while (tmp)
 	{
@@ -21,7 +33,7 @@ void	set_redirection_type(t_lexer *head)
 
 void	ft_set_to_cmd(t_lexer *head)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 
 	tmp = head;
 	while (tmp)
@@ -33,7 +45,7 @@ void	ft_set_to_cmd(t_lexer *head)
 
 void	ft_set_infile_outfile(t_lexer *head)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 
 	tmp = head;
 	while (tmp)
@@ -50,4 +62,3 @@ void	ft_set_infile_outfile(t_lexer *head)
 		tmp = tmp->next;
 	}
 }
-

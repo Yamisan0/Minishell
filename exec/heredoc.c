@@ -1,18 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 14:10:14 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 14:11:24 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-
-int		write_expand(char *str, int fd, t_env *env)
+int	write_expand(char *str, int fd, t_env *env)
 {
 	char	var[10000];
 	char	*value;
-	int	i;
+	int		i;
 
 	i = 1;
 	if (!str)
 		return (0);
 	if (str[1] == '$' || ft_strlen(str) == 1)
 		return (write(fd, "$", 1), 1);
-	if ( str[1] && str[1] == '?')
+	if (str[1] && str[1] == '?')
 	{
 		value = ft_itoa(exit_code);
 		ft_putstr_fd(value, fd);
@@ -54,7 +65,6 @@ char	**get_heredoc_tab(t_lexer *head)
 	return (tab);
 }
 
-
 void	ft_write_in_file(char *str_doc, int fd, t_env *env)
 {
 	char	**tab;
@@ -72,8 +82,8 @@ void	ft_write_in_file(char *str_doc, int fd, t_env *env)
 		{
 			if (tab[i][j] == '$')
 			{
-				j =  j + write_expand(tab[i] + j, fd, env);
-				continue;
+				j = j + write_expand(tab[i] + j, fd, env);
+				continue ;
 			}
 			write(fd, &tab[i][j], 1);
 			j++;
@@ -83,5 +93,3 @@ void	ft_write_in_file(char *str_doc, int fd, t_env *env)
 	}
 	ft_free_split(tab);
 }
-
-

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_quotes.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 14:51:13 by akdjebal          #+#    #+#             */
+/*   Updated: 2023/08/11 14:53:13 by akdjebal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-void    single_quote_fusion(t_lexer *head)
+void	single_quote_fusion(t_lexer *head)
 {
 	t_lexer	*travel;
 
@@ -14,7 +26,7 @@ void    single_quote_fusion(t_lexer *head)
 				travel->str = alloc_strcat(travel->str, travel->next->str);
 				ft_destroy_node(travel->next);
 			}
-			if ( travel->next && travel->token == SINGLE_QUOTE)
+			if (travel->next && travel->token == SINGLE_QUOTE)
 			{
 				travel->str = alloc_strcat(travel->str, travel->next->str);
 				ft_destroy_node(travel->next);
@@ -24,9 +36,9 @@ void    single_quote_fusion(t_lexer *head)
 	}
 }
 
-void	ft_supp_simple_quotes(t_lexer * head)
+void	ft_supp_simple_quotes(t_lexer *head)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 	char	*str;
 
 	tmp = head;
@@ -45,9 +57,8 @@ void	ft_supp_simple_quotes(t_lexer * head)
 	}
 }
 
-void    double_quote_fusion(t_lexer *head)
+void	double_quote_fusion(t_lexer *head)
 {
-	
 	t_lexer	*travel;
 
 	travel = head;
@@ -60,19 +71,19 @@ void    double_quote_fusion(t_lexer *head)
 				travel->str = alloc_strcat(travel->str, travel->next->str);
 				ft_destroy_node(travel->next);
 			}
-				if ( travel->next && travel->token == DOUBLE_QUOTE)
-				{
-					travel->str = alloc_strcat(travel->str, travel->next->str);
-					ft_destroy_node(travel->next);
-				}
+			if (travel->next && travel->token == DOUBLE_QUOTE)
+			{
+				travel->str = alloc_strcat(travel->str, travel->next->str);
+				ft_destroy_node(travel->next);
+			}
 		}
 		travel = travel->next;
 	}
 }
 
-void	ft_supp_double_quotes(t_lexer * head)
+void	ft_supp_double_quotes(t_lexer *head)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 	char	*str;
 
 	tmp = head;
@@ -91,9 +102,9 @@ void	ft_supp_double_quotes(t_lexer * head)
 	}
 }
 
-void    set_state_quotes(t_lexer *head)
+void	set_state_quotes(t_lexer *head)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 	t_lexer	*stock;
 
 	tmp = head;
@@ -106,12 +117,12 @@ void    set_state_quotes(t_lexer *head)
 			{
 				tmp->state = OPENED;
 				if (tmp->token == DOUBLE_QUOTE && tmp != stock)
-					break;
+					break ;
 				tmp = tmp->next;
 			}
 		}
 		if (tmp == NULL)
-			continue;
+			continue ;
 		tmp = tmp->next;
 	}
 }
