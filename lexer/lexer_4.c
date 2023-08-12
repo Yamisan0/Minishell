@@ -1,19 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_4.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: imessaad <imessaad@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 15:59:10 by imessaad          #+#    #+#             */
+/*   Updated: 2023/08/12 16:04:04 by imessaad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
-
-int	next_space(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == ' ' || str[i] == '\t')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 
 void	ft_add_node_middle(t_lexer *node, t_lexer *new)
 {
@@ -46,7 +43,7 @@ char	*get_new_str(char *str)
 
 void	ft_modify_lexer(t_lexer *node, char **tab)
 {
-	int	i;
+	int		i;
 	t_lexer	*new;
 	char	*tmp;
 
@@ -100,23 +97,9 @@ char	**big_split(char *str)
 	return (tab);
 }
 
-int	ft_len_split(char **tab)
+void	check_after_expand(t_lexer *lexer)
 {
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		printf("%s\n", tab[i]);
-		i++;
-	}
-	return (i);
-}
-
-
-void    check_after_expand(t_lexer *lexer)
-{
-	t_lexer *tmp;
+	t_lexer	*tmp;
 	char	**tab;
 
 	tmp = lexer;
@@ -130,7 +113,7 @@ void    check_after_expand(t_lexer *lexer)
 				ft_modify_lexer(tmp, tab);
 				ft_free_split(tab);
 				tab = NULL;
-				continue;
+				continue ;
 			}
 		}
 		tmp = tmp->next;

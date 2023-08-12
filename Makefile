@@ -15,7 +15,7 @@ SOURCES = main.c built-in/env.c  built-in/pwd.c lexer/lexer.c \
 			libft/ft_bzero.c libft/ft_printf/srcs/ft_printf_utils.c libft/ft_printf/srcs/print_args.c \
 			libft/ft_printf/srcs/print_hexa.c libft/ft_printf/srcs/print_ptr.c \
 			libft/ft_printf/srcs/print_unsigned_int.c libft/ft_printf/srcs/ft_putstr.c \
-			lexer/lexer_4.c lexer/split_charset.c
+			lexer/lexer_4.c
 #compilation
 CC		= gcc
 FLAGS	= -Wall -Wextra -Werror -g3 -lreadline

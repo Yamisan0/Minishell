@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imessaad <imessaad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:19:51 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 18:08:46 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/12 16:07:28 by imessaad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,8 @@ void		ft_destroy_node(t_lexer *node_to_delete);
 char		*c_to_str(char c);
 t_lexer		*new_node(char *str);
 t_lexer		*ft_add_back_lex(t_lexer *head, t_lexer *new);
-void	ft_set_index_pipe(t_lexer *lexer);
+void		ft_set_index_pipe(t_lexer *lexer);
+int			next_space(char *str);
 
 // LEXER //
 t_lexer		*pre_lexing(char *prompt);
@@ -163,13 +164,11 @@ int			double_quote_validity_check(t_lexer *head);
 void		set_state_quotes(t_lexer *head);
 int			quote_pars(t_lexer *head);
 void		set_redirection_type(t_lexer *head);
-int			t_check_in_redirect(t_lexer *head);
 void		ft_set_infile_outfile(t_lexer *head);
 int			ft_parser(t_lexer *head);
 
 // PARSER UTILS //
 int			ft_strcmp(char *s1, char *s2);
-char	**ft_split_charset(char *str, char *charset);
 
 // PARSER_ENV //
 char		*ft_give_val(t_env *env, char *name);

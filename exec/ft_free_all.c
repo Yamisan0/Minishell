@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_all.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imessaad <imessaad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:07:07 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 14:08:45 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/12 15:53:48 by imessaad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_free_parser_lexer(t_lexer *pile)
 
 void	ft_free_minishell_struct(t_mini *ptr, char *prompt, int indice)
 {
+	(void)prompt;
 	if (indice == 130)
 		free(ptr->exec->pid);
 	if (!ptr)
@@ -40,7 +41,6 @@ void	ft_free_minishell_struct(t_mini *ptr, char *prompt, int indice)
 		ft_free_split(ptr->tab_heredoc);
 	ft_free_parser_lexer(ptr->args);
 	free(ptr);
-	free(prompt);
 	ptr = NULL;
 	unlink("tmp.txt");
 }

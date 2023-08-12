@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imessaad <imessaad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:40:02 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 18:11:40 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/12 15:51:25 by imessaad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_lexer	*ft_parser_lexer(char *prompt, t_env *env)
 		return (free(prompt), ft_free_parser_lexer(head), NULL);
 	if (ft_parser(head) == -1)
 		return (free(prompt), ft_free_parser_lexer(head), NULL);
-	return (head);
+	return (free(prompt), head);
 }
 
 void	ft_norm_main(t_mini *minish, char *prompt)
@@ -71,8 +71,8 @@ void	ft_norm_main(t_mini *minish, char *prompt)
 int	ft_norm_main_part_2(char **av)
 {
 	(void)av;
-	if (isatty(STDIN_FILENO) == 0)
-		return (0);
+	// if (isatty(STDIN_FILENO) == 0)
+	// 	return (0);
 	signal(SIGINT, ft_handler);
 	signal(SIGQUIT, SIG_IGN);
 	return (1);

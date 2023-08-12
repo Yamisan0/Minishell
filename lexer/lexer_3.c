@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imessaad <imessaad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:28:05 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 18:17:01 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/12 16:04:54 by imessaad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ int	ft_check_debut_null(t_lexer *lexer)
 	tmp = lexer;
 	while (tmp && tmp->token != PIPE)
 	{
-		if (tmp->token == PIPE || tmp->token == REDIRECTION_LEFT || tmp->token == REDIRECTION_RIGHT)
+		if (tmp->token == PIPE || tmp->token == REDIRECTION_LEFT
+			|| tmp->token == REDIRECTION_RIGHT)
 			return (1);
 		if (tmp->token != DOUBLE_QUOTE && tmp->str[0] == '\0')
 		{
@@ -104,7 +105,7 @@ int	ft_check_debut_null(t_lexer *lexer)
 					return (1);
 				tmp = tmp->next;
 			}
-			return (printf("EST SORTI\n"), -1);
+			return (-1);
 		}
 		tmp = tmp->next;
 	}

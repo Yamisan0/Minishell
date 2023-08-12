@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imessaad <imessaad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:15:05 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 17:57:11 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/12 15:58:52 by imessaad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	open_files(int indice, char *path, char *name)
 
 int	ft_open_dup_heredoc(t_lexer *head, t_exec *ptr)
 {
-	int	fd;
+	int		fd;
 	char	name[50];
 	char	*nbr;
 
@@ -48,7 +48,6 @@ int	ft_open_dup_heredoc(t_lexer *head, t_exec *ptr)
 	fd = open_files(5, "", name);
 	if (fd == -1)
 		return (-1);
-
 	if (dup2(fd, STDIN_FILENO) == -1)
 		return (perror("minishell"), close(fd), unlink(name), -1);
 	close(fd);

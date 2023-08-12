@@ -6,7 +6,7 @@
 /*   By: imessaad <imessaad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:25:22 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/12 15:35:34 by imessaad         ###   ########.fr       */
+/*   Updated: 2023/08/12 16:04:31 by imessaad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,22 @@ void	ft_set_index_pipe(t_lexer *lexer)
 				tmp = tmp->next;
 			}
 			index++;
-			continue;
+			continue ;
 		}
 		tmp = tmp->next;
 	}
+}
+
+int	next_space(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ' ' || str[i] == '\t')
+			return (1);
+		i++;
+	}
+	return (0);
 }
