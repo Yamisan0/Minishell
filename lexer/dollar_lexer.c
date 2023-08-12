@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_lexer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imessaad <imessaad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:25:22 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 15:15:38 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/12 15:35:34 by imessaad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_set_index_pipe(t_lexer *lexer)
 	t_lexer	*tmp;
 	int		index;
 
-	index = 0;
+	index = 1;
 	tmp = lexer;
 	while (tmp)
 	{
