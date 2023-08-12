@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imessaad <imessaad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:58:51 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 17:38:09 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/12 16:47:29 by imessaad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	nbr_exit_negatif(char *str)
 	return (nbr);
 }
 
-void	ft_exit(char **argv, t_env *env)
+void	ft_exit(char **argv, t_env *env, int old_gecode)
 {
 	int		error;
 
@@ -102,7 +102,7 @@ void	ft_exit(char **argv, t_env *env)
 	if (error == 1)
 		return ;
 	else if (argv[1] == NULL)
-		ft_free_all_exit(5, 0, env, argv);
+		ft_free_all_exit(5, old_gecode, env, argv);
 	else if (error == 2)
 		ft_free_all_exit(5, g_ecode, env, argv);
 	else if (argv[1] && error == 0)

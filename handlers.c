@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imessaad <imessaad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:39:33 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 17:31:41 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:02:29 by imessaad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,14 @@ void	ft_handler_exec(int i)
 	{
 		ft_printf("Quit (core dumped)\n");
 	}
+}
+
+t_lexer	*ft_norm_main_part3(char *prompt, t_env *minishell_env, int *old)
+{
+	t_lexer	*list;
+
+	list = ft_parser_lexer(prompt, minishell_env);
+	(*old) = g_ecode;
+	g_ecode = 0;
+	return (list);
 }

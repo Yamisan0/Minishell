@@ -6,7 +6,7 @@
 /*   By: imessaad <imessaad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:19:51 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/12 16:07:28 by imessaad         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:02:55 by imessaad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ typedef struct s_minishell
 	char			**tab_heredoc;
 	int				code_error;
 	int				nb_here;
+	int				old_g_ecode;
 	struct s_env	*env;
 	struct s_exe	*exec;
 }					t_mini;
@@ -233,9 +234,9 @@ void		free_env(t_env *env);
 void		ft_echo(char **args);
 int			ft_cd(char **str, t_env **env);
 int			ft_check_builtin(char **argv);
-void		ft_unset_export_no_fork(t_lexer **args, t_env **env);
+void		ft_unset_export_no_fork(t_lexer **args, t_env **env, int old);
 int			ft_exit_parsing(char **argv);
-void		ft_exit(char **argv, t_env *env);
+void		ft_exit(char **argv, t_env *env, int old_gecode);
 char		*return_equal(char *arg);
 int			export_parsing(char **argv);
 t_env		*ft_check_exist(t_env *env, char *arg);
@@ -246,5 +247,6 @@ int			ft_built_in(char **argv, t_env *env, t_lexer *args);
 void		ft_handler_exec(int i);
 void		ft_handler(int i);
 void		ft_handler_heredoc(int i);
+t_lexer		*ft_norm_main_part3(char *prompt, t_env *minishell_env, int *old);
 
 #endif

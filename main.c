@@ -6,7 +6,7 @@
 /*   By: imessaad <imessaad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:40:02 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/12 15:51:25 by imessaad         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:00:37 by imessaad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	main(int ac, char **av, char **envp)
 	char	*prompt;
 	t_mini	*minish;
 	t_env	*minishell_env;
+	int		old;
 
 	minishell_env = set_env(envp);
 	if (ac == 1)
@@ -95,11 +96,10 @@ int	main(int ac, char **av, char **envp)
 			prompt = ft_prompt(minishell_env);
 			if (prompt == NULL)
 				continue ;
-			list = ft_parser_lexer(prompt, minishell_env);
-			g_ecode = 0;
+			list = ft_norm_main_part3(prompt, minishell_env, &old);
 			if (!list)
 				continue ;
-			ft_unset_export_no_fork(&list, &minishell_env);
+			ft_unset_export_no_fork(&list, &minishell_env, old);
 			minish = init_mini(list, minishell_env);
 			if (minish)
 				ft_norm_main(minish, prompt);

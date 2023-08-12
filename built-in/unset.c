@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akdjebal <akdjebal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imessaad <imessaad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:01:09 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/11 14:01:32 by akdjebal         ###   ########.fr       */
+/*   Updated: 2023/08/12 16:49:31 by imessaad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_unset(t_env **env, char **argv)
 	}
 }
 
-void	ft_unset_export_no_fork(t_lexer **args, t_env **env)
+void	ft_unset_export_no_fork(t_lexer **args, t_env **env, int old)
 {
 	char	**argv;
 
@@ -78,7 +78,7 @@ void	ft_unset_export_no_fork(t_lexer **args, t_env **env)
 	{
 		ft_free_parser_lexer(*args);
 		*args = NULL;
-		ft_exit(argv, *env);
+		ft_exit(argv, *env, old);
 	}
 	else if (ft_strcmp(argv[0], "cd") == 0)
 		ft_cd(argv + 1, env);
