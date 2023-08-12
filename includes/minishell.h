@@ -140,6 +140,7 @@ void	ft_set_index_pipe(t_lexer *lexer);
 t_lexer		*pre_lexing(char *prompt);
 void		fusion_words(t_lexer *head);
 void		ft_word(t_lexer *head);
+void		check_after_expand(t_lexer *lexer);
 void		big_lexer(t_lexer *head);
 t_lexer		*ft_parser_lexer(char *prompt, t_env *env);
 void		single_quote_fusion(t_lexer *head);
@@ -168,6 +169,7 @@ int			ft_parser(t_lexer *head);
 
 // PARSER UTILS //
 int			ft_strcmp(char *s1, char *s2);
+char	**ft_split_charset(char *str, char *charset);
 
 // PARSER_ENV //
 char		*ft_give_val(t_env *env, char *name);

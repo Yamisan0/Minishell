@@ -103,6 +103,7 @@ int	ft_lexer_part_2(t_lexer *lexer, t_env *env)
 	ft_supp_simple_quotes(lexer);
 	double_quote_fusion(lexer);
 	ft_supp_double_quotes(lexer);
+	check_after_expand(lexer);
 	if (ft_check_debut_null(lexer) == -1)
 		return (-1);
 	ft_word(lexer);
