@@ -1,80 +1,85 @@
 #include "../includes/minishell.h"
 
-int	check(char c, char *charset)
+int		char_is_separator(char c, char *charset)
 {
 	int	i;
 
 	i = 0;
-	while (charset[i])
+	while (charset[i] != '\0')
 	{
-		if (charset[i] == c)
+		if (c == charset[i])
 			return (1);
 		i++;
 	}
+	if (c == '\0')
+		return (1);
 	return (0);
 }
 
-int	nbwords(char *str, char *charset)
+int		count_words(char *str, char *charset)
 {
 	int	i;
-	int	nbmots;
+	int	words;
 
+	words = 0;
 	i = 0;
-	nbmots = 0;
-	while (str[i])
+	while (str[i] != '\0')
 	{
-		while (str[i] && check(str[i], charset))
-			i++;
-		if (str[i] == '\0')
-			break ;
-		nbmots++;
-		while (str[i] && (!(check(str[i], charset))))
-			i++;
+		if (char_is_separator(str[i + 1], charset) == 1
+				&& char_is_separator(str[i], charset) == 0)
+			words++;
+		i++;
 	}
-	return (nbmots);
+	return (words);
 }
 
-char	*calcsub(char *str, int start, int end)
+void	write_word(char *dest, char *from, char *charset)
 {
-	char	*var;
-	int		i;
-	int		total;
+	int	i;
 
 	i = 0;
-	total = end - start;
-	var = malloc(sizeof(char *) * total + 1);
-	if (!var)
-		return (NULL);
+	while (char_is_separator(from[i], charset) == 0)
+	{
+		dest[i] = from[i];
+		i++;
+	}
+	dest[i] = '\0';
+}
+
+void	write_split(char **split, char *str, char *charset)
+{
+	int		i;
+	int		j;
+	int		word;
+
+	word = 0;
 	i = 0;
-	while (str[start] && i < total)
-		var[i++] = str[start++];
-	var[i] = '\0';
-	return (var);
+	while (str[i] != '\0')
+	{
+		if (char_is_separator(str[i], charset) == 1)
+			i++;
+		else
+		{
+			j = 0;
+			while (char_is_separator(str[i + j], charset) == 0)
+				j++;
+			split[word] = (char*)malloc(sizeof(char) * (j + 1));
+			write_word(split[word], str + i, charset);
+			i += j;
+			word++;
+		}
+	}
 }
 
 char	**ft_split_charset(char *str, char *charset)
 {
-	char	**tab;
-	int		i;
-	int		nbw;
-	int		start;
-	int		nbmots;
+	char	**res;
+	int		words;
 
-	i = 0;
-	start = 0;
-	nbw = nbwords(str, charset);
-	tab = malloc(sizeof(char *) * nbw + 1);
-	nbmots = 0;
-	while (str[i])
-	{
-		while (str[i] && check(str[i], charset))
-			i++;
-		if (str[i] == '\0')
-			break ;
-		start = i;
-		while (str[i] && !(check(str[i], charset)))
-			i++;
-		tab[nbmots++] = calcsub(str, start, i);
-	}
-	return (tab);
+	words = count_words(str, charset);
+	res = (char**)malloc(sizeof(char*) * (words + 1));
+	res[words] = 0;
+	write_split(res, str, charset);
+	return (res);
 }
+

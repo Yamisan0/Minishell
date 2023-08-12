@@ -15,9 +15,7 @@
 char	*ft_give_val(t_env *env, char *name)
 {
 	t_env	*tmp;
-	char	*str_vide;
 
-	str_vide = ft_strdup("");
 	tmp = env;
 	while (tmp)
 	{
@@ -25,7 +23,7 @@ char	*ft_give_val(t_env *env, char *name)
 			return (ft_strdup(tmp->value));
 		tmp = tmp->next;
 	}
-	return (str_vide);
+	return (ft_strdup(""));
 }
 
 void	ft_replace_by_litteral(t_lexer *head, t_env *env)

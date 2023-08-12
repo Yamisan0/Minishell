@@ -64,12 +64,40 @@ void	ft_modify_lexer(t_lexer *node, char **tab)
 			new = new_node(" ");
 			ft_add_node_middle(node, new);
 			node = node->next;
-			new = new_node(tab[i]);
+			new = new_node(ft_strdup(tab[i]));
 			ft_add_node_middle(node, new);
 			node = node->next;
 		}
 		i++;
 	}
+}
+
+char	**big_split(char *str)
+{
+	char	**tab;
+	char	*tmp;
+	char	*tmp_2;
+	int		i;
+
+	i = 0;
+	tab = ft_split(str, ' ');
+	while (tab[i])
+	{
+		if (i == 0)
+			tmp = ft_strjoin(tab[i], " ");
+		else
+		{
+			tmp_2 = ft_strjoin(tmp, tab[i]);
+			free(tmp);
+			tmp = ft_strjoin(tmp_2, " ");
+			free(tmp_2);
+		}
+		i++;
+	}
+	ft_free_split(tab);
+	tab = ft_split(tmp, ' ');
+	free(tmp);
+	return (tab);
 }
 
 int	ft_len_split(char **tab)
@@ -78,17 +106,19 @@ int	ft_len_split(char **tab)
 
 	i = 0;
 	while (tab[i])
+	{
+		printf("%s\n", tab[i]);
 		i++;
+	}
 	return (i);
 }
+
 
 void    check_after_expand(t_lexer *lexer)
 {
 	t_lexer *tmp;
 	char	**tab;
-	int		skip;
 
-	skip = 0;
 	tmp = lexer;
 	while (tmp)
 	{
@@ -96,11 +126,10 @@ void    check_after_expand(t_lexer *lexer)
 		{
 			if (next_space(tmp->str) == 1)
 			{
-				tab = ft_split_charset(tmp->str, " \t");
+				tab = big_split(tmp->str);
 				ft_modify_lexer(tmp, tab);
-				while (skip++ <= ft_len_split(tab))
-					tmp = tmp->next;
-				skip = 0;
+				ft_free_split(tab);
+				tab = NULL;
 				continue;
 			}
 		}
