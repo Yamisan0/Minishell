@@ -6,7 +6,7 @@
 /*   By: imessaad <imessaad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:40:02 by akdjebal          #+#    #+#             */
-/*   Updated: 2023/08/12 17:00:37 by imessaad         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:07:18 by imessaad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	ft_norm_main(t_mini *minish, char *prompt)
 int	ft_norm_main_part_2(char **av)
 {
 	(void)av;
-	// if (isatty(STDIN_FILENO) == 0)
-	// 	return (0);
+	if (isatty(STDIN_FILENO) == 0)
+		return (0);
 	signal(SIGINT, ft_handler);
 	signal(SIGQUIT, SIG_IGN);
 	return (1);
