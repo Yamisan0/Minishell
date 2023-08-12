@@ -91,7 +91,7 @@ int	ft_check_debut_null(t_lexer *lexer)
 	tmp = lexer;
 	while (tmp && tmp->token != PIPE)
 	{
-		if (tmp->token == PIPE)
+		if (tmp->token == PIPE || tmp->token == REDIRECTION_LEFT || tmp->token == REDIRECTION_RIGHT)
 			return (1);
 		if (tmp->token != DOUBLE_QUOTE && tmp->str[0] == '\0')
 		{
@@ -104,7 +104,7 @@ int	ft_check_debut_null(t_lexer *lexer)
 					return (1);
 				tmp = tmp->next;
 			}
-			return (-1);
+			return (printf("EST SORTI\n"), -1);
 		}
 		tmp = tmp->next;
 	}
