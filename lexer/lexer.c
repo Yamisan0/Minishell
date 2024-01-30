@@ -111,3 +111,4 @@ int	ft_lexer_part_2(t_lexer *lexer, t_env *env)
 	delete_spaces(lexer);
 	return (1);
 }
+

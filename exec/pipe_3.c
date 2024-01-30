@@ -39,3 +39,4 @@ int	dup_close_fd_pipe(t_exec *ptr, int i)
 	}
 	return (1);
 }
+

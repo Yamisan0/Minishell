@@ -59,3 +59,5 @@ t_lexer	*ft_norm_main_part3(char *prompt, t_env *minishell_env, int *old)
 	g_ecode = 0;
 	return (list);
 }
+
+

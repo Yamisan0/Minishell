@@ -75,3 +75,4 @@ char	*ft_prompt(t_env *env)
 		return (free(prompt), NULL);
 	return (prompt);
 }
+

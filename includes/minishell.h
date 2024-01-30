@@ -121,6 +121,7 @@ typedef struct s_minishell
 	struct s_exe	*exec;
 }					t_mini;
 
+
 // TOKEN TYPE //
 
 t_tokens	get_token_type(char c);

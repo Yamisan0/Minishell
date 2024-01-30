@@ -24,3 +24,4 @@ void	*ft_calloc(size_t nmenb, size_t size)
 	ft_bzero(ptr, nmenb * size);
 	return (ptr);
 }
+
